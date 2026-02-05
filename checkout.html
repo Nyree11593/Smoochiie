@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Checkout - Smoochiie™</title>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+<style>
+:root {
+  --bg-dark:#0a0a0f;
+  --card-bg:#121117;
+  --accent-start:#650304;
+  --accent-end:#a31e1e;
+  --muted:#9ca3af;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:linear-gradient(135deg,#0a0a0f 0%,#15151e 50%,#0a0a0f 100%);
+  color:#e8e8ea;
+  min-height:100vh;
+}
+.container-custom{max-width:1100px;margin:0 auto;padding:40px 20px;}
+.checkout-grid{display:grid;grid-template-columns:1fr 400px;gap:40px;}
+.form-section{background:var(--card-bg);border:1px solid #222;padding:30px;border-radius:12px;}
+.input-group{margin-bottom:20px;}
+label{display:block;font-size:.75rem;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;color:var(--muted);}
+input{
+  width:100%;background:#0a0a0f;border:1px solid #333;
+  padding:12px;color:white;border-radius:6px;outline:none;
+}
+input:focus{border-color:var(--accent-end);}
+.order-summary{
+  background:#1a1a24;border:1px solid #333;padding:25px;
+  border-radius:12px;position:sticky;top:20px;
+}
+.summary-item{display:flex;justify-content:space-between;margin-bottom:12px;font-size:.9rem;}
+.total-row{border-top:1px solid #333;padding-top:15px;margin-top:15px;font-weight:900;font-size:1.2rem;color:var(--accent-end);}
+@media (max-width:850px){.checkout-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+
+<body>
+<div class="container-custom">
+
+  <div class="mb-10">
+    <a href="bag.html" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition">
+      <i class="fas fa-arrow-left mr-2"></i> Back to Bag
+    </a>
+    <h1 class="text-4xl font-black uppercase mt-4">Checkout</h1>
+  </div>
+
+  <div class="checkout-grid">
+    <div class="space-y-8">
+      <div class="form-section">
+        <h2 class="text-xl font-black uppercase mb-6">Contact Information</h2>
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="your@email.com"/>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="text-xl font-black uppercase mb-6">Shipping Address</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="input-group"><label>First Name</label><input type="text"/></div>
+          <div class="input-group"><label>Last Name</label><input type="text"/></div>
+        </div>
+        <div class="input-group"><label>Address</label><input type="text"/></div>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="input-group"><label>City</label><input type="text"/></div>
+          <div class="input-group"><label>State</label><input type="text"/></div>
+          <div class="input-group"><label>ZIP Code</label><input type="text"/></div>
+        </div>
+      </div>
+    </div>
+
+    <aside>
+      <div class="order-summary">
+        <h2 class="text-xl font-black uppercase mb-6">Order Summary</h2>
+
+        <div id="checkout-items" class="space-y-4 mb-6"></div>
+
+        <div class="summary-item"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+        <div class="summary-item"><span>Shipping</span><span>$5.00</span></div>
+        <div class="summary-item"><span>Tax</span><span id="tax">$0.00</span></div>
+        <div class="summary-item total-row"><span>Total</span><span id="total">$0.00</span></div>
+
+        <div class="mt-8" id="paypal-button-container"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- PayPal SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+<!-- PayPal Buttons -->
+<script>
+paypal.Buttons({
+  createOrder: function (data, actions) {
+    const totalText = document.getElementById("total").textContent || "$0.00";
+    const total = parseFloat(totalText.replace(/[^0-9.]/g, "")) || 0;
+
+    return actions.order.create({
+      purchase_units: [{
+        amount: { value: total.toFixed(2) }
+      }]
+    });
+  },
+  onApprove: function (data, actions) {
+    return actions.order.capture().then(function () {
+      localStorage.setItem("smoochiie_cart", "[]");
+      window.location.href = "thank-you.html";
+    });
+  }
+}).render("#paypal-button-container");
+</script>
+
+<!-- Cart logic -->
+<script src="cart.js" defer></script>
+</body>
+</html>

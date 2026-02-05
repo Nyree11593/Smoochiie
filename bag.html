@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Your Bag - Smoochiie™</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --card-bg: #121117;
+      --accent-start: #650304;
+      --accent-end: #a31e1e;
+      --muted: #9ca3af;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg,#0a0a0f 0%,#15151e 50%,#0a0a0f 100%);
+      color: #e8e8ea;
+      margin: 0;
+      min-height: 100vh;
+    }
+    nav { background: rgba(10,10,15,0.95); backdrop-filter: blur(6px); }
+    .container-custom { max-width:1200px; margin:0 auto; padding:0 20px; }
+    main { padding: 48px 0; }
+    .bag-grid { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
+    .cart-list { display:flex; flex-direction:column; gap:18px; }
+    .cart-item {
+      display:flex; gap:18px; background:var(--card-bg); border:1px solid #222;
+      padding:16px; border-radius:6px; align-items:center;
+    }
+    .cart-item .thumb {
+      width:120px; height:120px; background:#1a1a2e; display:flex;
+      align-items:center; justify-content:center; overflow:hidden;
+      border:1px solid #2b2b34; border-radius:4px; flex-shrink:0;
+    }
+    .cart-item .thumb img { width:100%; height:100%; object-fit:cover; }
+    .cart-item .meta { flex:1; display:flex; flex-direction:column; gap:4px; }
+    .meta h4 { font-weight:900; text-transform:uppercase; font-size:1.1rem; margin:0; }
+    .meta .option { color: var(--accent-end); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
+    .meta .price { font-weight:900; color: #fff; font-size:1rem; margin-top: 4px; }
+    .remove-btn { background:transparent; border:none; color:#9ca3af; cursor:pointer; font-size:1.2rem; transition: 0.2s; }
+    .remove-btn:hover { color:#ef4444; }
+    .order-summary { background:var(--card-bg); border:1px solid #222; padding:22px; border-radius:6px; position:sticky; top:24px; }
+    .order-summary h3 { font-weight:900; text-transform:uppercase; font-size:1.05rem; margin:0 0 16px 0; }
+    .summary-row { display:flex; justify-content:space-between; color:var(--muted); margin-bottom:12px; font-size:0.95rem; }
+    .summary-total { display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; margin-top:8px; color:var(--accent-end); border-top: 1px solid #333; padding-top: 12px; }
+    .checkout-btn {
+      width:100%; margin-top:18px; background: linear-gradient(180deg,var(--accent-start),var(--accent-end));
+      color:#000; font-weight:900; padding:14px; border-radius:6px; border:2px solid #000; cursor:pointer;
+      box-shadow: 4px 4px 0px #000; text-transform:uppercase; transition: 0.2s;
+    }
+    .checkout-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+    .secondary-btn { display: block; width:100%; background:#121217; color:#e8e8ea; padding:12px; border-radius:6px; border:1px solid #222; cursor:pointer; margin-top:10px; text-align: center; font-weight: 700; }
+    @media (max-width: 900px) { .bag-grid { grid-template-columns: 1fr; } .order-summary { position:static; } }
+  </style>
+</head>
+<body>
+<nav class="py-4">
+<div class="container-custom flex justify-between items-center">
+<div class="text-2xl font-black tracking-tighter flex items-center">
+<span class="text-white uppercase">SMOOCHIIE™</span>
+<span class="text-gradient-red ml-1">💋</span>
+</div>
+<div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+<a class="hover:text-white transition" href="index.html">Home</a>
+<a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
+<a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+<a class="hover:text-white transition" href="faq.html">FAQ</a>
+</div>
+<div class="flex items-center space-x-8 text-white">
+
+<div class="relative" id="cart-icon-container" onclick="toggleCart()" style="cursor:pointer">
+<i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+<span id="cart-count">0</span>
+<div id="mini-cart">
+<h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+<div id="mini-cart-items"></div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+<span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+<span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+</div>
+<a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+<span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+<span class="continue-shopping" onclick="toggleCart()">Continue Shopping</span>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+<main class="container-custom">
+<h1 class="text-4xl font-black uppercase mb-8">Your Bag</h1>
+<div class="bag-grid">
+<section>
+<div class="cart-list" id="cart-list"></div>
+<div class="mt-6 flex flex-col gap-3">
+<a class="secondary-btn" href="shop-characters.html">Continue Shopping</a>
+<button class="secondary-btn" id="clear-bag" style="color: #ef4444; border-color: #451a1a;">Clear Bag</button>
+</div>
+</section>
+<aside class="order-summary">
+<h3>Order Summary</h3>
+<div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></div>
+<div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
+<div class="summary-total"><span>Total</span><span id="summary-total">$0.00</span></div>
+<button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+</aside>
+</div>
+</main>
+
+
+<script src="cart.js" defer></script></body>
+</html>
