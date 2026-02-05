@@ -1,0 +1,8 @@
+{
+  "name": "smoochiie-site",
+  "version": "1.0.0",
+  "description": "SMOOCHiiE™ Netlify site with PayPal webhook",
+  "dependencies": {
+    "nodemailer": "^6.9.0"
+  }
+}
