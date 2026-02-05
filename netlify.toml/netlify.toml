@@ -1,2 +1,6 @@
 [build]
-  functions = "netlify/functions"
+  command = "npm run build"
+  publish = "public" # change to your actual output directory
+
+[build.environment]
+  NODE_VERSION = "18"
