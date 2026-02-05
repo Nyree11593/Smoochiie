@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Custom Badge Reel Layout</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet"/>
+<style>
+    #mobile-toggle-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      background: linear-gradient(180deg, #650304, #a31e1e) !important;
+      color: white !important;
+      border: 2px solid black !important;
+      padding: 10px 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 4px 4px 0px #000 !important;
+      font-size: 10px;
+      letter-spacing: 1px;
+    }
+
+    :root{
+      --accent:#a31e1e;
+      --bg-dark:#0a0a0f;
+      --red-gradient-start: #650304;
+      --red-gradient-end: #a31e1e;
+    }
+
+    html,body {
+      height:100%;
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-image: url('refund_policy_background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #e8e8ea;
+    }
+
+    .noise { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.04; z-index: 9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+    .container-custom { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+
+    nav {
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      padding: 14px 0;
+    }
+
+    .brand {
+      font-weight: 900;
+      letter-spacing: -1px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .text-gradient-red {
+      background: linear-gradient(180deg,var(--red-gradient-start),var(--red-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(163,30,30,0.45));
+    }
+
+    .nav-links a {
+      color: #c7c7c9;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: white;
+      position: relative;
+    }
+
+    .nav-right i {
+      cursor: pointer;
+      font-size: 1.25rem;
+      transition: color 0.3s ease;
+    }
+    .nav-right i:hover {
+      color: var(--red-gradient-end);
+    }
+
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: var(--red-gradient-end);
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-weight: 900;
+      user-select: none;
+    }
+
+    #mini-cart {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 350px;
+      background: rgba(15,15,20,0.98);
+      backdrop-filter: blur(15px);
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      padding: 20px;
+      display: none;
+      z-index: 1000;
+      margin-top: 10px;
+      color: white;
+    }
+    #mini-cart.active {
+      display: block;
+    }
+    .cart-item-mini {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #222;
+    }
+    .cart-item-mini img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #444;
+    }
+    .cart-item-info h4 {
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .cart-item-info p {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin: 4px 0;
+    }
+    .proceed-btn {
+      width: 100%;
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      color: white;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 12px;
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+      border: none;
+      cursor: pointer;
+    }
+    .continue-shopping {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-top: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 0 80px;
+      gap: 20px;
+    }
+
+    .header-ribbon {
+      width: 60%;
+      max-width: 420px;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.6));
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 90%;
+      max-width: 1000px;
+    }
+
+    .bottom-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 90%;
+      max-width: 760px;
+    }
+
+    .step-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      display: block;
+    }
+
+    /* PARCHMENT FORM STYLING */
+    .upload-wrapper {
+      width: 90%;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 60px 40px;
+      text-align: center;
+      position: relative;
+      background-image: url('UPLOAD FORM.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-color: transparent;
+      min-height: 450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-label {
+      color: #3d2b1f;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .form-input {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 2px solid #3d2b1f;
+      padding: 10px;
+      margin-bottom: 20px;
+      color: #3d2b1f;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    .file-input-container {
+      margin: 20px 0;
+      color: #3d2b1f;
+      font-weight: 700;
+    }
+
+    .send-btn {
+      background: linear-gradient(180deg,#7a0b0b,#b22a2a);
+      color: #fff;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 14px 40px;
+      border-radius: 8px;
+      border: 2px solid #000;
+      cursor: pointer;
+      box-shadow: 4px 4px 0px #000;
+      font-size: 1.1rem;
+      transition: transform 0.1s;
+    }
+    .send-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 36px 0 28px;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
+      width: 100%;
+    }
+
+    @media (max-width: 780px) {
+      .steps-grid, .bottom-row {
+        grid-template-columns: 1fr;
+      }
+      .upload-wrapper {
+        padding: 40px 20px;
+        background-size: cover;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="noise"></div>
+<nav class="py-4">
+<div class="container-custom flex justify-between items-center">
+<div class="text-2xl font-black tracking-tighter flex items-center">
+<span class="text-white uppercase">SMOOCHIIE™</span>
+<span class="text-gradient-red ml-1">💋</span>
+</div>
+<div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+<a class="hover:text-white transition" href="index.html">Home</a>
+<a class="hover:text-white transition font-black text-white" href="shop-characters.html">Shop Characters</a>
+<a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+<a class="hover:text-white transition" href="faq.html">FAQ</a>
+<a class="hover:text-white transition" href="about.html">About</a>
+</div>
+<div class="flex items-center space-x-8 text-white">
+<i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+
+<div class="relative" id="cart-icon-container"  style="cursor:pointer">
+<i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+<span id="cart-count">0</span>
+<div id="mini-cart">
+<h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+<div id="mini-cart-items"></div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+<span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+<span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+</div>
+<a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+<span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+<span class="continue-shopping" >Continue Shopping</span>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+<main class="page container-custom">
+<div aria-hidden="true" class="steps-grid">
+<div class="step-box"><img alt="Step 1" src="Step 1 Submit Photo.png"/></div>
+<div class="step-box"><img alt="Step 2" src="Step 2 Choose Concept.png"/></div>
+<div class="step-box"><img alt="Step 3" src="Step 3 Custom Chibi.png"/></div>
+</div>
+<div aria-hidden="true" class="bottom-row">
+<div class="step-box"><img alt="Step 4" src="Step 4 Approval Process.png"/></div>
+<div class="step-box"><img alt="Step 5" src="Step 5 Ready in 2 days.png"/></div>
+</div>
+<div class="upload-wrapper">
+<form data-netlify="true" enctype="multipart/form-data" method="POST" name="photo-upload" onsubmit="return validateAndSubmit(event)" style="width: 100%;">
+<input name="form-name" type="hidden" value="photo-upload"/>
+<label class="form-label">Name</label>
+<input class="form-input" name="name" placeholder="Your Name" required="" type="text"/>
+<label class="form-label">Email</label>
+<input class="form-input" name="email" placeholder="Your Email" required="" type="email"/>
+<label class="form-label">Upload your photo</label>
+<div class="file-input-container">
+<input accept="image/*" id="photoInput" name="photo" required="" type="file"/>
+</div>
+<button class="send-btn" type="submit">SUBMIT</button>
+</form>
+</div>
+</main>
+<footer>
+<div class="container-custom">
+<div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:18px;text-align:center;">
+<div style="font-weight:900;font-size:22px;text-transform:uppercase;">SMOOCHIIE™ <span class="text-gradient-red">💋</span></div>
+<p style="color:#c7c7c9;font-size:13px;max-width:520px;">SEALED WITH INTENTION,<br/>KISSED WITH PURPOSE.</p>
+</div>
+<div style="display:flex;justify-content:center;gap:16px;color:#c7c7c9;font-size:14px;margin-bottom:8px;">
+<a href="https://www.instagram.com/smoochiie_llc/" rel="noopener noreferrer" style="color:inherit;" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://www.tiktok.com/@smoochiie1?lang=en" rel="noopener noreferrer" style="color:inherit;" target="_blank"><i class="fab fa-tiktok"></i></a>
+</div>
+<button id="mobile-toggle-btn" onclick="toggleMobileView()">Switch to Mobile View</button>
+<div style="text-align:center;color:#9ca3af;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;margin-top:12px;">© 2026 SMOOCHIIE. ALL RIGHTS RESERVED.</div>
+</div>
+</footer>
+
+
+
+<div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
+<div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
+<button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
+<h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:15px; font-size:1.25rem;">Item Name</h2>
+<div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
+<img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;">
+</img></div>
+<div style="text-align: left; margin-bottom: 20px;">
+<p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
+<select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
+<option value="Badge Reel">Badge Reel</option>
+<option value="Phone Grip">Phone Grip</option>
+<option value="Magnet">Magnet</option>
+<option value="Keychain">Keychain</option>
+</select>
+</div>
+<button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
+<button id="modal-continue" style="background:none; color:#a31e1e; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:12px; text-decoration:underline;">Continue Shopping</button>
+</div>
+</div>
+
+
+
+<script src="cart.js" defer></script></body>
+</html>

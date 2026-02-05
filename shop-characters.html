@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Shop Characters - Smoochiie</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --red-gradient-start: #650304;
+            --red-gradient-end: #a31e1e;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            background: linear-gradient(135deg, #0a0a0f 0%, #15151e 50%, #0a0a0f 100%);
+            color: #e8e8ea;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: url('refund_policy_background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        nav {
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        .text-gradient-red {
+            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
+        }
+        .page-content {
+            display: flex;
+            gap: 24px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        aside {
+            width: 220px;
+            background: #15151e;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            border-radius: 12px;
+            padding: 20px;
+            font-size: 14px;
+            color: #e8e8ea;
+        }
+        aside h3 {
+            font-weight: 900;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            color: var(--red-gradient-end);
+        }
+        aside label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+        aside input[type="checkbox"] {
+            accent-color: var(--red-gradient-end);
+        }
+        .character-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px 20px;
+            align-items: start;
+        }
+        .card {
+            background: #15151e;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            position: relative;
+            color: #e8e8ea;
+            height: auto !important;
+        }
+        .card img {
+            width: 100px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 8px auto;
+            border-radius: 8px;
+            background: var(--bg-dark);
+            padding: 8px;
+        }
+        .card .label {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--red-gradient-end);
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+        .card .name {
+            font-weight: 900;
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .add-btn { 
+            display: block;
+            width: 100%;
+            background: #a31e1e; 
+            color: #000; 
+            border: none; 
+            padding: 8px 5px; 
+            border-radius: 8px; 
+            font-weight: 900; 
+            text-transform: uppercase;
+            font-size: 12px;
+            cursor: pointer; 
+        }
+
+        /* Modal Popup Styles */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        #cart-modal > div {
+            background: linear-gradient(rgba(10,10,15,0.88), rgba(10,10,15,0.78)), url('refund_policy_background.png');
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+        }
+        #modal-options {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            background: #15151e;
+            color: #fff;
+            border: 2px solid #000;
+            font-weight: 700;
+            cursor: pointer;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        /* Mini Cart Popup Styling */
+        #mini-cart-popup {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            width: 300px;
+            background: #15151e;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            border-radius: 12px;
+            padding: 15px;
+            z-index: 1000;
+            color: #e8e8ea;
+        }
+        #mini-cart-popup h4 {
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+            color: var(--red-gradient-end);
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            background: #0a0a0f;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        .remove-item {
+            color: #a31e1e;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #mini-cart-checkout-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+            color: #000;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-top: 10px;
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+    </style>
+<style>
+        /* Mini Cart Dropdown Styles */
+        #mini-cart {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: rgba(15, 15, 20, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 20px;
+            display: none;
+            z-index: 1000;
+            margin-top: 10px;
+            color: white;
+        }
+        #mini-cart.active {
+            display: block;
+        }
+        .cart-item-mini {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        .cart-item-mini img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid #444;
+        }
+        .cart-item-info h4 {
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .cart-item-info p {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin: 4px 0;
+        }
+        .proceed-btn {
+            width: 100%;
+            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 12px;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-top: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #a31e1e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            font-weight: 900;
+        }
+    
+</style>
+
+</head>
+<body>
+<nav class="py-4">
+<div class="container-custom flex justify-between items-center">
+<div class="text-2xl font-black tracking-tighter flex items-center">
+<span class="text-white uppercase">SMOOCHIIE™</span>
+<span class="text-gradient-red ml-1">💋</span>
+</div>
+<div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+<a class="hover:text-white transition" href="index.html">Home</a>
+<a class="hover:text-white transition font-black text-white" href="shop-characters.html">Shop Characters</a>
+<a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+<a class="hover:text-white transition" href="faq.html">FAQ</a>
+<a class="hover:text-white transition" href="about.html">About</a>
+</div>
+<div class="flex items-center space-x-8 text-white">
+<i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+
+<div class="relative" id="cart-icon-container"  style="cursor:pointer">
+<i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+<span id="cart-count">0</span>
+<div id="mini-cart">
+<h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+<div id="mini-cart-items"></div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+<span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+<span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+</div>
+<a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+<span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+<span class="continue-shopping" >Continue Shopping</span>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+<main class="page-content">
+<aside>
+<h3>Category</h3>
+<label><input type="checkbox" value="Hospital"/> Hospital Workers</label>
+<div style="padding-left: 16px;">
+<label><input type="checkbox" value="Nurse"/> Nurse</label>
+<label><input type="checkbox" value="Ultrasound"/> Ultrasound Tech</label>
+<label><input type="checkbox" value="X-Ray"/> X-Ray / CT / MRI</label>
+<label><input type="checkbox" value="Respiratory"/> Respiratory</label>
+<label><input type="checkbox" value="Doctor"/> Doctor / PA / NP</label>
+</div>
+<h3>Book-Inspired</h3>
+<label><input type="checkbox" value="Mental"/> Mental Health / Self-Care</label>
+<label><input type="checkbox" value="Pop"/> Pop Culture</label>
+<label><input type="checkbox" value="Mama"/> Mama &amp; Baby</label>
+<label><input type="checkbox" value="Originals"/> Smoochie Originals</label>
+<label><input type="checkbox" value="Fantasy"/> Fantasy / Whimsical</label>
+<h3>Vibe / Aesthetic</h3>
+<label><input type="checkbox" value="Cute"/> Cute</label>
+<label><input type="checkbox" value="Soft"/> Soft / Cozy</label>
+<label><input type="checkbox" value="Bold"/> Bold</label>
+<label><input type="checkbox" value="Dark"/> Dark / Moody</label>
+<label><input type="checkbox" value="Glitter"/> Glitter</label>
+<label><input type="checkbox" value="Minimal"/> Minimal</label>
+<h3>Tags</h3>
+<label><input type="checkbox" value="New"/> New</label>
+<label><input type="checkbox" value="Best"/> Best Seller</label>
+<label><input type="checkbox" value="Limited"/> Limited</label>
+<label><input type="checkbox" value="Customizable"/> Customizable</label>
+</aside>
+<section class="character-grid">
+<div class="card" data-category="hospital nurse">
+<div class="label">HOSPITAL WORKERS</div>
+<img alt="Nurse Character" src="https://placehold.co/100x100?text=Nurse"/>
+<div class="name">Nurse Character</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="hospital ultrasound">
+<div class="label">HOSPITAL WORKERS</div>
+<img alt="Ultrasound Tech" src="https://placehold.co/100x100?text=Ultrasound"/>
+<div class="name">Ultrasound Tech</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="hospital x-ray">
+<div class="label">HOSPITAL WORKERS</div>
+<img alt="X-Ray / CT / MRI" src="https://placehold.co/100x100?text=X-Ray"/>
+<div class="name">X-Ray / CT / MRI</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="book-inspired originals">
+<div class="label">BOOK-INSPIRED</div>
+<img alt="Smoochie Originals" src="https://placehold.co/100x100?text=Smoochie+Originals"/>
+<div class="name">Smoochie Originals</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="book-inspired fantasy">
+<div class="label">BOOK-INSPIRED</div>
+<img alt="Fantasy / Whimsical" src="https://placehold.co/100x100?text=Fantasy"/>
+<div class="name">Fantasy / Whimsical</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="vibe cute">
+<div class="label">VIBE / AESTHETIC</div>
+<img alt="Cute" src="https://placehold.co/100x100?text=Cute"/>
+<div class="name">Cute</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="vibe dark">
+<div class="label">VIBE / AESTHETIC</div>
+<img alt="Dark / Moody" src="https://placehold.co/100x100?text=Dark"/>
+<div class="name">Dark / Moody</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+<div class="card" data-category="tags new">
+<div class="label">TAGS</div>
+<img alt="New" src="https://placehold.co/100x100?text=New"/>
+<div class="name">New</div>
+<button class="add-btn">Add to Cart</button>
+</div>
+</section>
+</main>
+
+<div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
+<div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
+<button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
+<h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:15px; font-size:1.25rem;">Item Name</h2>
+<div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
+<img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;"/>
+</div>
+<div style="text-align: left; margin-bottom: 20px;">
+<p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
+<select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
+<option value="Badge Reel">Badge Reel</option>
+<option value="Phone Grip">Phone Grip</option>
+<option value="Magnet">Magnet</option>
+<option value="Keychain">Keychain</option>
+</select>
+</div>
+<button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
+<button id="modal-continue" style="background:none; color:#a31e1e; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:12px; text-decoration:underline;">Continue Shopping</button>
+</div>
+</div>
+<div id="mini-cart-popup" style="display:none; position:fixed; top:80px; right:20px; width:300px; background:#15151e; border:3px solid #000; box-shadow:8px 8px 0px #000; border-radius:12px; padding:15px; z-index:1000; color:#e8e8ea;">
+<h4 style="font-weight:900; text-transform:uppercase; margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px; color:#a31e1e;">Your Cart</h4>
+
+<button id="mini-cart-checkout-btn" style="display:block; width:100%; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; text-align:center; padding:10px; border-radius:8px; font-weight:900; text-transform:uppercase; margin-top:10px; border:2px solid #000; cursor:pointer;">Checkout</button>
+</div>
+
+
+<script src="cart.js" defer></script></body>
+</html>

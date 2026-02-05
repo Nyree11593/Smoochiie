@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Refund Policy • SMOOCHiiE™</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --red-gradient-start: #650304;
+            --red-gradient-end: #a31e1e;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('refund_policy_background.png') no-repeat center center fixed;
+            background-size: cover;
+            background-color: var(--bg-dark);
+            color: #e8e8ea;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container-custom { max-width: 1200px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+        nav { background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; padding: 1rem 0; }
+
+        .text-gradient-red {
+            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
+        }
+
+        main { max-width: 1160px; margin: 60px auto 90px; padding: 0 40px; position: relative; z-index: 10; }
+        .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: start; }
+        .kicker { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .kicker .line { width: 44px; height: 1px; background: #a31e1e; }
+        .kicker span { color: #a31e1e; font-weight: 700; text-transform: uppercase; }
+        h1 { font-size: 4.5rem; font-weight: 900; margin: 0 0 20px 0; line-height: 1.02; text-transform: uppercase; }
+        .lead { max-width: 520px; font-size: 1.1rem; line-height: 1.65; margin-bottom: 40px; }
+        .seal { width: 400px; max-width: 100%; filter: drop-shadow(0 24px 50px rgba(0,0,0,0.5)); }
+        .section { padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+        .section h2 { color: #a31e1e; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 15px; }
+        ul { list-style: none; padding: 0; margin-top: 15px; }
+        li { display: flex; gap: 10px; margin-bottom: 8px; }
+        li::before { content: "•"; color: #a31e1e; font-weight: bold; }
+
+        @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } h1 { font-size: 3rem; } }
+
+        /* Toggle Button Styles */
+        #mobile-toggle-btn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+            background: linear-gradient(180deg, #650304, #a31e1e) !important;
+            color: white !important; border: 2px solid black !important;
+            padding: 10px 15px; font-weight: 900; text-transform: uppercase;
+            cursor: pointer; box-shadow: 4px 4px 0px #000 !important;
+            font-size: 10px; letter-spacing: 1px;
+        }
+        .mobile-mode body { font-size: 18px; }
+    </style>
+</head>
+<body>
+<nav class="py-4">
+<div class="container-custom flex justify-between items-center">
+<div class="text-2xl font-black tracking-tighter flex items-center">
+<span class="text-white uppercase">SMOOCHIIE™</span>
+<span class="text-gradient-red ml-1">💋</span>
+</div>
+<div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+<a class="hover:text-white transition" href="index.html">Home</a>
+<a class="hover:text-white transition font-black text-white" href="shop-characters.html">Shop Characters</a>
+<a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+<a class="hover:text-white transition" href="faq.html">FAQ</a>
+<a class="hover:text-white transition" href="about.html">About</a>
+</div>
+<div class="flex items-center space-x-8 text-white">
+<i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+
+<div class="relative" id="cart-icon-container"  style="cursor:pointer">
+<i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+<span id="cart-count">0</span>
+<div id="mini-cart">
+<h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+<div id="mini-cart-items"></div>
+<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+<span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+<span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+</div>
+<a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+<span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+<span class="continue-shopping" >Continue Shopping</span>
+</div>
+</div>
+
+</div>
+</div>
+</nav>
+<main>
+<section class="hero">
+<div>
+<div class="kicker"><div class="line"></div><span>Policies</span></div>
+<h1>Sealed.<br/>Final.<br/>Fair.</h1>
+<p class="lead">
+                    Items are made to order using 3D printing and hand-applied resin; therefore, all sales are final. 
+                    We do not accept returns, exchanges, or cancellations once an order has been placed.
+                </p>
+</div>
+<div style="text-align: right;">
+<img alt="Wax Seal" class="seal" src="IMG_0338.png"/>
+</div>
+</section>
+<section class="section">
+<h2>Damaged or Defective Items</h2>
+<p>If your item arrives damaged or defective, please contact us within 48 hours of delivery with:</p>
+<ul>
+<li>Clear photos of the item</li>
+<li>Photos of the packaging</li>
+</ul>
+<p>Once verified, we will offer a replacement or store credit at our discretion.</p>
+</section>
+<section class="section">
+<h2>Quality &amp; Workmanship</h2>
+<p>If an item breaks due to a verified quality or workmanship issue, we are happy to provide a replacement. The customer is responsible for shipping costs only.</p>
+</section>
+<section class="section">
+<h2>Please Note</h2>
+<p>Minor variations, tiny bubbles, surface texture, or slight color differences are normal characteristics of handmade resin and 3D-printed items and are not considered defects.</p>
+<ul>
+<li>Wear from normal use, improper handling, or exposure to heat, water, or chemicals is not covered.</li>
+<li>We are not responsible for damage caused by misuse, drops, or modifications.</li>
+</ul>
+</section>
+</main>
+<button id="mobile-toggle-btn" onclick="toggleMobileMode()">Switch to Mobile View</button>
+
+<div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
+<div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
+<button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
+<h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:15px; font-size:1.25rem;">Item Name</h2>
+<div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
+<img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;">
+</img></div>
+<div style="text-align: left; margin-bottom: 20px;">
+<p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
+<select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
+<option value="Badge Reel">Badge Reel</option>
+<option value="Phone Grip">Phone Grip</option>
+<option value="Magnet">Magnet</option>
+<option value="Keychain">Keychain</option>
+</select>
+</div>
+<button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
+<button id="modal-continue" style="background:none; color:#a31e1e; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:12px; text-decoration:underline;">Continue Shopping</button>
+</div>
+</div>
+<div id="mini-cart-popup" style="display:none; position:fixed; top:80px; right:20px; width:300px; background:#15151e; border:3px solid #000; box-shadow:8px 8px 0px #000; border-radius:12px; padding:15px; z-index:1000; color:#e8e8ea;">
+<h4 style="font-weight:900; text-transform:uppercase; margin-bottom:10px; border-bottom:1px solid #333; padding-bottom:5px; color:#a31e1e;">Your Cart</h4>
+
+<button id="mini-cart-checkout-btn" style="display:block; width:100%; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; text-align:center; padding:10px; border-radius:8px; font-weight:900; text-transform:uppercase; margin-top:10px; border:2px solid #000; cursor:pointer;">Checkout</button>
+</div>
+
+
+<script src="cart.js"></script></body>
+</html>
