@@ -2,119 +2,267 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <title>Your Bag - Smoochiie™</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Track Your Order - SMOOCHIIE™</title>
 
+  <!-- Match index.html libs -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet"/>
 
   <style>
-    :root {
-      --bg-dark: #0a0a0f;
-      --card-bg: #121117;
-      --accent-start: #650304;
-      --accent-end: #a31e1e;
-      --muted: #9ca3af;
+    :root{
+      --bg-dark:#0a0a0f;
+      --red-gradient-start:#650304;
+      --red-gradient-end:#a31e1e;
     }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg,#0a0a0f 0%,#15151e 50%,#0a0a0f 100%);
-      color: #e8e8ea;
-      margin: 0;
-      min-height: 100vh;
-    }
-    nav { background: rgba(10,10,15,0.95); backdrop-filter: blur(6px); }
-    .container-custom { max-width:1200px; margin:0 auto; padding:0 20px; }
-    main { padding: 48px 0; }
-    .bag-grid { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
-    .cart-list { display:flex; flex-direction:column; gap:18px; }
-    .cart-item {
-      display:flex; gap:18px; background:var(--card-bg); border:1px solid #222;
-      padding:16px; border-radius:6px; align-items:center;
-    }
-    .cart-item .thumb {
-      width:120px; height:120px; background:#1a1a2e; display:flex;
-      align-items:center; justify-content:center; overflow:hidden;
-      border:1px solid #2b2b34; border-radius:4px; flex-shrink:0;
-    }
-    .cart-item .thumb img { width:100%; height:100%; object-fit:cover; }
-    .cart-item .meta { flex:1; display:flex; flex-direction:column; gap:4px; }
-    .meta h4 { font-weight:900; text-transform:uppercase; font-size:1.1rem; margin:0; }
-    .meta .option { color: var(--accent-end); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
-    .meta .price { font-weight:900; color: #fff; font-size:1rem; margin-top: 4px; }
-    .remove-btn { background:transparent; border:none; color:#9ca3af; cursor:pointer; font-size:1.2rem; transition: 0.2s; }
-    .remove-btn:hover { color:#ef4444; }
-    .order-summary { background:var(--card-bg); border:1px solid #222; padding:22px; border-radius:6px; position:sticky; top:24px; }
-    .order-summary h3 { font-weight:900; text-transform:uppercase; font-size:1.05rem; margin:0 0 16px 0; }
+    *{margin:0;padding:0;box-sizing:border-box}
 
-    .summary-row { display:flex; justify-content:space-between; color:var(--muted); margin-bottom:12px; font-size:0.95rem; }
-    .summary-total { display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; margin-top:8px; color:var(--accent-end); border-top: 1px solid #333; padding-top: 12px; }
-
-    .checkout-btn {
-      width:100%; margin-top:18px; background: linear-gradient(180deg,var(--accent-start),var(--accent-end));
-      color:#000; font-weight:900; padding:14px; border-radius:6px; border:2px solid #000; cursor:pointer;
-      box-shadow: 4px 4px 0px #000; text-transform:uppercase; transition: 0.2s;
+    .text-gradient-red{
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
     }
-    .checkout-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+    .bg-gradient-red{
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+    }
 
-    .secondary-btn { display: block; width:100%; background:#121217; color:#e8e8ea; padding:12px; border-radius:6px; border:1px solid #222; cursor:pointer; margin-top:10px; text-align: center; font-weight: 700; }
+    body{
+      font-family:'Inter',sans-serif;
+      background: url("refund_policy_background.png") no-repeat center center fixed;
+      background-size: cover;
+      color:#e8e8ea;
+      overflow-x:hidden;
+      min-height:100vh;
+    }
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      background: radial-gradient(70% 55% at 50% 45%, rgba(0,0,0,.28), rgba(0,0,0,.72));
+      pointer-events:none;
+      z-index:0;
+    }
 
-    /* Added email input styling (keeps your vibe) */
-    .email-wrap { margin-top: 14px; }
-    .email-label {
-      font-size: 0.72rem;
+    .noise{
+      position: fixed; inset:0;
+      pointer-events:none; opacity:0.04; z-index:9999;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .container-custom{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:10}
+    nav{background:rgba(10,10,15,0.9);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100}
+
+    /* Mini Cart Dropdown (same style block as index; harmless if cart.js uses it) */
+    #mini-cart{
+      position:absolute; top:100%; right:0; width:350px;
+      background:rgba(15,15,20,0.98); backdrop-filter:blur(15px);
+      border:1px solid #333; box-shadow:0 10px 30px rgba(0,0,0,0.5);
+      padding:20px; display:none; z-index:1000; margin-top:10px; color:white;
+    }
+    #mini-cart.active{display:block}
+    .cart-item-mini{display:flex;gap:15px;margin-bottom:15px;padding-bottom:15px;border-bottom:1px solid #222}
+    .cart-item-mini img{width:60px;height:60px;object-fit:cover;border:1px solid #444}
+    .cart-item-info h4{font-size:0.85rem;font-weight:900;text-transform:uppercase;margin:0}
+    .cart-item-info p{font-size:0.8rem;color:#9ca3af;margin:4px 0}
+    .proceed-btn{
+      width:100%; background:linear-gradient(180deg,var(--red-gradient-start),var(--red-gradient-end));
+      color:white; font-weight:900; text-transform:uppercase;
+      padding:12px; text-align:center; display:block; margin-top:15px; border:none; cursor:pointer;
+    }
+    .continue-shopping{
+      display:block; text-align:center; font-size:0.7rem; text-transform:uppercase;
+      color:#9ca3af; margin-top:10px; text-decoration:underline; cursor:pointer;
+    }
+    #cart-count{
+      position:absolute; top:-8px; right:-10px; background:#a31e1e; color:white;
+      font-size:10px; padding:2px 6px; border-radius:999px; font-weight:900;
+    }
+
+    /* Page layout */
+    main{
+      position:relative; z-index:2;
+      padding:60px 20px 80px;
+      display:flex; justify-content:center;
+    }
+    .panel{
+      width:100%;
+      max-width:860px;
+      text-align:center;
+    }
+    .seal-header{
+      width:min(920px,100%);
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.65));
+      margin: 0 auto 18px;
+      display:block;
+    }
+    .title{
+      font-family:'Great Vibes',cursive;
+      font-size: clamp(54px, 6vw, 86px);
+      color:#d12a2a;
+      text-shadow: 0 0 22px rgba(209,42,42,.25), 0 8px 22px rgba(0,0,0,.55);
+      margin-top:-8px;
+      line-height:1;
+    }
+    .sub{
+      margin-top:14px;
+      font-weight:900;
+      font-size: clamp(18px, 2.2vw, 28px);
+      letter-spacing: -0.5px;
+      color:#fff;
+    }
+    .copy{
+      margin: 14px auto 0;
+      max-width: 760px;
+      color: rgba(255,255,255,.72);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .divider{
+      width:min(660px,92%);
+      height:1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,.18), transparent);
+      margin: 22px auto;
+    }
+
+    .card{
+      width: min(720px, 100%);
+      margin: 0 auto;
+      background: rgba(10,10,15,0.55);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      padding: 26px 20px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .label{
+      text-align:left;
+      font-size:12px;
       letter-spacing: .18em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 8px;
-      font-weight: 900;
-    }
-    .email-input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      background: #0f0f14;
-      border: 1px solid #333;
-      color: #fff;
-      outline: none;
-    }
-    .email-input:focus {
-      border-color: rgba(163,30,30,.8);
-      box-shadow: 0 0 0 3px rgba(163,30,30,.18);
-    }
-    .email-hint {
-      margin-top: 8px;
-      font-size: 0.75rem;
-      color: #9ca3af;
-      line-height: 1.5;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.6);
+      margin: 16px 0 8px;
+      font-weight: 800;
     }
 
-    @media (max-width: 900px) {
-      .bag-grid { grid-template-columns: 1fr; }
-      .order-summary { position:static; }
+    .field{
+      width:100%;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.92);
+      padding: 14px 14px;
+      border-radius: 14px;
+      outline:none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .field:focus{
+      border-color: rgba(209,42,42,.55);
+      box-shadow: 0 0 0 3px rgba(209,42,42,.18);
+    }
+
+    .btn{
+      margin-top: 18px;
+      width:100%;
+      display:inline-block;
+      background: linear-gradient(180deg, #c62828, #7a0000);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 2px solid #000;
+      box-shadow: 6px 6px 0 #000;
+      transition: all .2s ease;
+      text-decoration:none;
+      cursor:pointer;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 8px 8px 0 #000;
+      filter: brightness(1.08);
+    }
+
+    .hint{
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,.55);
+      line-height: 1.6;
+    }
+
+    .result{
+      margin-top: 18px;
+      text-align:left;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.28);
+      padding: 16px 16px;
+      display:none;
+    }
+    .result.active{display:block}
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: 11px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      margin-top: 12px;
+      color: rgba(255,255,255,.78);
+      font-size: 14px;
+    }
+    .row strong{color:#fff}
+
+    .tiny-footer{
+      margin-top: 18px;
+      font-size: 12px;
+      color: rgba(255,255,255,.52);
+    }
+
+    @media (max-width: 640px){
+      main{padding-top:40px}
+      .card{padding:22px 16px}
     }
   </style>
 </head>
 
 <body>
+  <div class="noise"></div>
+
+  <!-- NAV (copied to match index.html style/structure) -->
   <nav class="py-4">
     <div class="container-custom flex justify-between items-center">
-      <div class="text-2xl font-black tracking-tighter flex items-center">
+      <div class="text-2xl font-black tracking-tighter">
         <span class="text-white uppercase">SMOOCHIIE™</span>
         <span class="text-gradient-red ml-1">💋</span>
       </div>
+
       <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
         <a class="hover:text-white transition" href="index.html">Home</a>
         <a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
         <a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
         <a class="hover:text-white transition" href="faq.html">FAQ</a>
+        <a class="hover:text-white transition" href="about.html">About</a>
       </div>
 
       <div class="flex items-center space-x-8 text-white">
-        <div class="relative" id="cart-icon-container" onclick="toggleCart()" style="cursor:pointer">
+        <i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+
+        <div class="relative" id="cart-icon-container" style="cursor:pointer">
           <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
           <span id="cart-count">0</span>
+
           <div id="mini-cart">
             <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
             <div id="mini-cart-items"></div>
@@ -123,149 +271,235 @@
               <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
             </div>
             <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-            <span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
-            <span class="continue-shopping" onclick="toggleCart()">Continue Shopping</span>
+            <span class="continue-shopping" onclick="clearCart()" style="color:#ef4444;margin-bottom:5px;">Clear Cart</span>
+            <span class="continue-shopping">Continue Shopping</span>
           </div>
         </div>
       </div>
     </div>
   </nav>
 
-  <main class="container-custom">
-    <h1 class="text-4xl font-black uppercase mb-8">Your Bag</h1>
+  <main>
+    <div class="panel">
+      <img class="seal-header" src="Wax_Seal_Ribbon_Header.png" alt="SMOOCHIIE™ Wax Seal Ribbon"/>
 
-    <div class="bag-grid">
-      <section>
-        <div class="cart-list" id="cart-list"></div>
+      <h1 class="title">Track Your Order</h1>
+      <div class="sub">The only email you actually need. 💋</div>
 
-        <div class="mt-6 flex flex-col gap-3">
-          <a class="secondary-btn" href="shop-characters.html">Continue Shopping</a>
-          <button class="secondary-btn" id="clear-bag" style="color: #ef4444; border-color: #451a1a;">Clear Bag</button>
-        </div>
-      </section>
+      <p class="copy">
+        We know how annoying those junk emails can get — so we made this <span class="text-gradient-red font-black">one</span> page to keep it simple.
+        Enter your details below and we’ll show you exactly where your order is in the process.
+        <span class="text-gradient-red font-black">Sealed with intention, kissed with purpose.</span>
+      </p>
 
-      <aside class="order-summary">
-        <h3>Order Summary</h3>
+      <div class="divider"></div>
 
-        <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></div>
-        <div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
-        <div class="summary-total"><span>Total</span><span id="summary-total">$0.00</span></div>
+      <div class="card">
+        <form id="track-form" novalidate>
+          <div class="label">Email Address</div>
+          <input id="email" class="field" type="email" placeholder="you@smoochiie.com" autocomplete="email"/>
 
-        <!-- ✅ Email required for tracking -->
-        <div class="email-wrap">
-          <div class="email-label">Email for order tracking</div>
-          <input id="customer-email" class="email-input" type="email" placeholder="you@smoochiie.com" autocomplete="email" />
-          <div class="email-hint">
-            We won’t spam you — this is just so you can track your order. 💋
+          <div class="label">Order Number</div>
+          <input id="order" class="field" type="text" placeholder="Example: SMOO-1026" autocomplete="off"/>
+
+          <div class="label">Last Name (optional)</div>
+          <input id="last" class="field" type="text" placeholder="Williams" autocomplete="family-name"/>
+
+          <button class="btn" type="submit">Track My Order</button>
+
+          <div class="hint">
+            Tip: If you don’t have an order number, use your email + last name.
+            If your order was just placed, give it a moment to “seal” into the system.
           </div>
+        </form>
+
+        <div id="result" class="result" aria-live="polite"></div>
+
+        <div class="tiny-footer">
+          Need help? Email <span class="text-gradient-red font-black">support@smoochiie.com</span> — we’ve got you. 💋
         </div>
 
-        <!-- ✅ PayPal Smart Button container (shows only if PayPal SDK is on the page) -->
-        <div id="paypal-button-container" style="margin-top:14px;"></div>
+        <!--
+          TESTING (optional):
+          Open this URL to see a "real" result without a backend:
+          track-order.html?order=SMOO-1026&email=test%40email.com&status=processing
 
-        <!-- ✅ Fallback button (if PayPal isn’t loaded yet, it will just go to thank you for testing) -->
-        <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
-      </aside>
+          or:
+          track-order.html?order=SMOO-2044&email=test%40email.com&status=shipped&tracking=1Z999AA10123456784&carrier=UPS&eta=Feb%2010
+        -->
+      </div>
     </div>
   </main>
 
-  <!-- ✅ Order + tracking helpers -->
+  <!-- If you already have cart.js on other pages, keep it here too -->
+  <script src="cart.js"></script>
+
   <script>
+    // --------- Simple "functional" tracking without backend ----------
+    // This supports:
+    // 1) URL params (order/email/status/tracking/etc.) -> shows result immediately
+    // 2) localStorage stored orders (for testing/demo)
+    //
+    // Later, if you add a real backend, you only swap lookupOrder().
+
     const STORAGE_KEY = "smoochiie_orders_v1";
 
     function normalize(str){ return (str || "").trim().toLowerCase(); }
 
-    function createOrderAfterPayment(email){
-      const orderId = "SMOO-" + Date.now().toString().slice(-6);
+    function getOrders(){
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch(e){ return {}; }
+    }
 
-      const orderData = {
-        order: orderId,
-        email: normalize(email),
-        status: "processing",
-        createdAt: new Date().toISOString()
-      };
-
-      const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      const key = `e:${orderData.email}|o:${normalize(orderId)}`;
-      orders[key] = orderData;
-
+    function saveOrder(orderObj){
+      const orders = getOrders();
+      const key = buildKey(orderObj.email, orderObj.order, orderObj.last);
+      orders[key] = { ...orderObj, updatedAt: new Date().toISOString() };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
-      localStorage.setItem("last_order_id", orderId);
-
-      return orderId;
     }
 
-    function redirectToThankYou(orderId, email){
-      localStorage.removeItem("cart"); // clear cart after paid/approved (or after test)
-      window.location.href =
-        `thank-you.html?order=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`;
-    }
-  </script>
-
-  <!-- ✅ If PayPal Smart Buttons are present, use onApprove to create order AFTER payment -->
-  <script>
-    function initPayPalButtonsIfAvailable(){
-      // Only run if PayPal SDK is loaded
-      if (!window.paypal || !paypal.Buttons) return;
-
-      paypal.Buttons({
-        // NOTE: You MUST set up your purchase unit amount correctly for real checkout.
-        // If you already have a PayPal integration elsewhere, keep your existing createOrder and paste in the onApprove block below.
-        createOrder: function(data, actions) {
-          // Placeholder amount (you should replace this with your real total)
-          const totalText = (document.getElementById("summary-total")?.textContent || "$0.00").replace("$","");
-          const total = String(parseFloat(totalText || "0").toFixed(2));
-
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: total }
-            }]
-          });
-        },
-
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            const email = details?.payer?.email_address || document.getElementById("customer-email").value.trim();
-
-            if (!email) {
-              alert("Please enter your email so we can track your order 💋");
-              return;
-            }
-
-            const orderId = createOrderAfterPayment(email);
-            redirectToThankYou(orderId, email);
-          });
-        },
-
-        onError: function(err) {
-          console.error("PayPal error:", err);
-          alert("Something went wrong with PayPal. Please try again.");
-        }
-      }).render("#paypal-button-container");
+    function buildKey(email, order, last){
+      // prefer email+order, else email+last
+      const e = normalize(email);
+      const o = normalize(order);
+      const l = normalize(last);
+      if (e && o) return `e:${e}|o:${o}`;
+      if (e && l) return `e:${e}|l:${l}`;
+      return "";
     }
 
-    document.addEventListener("DOMContentLoaded", initPayPalButtonsIfAvailable);
-  </script>
+    function readQuery(){
+      const p = new URLSearchParams(window.location.search);
+      const obj = {
+        order: p.get("order") || "",
+        email: p.get("email") || "",
+        last: p.get("last") || "",
+        status: p.get("status") || "",
+        tracking: p.get("tracking") || "",
+        carrier: p.get("carrier") || "",
+        eta: p.get("eta") || ""
+      };
+      return obj;
+    }
 
-  <!-- ✅ Fallback button behavior (for testing without PayPal loaded) -->
-  <script>
-    document.getElementById("checkout-btn").addEventListener("click", () => {
-      const emailInput = document.getElementById("customer-email");
-      const email = emailInput.value.trim();
+    function prettyStatus(status){
+      const s = normalize(status);
+      if (!s) return "processing";
+      if (["processing","in progress","in-progress"].includes(s)) return "processing";
+      if (["shipped","on the way","on-the-way"].includes(s)) return "shipped";
+      if (["delivered"].includes(s)) return "delivered";
+      return s;
+    }
 
-      if (!email) {
-        alert("Please enter your email so we can track your order 💋");
-        emailInput.focus();
+    function statusBadgeHTML(status){
+      const s = prettyStatus(status);
+      const icon = (s === "delivered") ? "fa-circle-check" : (s === "shipped" ? "fa-truck-fast" : "fa-stamp");
+      const label = (s === "delivered") ? "DELIVERED" : (s === "shipped" ? "SHIPPED" : "PROCESSING");
+      return `<span class="badge"><i class="fa-solid ${icon}"></i>${label}</span>`;
+    }
+
+    function renderResult(data, mode="found"){
+      const el = document.getElementById("result");
+      el.classList.add("active");
+
+      if (mode === "error"){
+        el.innerHTML = `
+          <div class="mb-2">${statusBadgeHTML("processing")}</div>
+          <div class="text-white font-black uppercase tracking-widest text-xs mb-2">We couldn’t find that order</div>
+          <div style="color: rgba(255,255,255,.72); line-height:1.7;">
+            Double-check your <strong>email</strong> and <strong>order number</strong>. If your order was just placed,
+            give it a few minutes (it has to get “sealed” first). 💋
+            <div class="mt-3" style="color: rgba(255,255,255,.65);">
+              Still stuck? Email <strong>support@smoochiie.com</strong> with your PayPal receipt screenshot — we’ll take it from there.
+            </div>
+          </div>
+        `;
         return;
       }
 
-      // TEST MODE ONLY: creates a processing order + goes to thank you
-      const orderId = createOrderAfterPayment(email);
-      redirectToThankYou(orderId, email);
+      const status = prettyStatus(data.status || "processing");
+      const carrierLine = data.carrier ? `<div class="row"><span><strong>Carrier:</strong> ${escapeHTML(data.carrier)}</span></div>` : "";
+      const trackingLine = data.tracking ? `<div class="row"><span><strong>Tracking:</strong> ${escapeHTML(data.tracking)}</span></div>` : "";
+      const etaLine = data.eta ? `<div class="row"><span><strong>ETA:</strong> ${escapeHTML(data.eta)}</span></div>` : "";
+
+      el.innerHTML = `
+        <div class="mb-3">${statusBadgeHTML(status)}</div>
+        <div class="text-white font-black uppercase tracking-widest text-xs mb-2">Order Status</div>
+        <div class="row"><span><strong>Order:</strong> ${escapeHTML(data.order || "—")}</span><span><strong>Email:</strong> ${escapeHTML(data.email || "—")}</span></div>
+        ${carrierLine}
+        ${trackingLine}
+        ${etaLine}
+        <div class="mt-3" style="color: rgba(255,255,255,.72); line-height:1.7;">
+          ${status === "processing"
+            ? "Your order is currently being crafted + sealed. We’ll update this page when it ships."
+            : status === "shipped"
+              ? "Your order is officially on the way. 💋"
+              : "Your order has been delivered. If anything looks off, email us and we’ll make it right."}
+        </div>
+      `;
+    }
+
+    function escapeHTML(str){
+      return String(str || "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function lookupOrder(email, order, last){
+      const orders = getOrders();
+      const key = buildKey(email, order, last);
+      if (!key) return null;
+      return orders[key] || null;
+    }
+
+    // Prefill + auto-render if URL params exist
+    document.addEventListener("DOMContentLoaded", () => {
+      const q = readQuery();
+      if (q.email) document.getElementById("email").value = q.email;
+      if (q.order) document.getElementById("order").value = q.order;
+      if (q.last) document.getElementById("last").value = q.last;
+
+      // If URL includes status, treat it as an "official" result and store it (useful for testing)
+      if (q.email && (q.order || q.last) && q.status) {
+        const data = {
+          email: q.email,
+          order: q.order || "(order)",
+          last: q.last || "",
+          status: q.status,
+          tracking: q.tracking || "",
+          carrier: q.carrier || "",
+          eta: q.eta || ""
+        };
+        saveOrder(data);
+        renderResult(data, "found");
+      }
+    });
+
+    // Form submit
+    document.getElementById("track-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const order = document.getElementById("order").value.trim();
+      const last  = document.getElementById("last").value.trim();
+
+      // Require email + (order OR last)
+      if (!email || (!order && !last)) {
+        renderResult({}, "error");
+        return;
+      }
+
+      const found = lookupOrder(email, order, last);
+      if (!found) {
+        renderResult({}, "error");
+        return;
+      }
+
+      renderResult(found, "found");
     });
   </script>
-
-  <!-- Your existing cart logic -->
-  <script src="cart.js" defer></script>
 </body>
 </html>
