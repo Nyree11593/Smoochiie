@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Your Bag - Smoochiie™</title>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
-<style>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Your Bag - Smoochiie™</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
+
+  <style>
     :root {
       --bg-dark: #0a0a0f;
       --card-bg: #121117;
@@ -46,72 +47,225 @@
     .remove-btn:hover { color:#ef4444; }
     .order-summary { background:var(--card-bg); border:1px solid #222; padding:22px; border-radius:6px; position:sticky; top:24px; }
     .order-summary h3 { font-weight:900; text-transform:uppercase; font-size:1.05rem; margin:0 0 16px 0; }
+
     .summary-row { display:flex; justify-content:space-between; color:var(--muted); margin-bottom:12px; font-size:0.95rem; }
     .summary-total { display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; margin-top:8px; color:var(--accent-end); border-top: 1px solid #333; padding-top: 12px; }
+
     .checkout-btn {
       width:100%; margin-top:18px; background: linear-gradient(180deg,var(--accent-start),var(--accent-end));
       color:#000; font-weight:900; padding:14px; border-radius:6px; border:2px solid #000; cursor:pointer;
       box-shadow: 4px 4px 0px #000; text-transform:uppercase; transition: 0.2s;
     }
     .checkout-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+
     .secondary-btn { display: block; width:100%; background:#121217; color:#e8e8ea; padding:12px; border-radius:6px; border:1px solid #222; cursor:pointer; margin-top:10px; text-align: center; font-weight: 700; }
-    @media (max-width: 900px) { .bag-grid { grid-template-columns: 1fr; } .order-summary { position:static; } }
+
+    /* Added email input styling (keeps your vibe) */
+    .email-wrap { margin-top: 14px; }
+    .email-label {
+      font-size: 0.72rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+    .email-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      background: #0f0f14;
+      border: 1px solid #333;
+      color: #fff;
+      outline: none;
+    }
+    .email-input:focus {
+      border-color: rgba(163,30,30,.8);
+      box-shadow: 0 0 0 3px rgba(163,30,30,.18);
+    }
+    .email-hint {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .bag-grid { grid-template-columns: 1fr; }
+      .order-summary { position:static; }
+    }
   </style>
 </head>
+
 <body>
-<nav class="py-4">
-<div class="container-custom flex justify-between items-center">
-<div class="text-2xl font-black tracking-tighter flex items-center">
-<span class="text-white uppercase">SMOOCHIIE™</span>
-<span class="text-gradient-red ml-1">💋</span>
-</div>
-<div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
-<a class="hover:text-white transition" href="index.html">Home</a>
-<a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
-<a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
-<a class="hover:text-white transition" href="faq.html">FAQ</a>
-</div>
-<div class="flex items-center space-x-8 text-white">
+  <nav class="py-4">
+    <div class="container-custom flex justify-between items-center">
+      <div class="text-2xl font-black tracking-tighter flex items-center">
+        <span class="text-white uppercase">SMOOCHIIE™</span>
+        <span class="text-gradient-red ml-1">💋</span>
+      </div>
+      <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+        <a class="hover:text-white transition" href="index.html">Home</a>
+        <a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
+        <a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+        <a class="hover:text-white transition" href="faq.html">FAQ</a>
+      </div>
 
-<div class="relative" id="cart-icon-container" onclick="toggleCart()" style="cursor:pointer">
-<i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
-<span id="cart-count">0</span>
-<div id="mini-cart">
-<h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
-<div id="mini-cart-items"></div>
-<div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
-<span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
-<span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
-</div>
-<a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-<span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
-<span class="continue-shopping" onclick="toggleCart()">Continue Shopping</span>
-</div>
-</div>
+      <div class="flex items-center space-x-8 text-white">
+        <div class="relative" id="cart-icon-container" onclick="toggleCart()" style="cursor:pointer">
+          <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+          <span id="cart-count">0</span>
+          <div id="mini-cart">
+            <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+            <div id="mini-cart-items"></div>
+            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+              <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+              <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+            </div>
+            <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+            <span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+            <span class="continue-shopping" onclick="toggleCart()">Continue Shopping</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-</div>
-</div>
-</nav>
-<main class="container-custom">
-<h1 class="text-4xl font-black uppercase mb-8">Your Bag</h1>
-<div class="bag-grid">
-<section>
-<div class="cart-list" id="cart-list"></div>
-<div class="mt-6 flex flex-col gap-3">
-<a class="secondary-btn" href="shop-characters.html">Continue Shopping</a>
-<button class="secondary-btn" id="clear-bag" style="color: #ef4444; border-color: #451a1a;">Clear Bag</button>
-</div>
-</section>
-<aside class="order-summary">
-<h3>Order Summary</h3>
-<div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></div>
-<div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
-<div class="summary-total"><span>Total</span><span id="summary-total">$0.00</span></div>
-<button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
-</aside>
-</div>
-</main>
+  <main class="container-custom">
+    <h1 class="text-4xl font-black uppercase mb-8">Your Bag</h1>
 
+    <div class="bag-grid">
+      <section>
+        <div class="cart-list" id="cart-list"></div>
 
-<script src="cart.js" defer></script></body>
+        <div class="mt-6 flex flex-col gap-3">
+          <a class="secondary-btn" href="shop-characters.html">Continue Shopping</a>
+          <button class="secondary-btn" id="clear-bag" style="color: #ef4444; border-color: #451a1a;">Clear Bag</button>
+        </div>
+      </section>
+
+      <aside class="order-summary">
+        <h3>Order Summary</h3>
+
+        <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></div>
+        <div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
+        <div class="summary-total"><span>Total</span><span id="summary-total">$0.00</span></div>
+
+        <!-- ✅ Email required for tracking -->
+        <div class="email-wrap">
+          <div class="email-label">Email for order tracking</div>
+          <input id="customer-email" class="email-input" type="email" placeholder="you@smoochiie.com" autocomplete="email" />
+          <div class="email-hint">
+            We won’t spam you — this is just so you can track your order. 💋
+          </div>
+        </div>
+
+        <!-- ✅ PayPal Smart Button container (shows only if PayPal SDK is on the page) -->
+        <div id="paypal-button-container" style="margin-top:14px;"></div>
+
+        <!-- ✅ Fallback button (if PayPal isn’t loaded yet, it will just go to thank you for testing) -->
+        <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ✅ Order + tracking helpers -->
+  <script>
+    const STORAGE_KEY = "smoochiie_orders_v1";
+
+    function normalize(str){ return (str || "").trim().toLowerCase(); }
+
+    function createOrderAfterPayment(email){
+      const orderId = "SMOO-" + Date.now().toString().slice(-6);
+
+      const orderData = {
+        order: orderId,
+        email: normalize(email),
+        status: "processing",
+        createdAt: new Date().toISOString()
+      };
+
+      const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      const key = `e:${orderData.email}|o:${normalize(orderId)}`;
+      orders[key] = orderData;
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+      localStorage.setItem("last_order_id", orderId);
+
+      return orderId;
+    }
+
+    function redirectToThankYou(orderId, email){
+      localStorage.removeItem("cart"); // clear cart after paid/approved (or after test)
+      window.location.href =
+        `thank-you.html?order=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`;
+    }
+  </script>
+
+  <!-- ✅ If PayPal Smart Buttons are present, use onApprove to create order AFTER payment -->
+  <script>
+    function initPayPalButtonsIfAvailable(){
+      // Only run if PayPal SDK is loaded
+      if (!window.paypal || !paypal.Buttons) return;
+
+      paypal.Buttons({
+        // NOTE: You MUST set up your purchase unit amount correctly for real checkout.
+        // If you already have a PayPal integration elsewhere, keep your existing createOrder and paste in the onApprove block below.
+        createOrder: function(data, actions) {
+          // Placeholder amount (you should replace this with your real total)
+          const totalText = (document.getElementById("summary-total")?.textContent || "$0.00").replace("$","");
+          const total = String(parseFloat(totalText || "0").toFixed(2));
+
+          return actions.order.create({
+            purchase_units: [{
+              amount: { value: total }
+            }]
+          });
+        },
+
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            const email = details?.payer?.email_address || document.getElementById("customer-email").value.trim();
+
+            if (!email) {
+              alert("Please enter your email so we can track your order 💋");
+              return;
+            }
+
+            const orderId = createOrderAfterPayment(email);
+            redirectToThankYou(orderId, email);
+          });
+        },
+
+        onError: function(err) {
+          console.error("PayPal error:", err);
+          alert("Something went wrong with PayPal. Please try again.");
+        }
+      }).render("#paypal-button-container");
+    }
+
+    document.addEventListener("DOMContentLoaded", initPayPalButtonsIfAvailable);
+  </script>
+
+  <!-- ✅ Fallback button behavior (for testing without PayPal loaded) -->
+  <script>
+    document.getElementById("checkout-btn").addEventListener("click", () => {
+      const emailInput = document.getElementById("customer-email");
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        alert("Please enter your email so we can track your order 💋");
+        emailInput.focus();
+        return;
+      }
+
+      // TEST MODE ONLY: creates a processing order + goes to thank you
+      const orderId = createOrderAfterPayment(email);
+      redirectToThankYou(orderId, email);
+    });
+  </script>
+
+  <!-- Your existing cart logic -->
+  <script src="cart.js" defer></script>
+</body>
 </html>
