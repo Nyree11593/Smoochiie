@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Thank You - SMOOCHIIE™</title>
 
-  <!-- Tailwind + Icons (MATCHES INDEX) -->
+  <!-- Tailwind + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
 
@@ -14,126 +14,132 @@
 
   <style>
     :root {
-      --bg-dark: #0a0a0f;
-      --red-gradient-start: #650304;
-      --red-gradient-end: #a31e1e;
+      --red-start:#650304;
+      --red-end:#a31e1e;
     }
 
     .text-gradient-red {
-      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      background: linear-gradient(180deg, var(--red-start), var(--red-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
+      filter: drop-shadow(0 0 15px rgba(163,30,30,.5));
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: url("refund_policy_background.png") no-repeat center center fixed;
-      background-size: cover;
-      color: #e8e8ea;
-      overflow-x: hidden;
-      min-height: 100vh;
+    body{
+      font-family:'Inter',sans-serif;
+      background:url("refund_policy_background.png") no-repeat center center fixed;
+      background-size:cover;
+      color:#e8e8ea;
+      min-height:100vh;
     }
 
-    body::before {
+    body::before{
       content:"";
-      position:fixed;
-      inset:0;
+      position:fixed; inset:0;
       background: radial-gradient(70% 55% at 50% 45%, rgba(0,0,0,.28), rgba(0,0,0,.72));
       pointer-events:none;
       z-index:0;
     }
 
-    .noise {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.04;
-      z-index: 9999;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    .noise{
+      position:fixed; inset:0;
+      pointer-events:none; opacity:.04; z-index:9999;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    .container-custom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-      position: relative;
-      z-index: 10;
+    .container-custom{max-width:1200px;margin:0 auto;padding:0 20px;z-index:10;position:relative}
+
+    nav{
+      background:rgba(10,10,15,.9);
+      backdrop-filter:blur(10px);
+      position:sticky; top:0; z-index:100;
     }
 
-    nav {
-      background: rgba(10, 10, 15, 0.9);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    main{
+      min-height:calc(100vh - 90px);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:80px 20px 60px;
+      position:relative;
+      z-index:2;
     }
 
-    main {
-      position: relative;
-      z-index: 2;
-      min-height: calc(100vh - 90px);
-      display: grid;
-      place-items: center;
-      padding: 80px 20px 60px;
-      text-align: center;
+    .seal-header{
+      width:min(920px,100%);
+      filter:drop-shadow(0 18px 30px rgba(0,0,0,.65));
+      margin-bottom:12px;
     }
 
-    .seal-header {
-      width: min(920px, 100%);
-      filter: drop-shadow(0 18px 30px rgba(0,0,0,.65));
-      margin-bottom: 12px;
+    .thank-title{
+      font-family:'Great Vibes',cursive;
+      font-size:clamp(56px,6.5vw,86px);
+      color:#d12a2a;
+      text-shadow:0 0 22px rgba(209,42,42,.25),0 8px 22px rgba(0,0,0,.55);
+      margin-top:-10px;
     }
 
-    .thank-title {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(56px, 6.5vw, 86px);
-      color: #d12a2a;
-      text-shadow: 0 0 22px rgba(209,42,42,.25), 0 8px 22px rgba(0,0,0,.55);
-      margin-top: -10px;
+    .thank-subtitle{
+      font-size:clamp(22px,2.5vw,38px);
+      font-weight:900;
+      margin-top:10px;
     }
 
-    .thank-subtitle {
-      font-size: clamp(22px, 2.5vw, 38px);
-      font-weight: 900;
-      margin-top: 10px;
+    .divider{
+      width:min(660px,92%);
+      height:1px;
+      background:linear-gradient(to right,transparent,rgba(255,255,255,.18),transparent);
+      margin:18px auto;
     }
 
-    .divider {
-      width: min(660px, 92%);
-      height: 1px;
-      background: linear-gradient(to right, transparent, rgba(255,255,255,.18), transparent);
-      margin: 18px auto;
+    .message{
+      max-width:720px;
+      margin:6px auto;
+      color:rgba(255,255,255,.7);
+      font-size:16px;
+      line-height:1.7;
     }
 
-    .message {
-      max-width: 720px;
-      margin: 6px auto;
-      color: rgba(255,255,255,.7);
-      font-size: 16px;
-      line-height: 1.7;
+    .order-id{
+      margin-top:10px;
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.55);
     }
 
-    .continue-btn {
-      margin-top: 34px;
-      display: inline-block;
-      background: linear-gradient(180deg, #c62828, #7a0000);
-      color: white;
-      padding: 14px 34px;
-      border-radius: 999px;
-      font-weight: 900;
-      border: 2px solid #000;
-      box-shadow: 6px 6px 0 #000;
-      transition: all .2s ease;
-      text-decoration: none;
+    .btn{
+      margin-top:22px;
+      display:inline-block;
+      padding:14px 34px;
+      border-radius:999px;
+      font-weight:900;
+      border:2px solid #000;
+      box-shadow:6px 6px 0 #000;
+      transition:.2s;
+      text-decoration:none;
     }
 
-    .continue-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 8px 8px 0 #000;
-      filter: brightness(1.08);
+    .btn-primary{
+      background:linear-gradient(180deg,#c62828,#7a0000);
+      color:white;
+    }
+
+    .btn-secondary{
+      margin-left:12px;
+      background:#121217;
+      color:#e8e8ea;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:8px 8px 0 #000;
+    }
+
+    @media(max-width:640px){
+      .btn-secondary{margin-left:0;margin-top:12px;display:block}
     }
   </style>
 </head>
@@ -141,7 +147,7 @@
 <body>
 <div class="noise"></div>
 
-<!-- 🔥 NAV BAR (EXACT COPY FROM INDEX) -->
+<!-- NAV (unchanged) -->
 <nav class="py-4">
   <div class="container-custom flex justify-between items-center">
     <div class="text-2xl font-black tracking-tighter">
@@ -161,35 +167,56 @@
       <i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
       <div class="relative">
         <i class="fas fa-shopping-cart text-xl hover:text-gradient-red"></i>
-        <span id="cart-count"
-          style="position:absolute;top:-8px;right:-10px;background:#a31e1e;color:white;font-size:10px;padding:2px 6px;border-radius:999px;font-weight:900;">0</span>
+        <span id="cart-count" style="position:absolute;top:-8px;right:-10px;background:#a31e1e;color:white;font-size:10px;padding:2px 6px;border-radius:999px;font-weight:900;">0</span>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main>
   <img src="Wax_Seal_Ribbon_Header.png" alt="Wax Seal" class="seal-header"/>
 
   <h1 class="thank-title">Thank You!</h1>
-  <div class="thank-subtitle">Your Order is Confirmed!</div>
+  <div class="thank-subtitle">Your Order is Confirmed</div>
 
   <div class="divider"></div>
 
-  <p class="message">A confirmation email has been sent to you.</p>
-  <p class="message">We are processing your order and will notify you when it’s on the way.</p>
+  <p class="message">
+    We know how annoying those junk emails can get — so we’ll keep it simple.
+    Everything you need lives right here.
+  </p>
 
-  <a href="shop-characters.html" class="continue-btn">Continue Shopping</a>
+  <p class="order-id" id="order-id"></p>
+
+  <div>
+    <a id="track-btn" class="btn btn-primary" href="track-order.html">Track Your Order</a>
+    <a class="btn btn-secondary" href="shop-characters.html">Continue Shopping</a>
+  </div>
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    localStorage.removeItem('cart');
-    const count = document.getElementById('cart-count');
-    if (count) count.textContent = '0';
+  document.addEventListener("DOMContentLoaded", () => {
+    localStorage.removeItem("cart");
+    const count = document.getElementById("cart-count");
+    if (count) count.textContent = "0";
+
+    const params = new URLSearchParams(window.location.search);
+    const order = params.get("order");
+    const email = params.get("email");
+
+    if (order) {
+      document.getElementById("order-id").textContent = `Order ${order}`;
+    }
+
+    if (order || email) {
+      const track = document.getElementById("track-btn");
+      const q = new URLSearchParams();
+      if (order) q.set("order", order);
+      if (email) q.set("email", email);
+      track.href = "track-order.html?" + q.toString();
+    }
   });
 </script>
-
 </body>
 </html>
