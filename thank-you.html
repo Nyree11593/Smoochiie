@@ -46,4 +46,161 @@
       pointer-events:none;
       opacity:.05;
       z-index:3;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* NAV (clean + subtle, not loud) */
+    .thankyou-nav{
+      position:fixed;
+      top:0; left:0; right:0;
+      z-index:10;
+      background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,0));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .nav-inner{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .brand{
+      font-weight: 900;
+      letter-spacing:.02em;
+      color: rgba(255,255,255,.92);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .brand .kiss{
+      filter: drop-shadow(0 0 14px rgba(209,42,42,.35));
+    }
+    .nav-links{
+      display:flex;
+      gap:28px;
+    }
+    .nav-links a{
+      font-size:12px;
+      letter-spacing:.20em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.70);
+      text-decoration:none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover{ color:#fff; }
+
+    /* MAIN LAYOUT */
+    main{
+      position:relative;
+      z-index:2;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding: 120px 18px 60px; /* space for nav */
+      text-align:center;
+    }
+
+    .wrap{
+      width:100%;
+      max-width: 980px;
+      display:grid;
+      place-items:center;
+      gap: 18px;
+    }
+
+    /* your ribbon+seal header */
+    .seal-header{
+      width: min(920px, 100%);
+      height:auto;
+      filter: drop-shadow(0 18px 30px rgba(0,0,0,.65));
+      margin-bottom: 8px;
+      transform: translateY(-8px);
+    }
+
+    .title{
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(56px, 6.6vw, 86px);
+      line-height: .95;
+      color: rgba(209,42,42,.92);
+      text-shadow: 0 0 22px rgba(209,42,42,.25), 0 8px 22px rgba(0,0,0,.55);
+      margin-top: -6px;
+    }
+
+    .subtitle{
+      margin-top: 10px;
+      font-weight: 900;
+      font-size: clamp(22px, 2.5vw, 38px);
+      color: rgba(255,255,255,.92);
+      letter-spacing: .01em;
+    }
+
+    .divider{
+      width: min(660px, 92%);
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,.18), transparent);
+      margin: 18px 0 18px;
+    }
+
+    .msg{
+      max-width: 720px;
+      color: rgba(255,255,255,.70);
+      font-size: clamp(14px, 1.35vw, 18px);
+      line-height: 1.7;
+      margin-top: 8px;
+    }
+
+    .btn{
+      margin-top: 34px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 14px 34px;
+      border-radius: 999px;
+      color:#fff;
+      font-weight: 900;
+      font-size: 16px;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(209,42,42,.95), rgba(122,0,0,.95));
+      box-shadow:
+        0 16px 30px rgba(0,0,0,.55),
+        inset 0 1px 0 rgba(255,255,255,.18);
+      transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      filter: brightness(1.07);
+      box-shadow:
+        0 22px 42px rgba(0,0,0,.62),
+        0 0 28px rgba(209,42,42,.18),
+        inset 0 1px 0 rgba(255,255,255,.22);
+    }
+
+    .tiny{
+      margin-top: 16px;
+      font-size: 12px;
+      color: rgba(255,255,255,.52);
+    }
+
+    @media (max-width: 640px){
+      .nav-links{ gap:16px; }
+      .nav-links a{ letter-spacing:.14em; font-size:11px; }
+      main{ padding-top: 104px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <!-- NAV BAR (keeps them in the site) -->
+  <nav class="thankyou-nav">
+    <div class="nav-inner">
+      <div class="brand">SMOOCHiiE™ <span class="kiss">💋</span></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop-characters.html">Shop</a>
+        <a href="faq.html">FAQ</a>
+        <a href="about.html
