@@ -23,7 +23,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
-            background: linear-gradient(135deg, #0a0a0f 0%, #15151e 50%, #0a0a0f 100%);
+            background: url('refund_policy_background.png') no-repeat center center fixed;
+            background-size: cover;
             color: #e8e8ea;
             min-height: 100vh;
             display: flex;
@@ -70,7 +71,6 @@
             height: 10%; /* Adjust based on image button height */
             cursor: pointer;
             z-index: 20;
-            /* background: rgba(255,0,0,0.2); /* Uncomment to debug positioning */
         }
 
         .button-overlay a {
@@ -112,7 +112,7 @@
 
     <main>
         <div class="thank-you-card">
-            <!-- Using the exact image provided -->
+            <!-- Using the exact image provided which already contains the wax seal -->
             <img src="ChatGPT Image Feb 5, 2026, 06_15_28 PM.png" alt="Thank You - Order Confirmed" class="thank-you-image">
 
             <!-- Invisible functional link over the image's button -->
@@ -132,9 +132,8 @@
     </footer>
 
     <script>
-        // Simple script to clear cart count on thank you page
         document.addEventListener('DOMContentLoaded', () => {
-            localStorage.removeItem('cart'); // Assuming cart is in localStorage
+            localStorage.removeItem('cart');
             const count = document.getElementById('cart-count');
             if(count) count.textContent = '0';
         });
