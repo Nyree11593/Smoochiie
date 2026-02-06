@@ -6,7 +6,7 @@
     <title>Thank You - SMOOCHIIE™</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet"/>
     <style>
         :root {
             --bg-dark: #0a0a0f;
@@ -22,7 +22,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
             background: url('refund_policy_background.png') no-repeat center center fixed;
             background-size: cover;
             color: #e8e8ea;
@@ -39,48 +38,85 @@
         main {
             flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
-        }
-
-        .thank-you-card {
-            width: 100%;
-            max-width: 1000px;
-            position: relative;
+            padding: 20px;
             text-align: center;
         }
 
-        /* The exact image provided by the user */
-        .thank-you-image {
+        .wax-seal-header {
             width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 20px rgba(163, 30, 30, 0.2);
-            border: 1px solid #333;
-        }
-
-        /* Overlaying the functional button over the image's button area */
-        .button-overlay {
-            position: absolute;
-            bottom: 8%; /* Positioned over the "Continue Shopping" button in the image */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30%; /* Adjust based on image button width */
-            height: 10%; /* Adjust based on image button height */
-            cursor: pointer;
+            max-width: 800px;
+            margin-bottom: -20px; /* Overlap slightly for depth */
             z-index: 20;
         }
 
-        .button-overlay a {
-            display: block;
-            width: 100%;
-            height: 100%;
-            text-indent: -9999px; /* Hide text, just make it a clickable area */
+        .thank-you-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 6rem;
+            color: #e63946;
+            text-shadow: 0 0 20px rgba(230, 57, 70, 0.6), 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 0;
+            line-height: 1;
         }
 
-        footer { background: #000; border-top: 4px solid #000; padding: 40px 0; }
+        .confirmed-subtitle {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: none;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .divider {
+            width: 40%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            margin: 20px auto;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 10px auto;
+            line-height: 1.6;
+        }
+
+        .btn-container {
+            margin-top: 50px;
+        }
+
+        .continue-btn {
+            display: inline-block;
+            background: linear-gradient(180deg, #c62828 0%, #8e0000 100%);
+            color: white;
+            padding: 16px 60px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.4rem;
+            text-transform: none;
+            border: 2px solid #5d0000;
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.3), 0 10px 20px rgba(0,0,0,0.6);
+            transition: all 0.3s ease;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: inset 0 1px 3px rgba(255,255,255,0.4), 0 15px 25px rgba(198, 40, 40, 0.4);
+            filter: brightness(1.1);
+        }
+
+        footer { background: #000; border-top: 4px solid #000; padding: 40px 0; margin-top: auto; }
+
+        @media (max-width: 768px) {
+            .thank-you-title { font-size: 4rem; }
+            .confirmed-subtitle { font-size: 1.8rem; }
+            .continue-btn { padding: 12px 40px; font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
@@ -111,14 +147,19 @@
     </nav>
 
     <main>
-        <div class="thank-you-card">
-            <!-- Using the exact image provided which already contains the wax seal -->
-            <img src="ChatGPT Image Feb 5, 2026, 06_15_28 PM.png" alt="Thank You - Order Confirmed" class="thank-you-image">
+        <!-- Wax Seal Ribbon Header Image -->
+        <img src="Wax Seal Ribbon Header.png" alt="SMOOCHIIE Seal" class="wax-seal-header">
 
-            <!-- Invisible functional link over the image's button -->
-            <div class="button-overlay">
-                <a href="index.html">Continue Shopping</a>
-            </div>
+        <h1 class="thank-you-title">Thank You!</h1>
+        <h2 class="confirmed-subtitle">Your Order is Confirmed!</h2>
+
+        <div class="divider"></div>
+
+        <p class="message">A confirmation email has been sent to you.</p>
+        <p class="message">We are processing your order and will notify you when it's on the way.</p>
+
+        <div class="btn-container">
+            <a href="index.html" class="continue-btn">Continue Shopping</a>
         </div>
     </main>
 
