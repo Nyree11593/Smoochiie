@@ -574,7 +574,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (searchInput) searchInput.addEventListener('input', applyFilters);
+    if (searchInput) {
+        searchInput.addEventListener('input', applyFilters);
+        
+        // Close modal when pressing Enter
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                searchModal.style.display = 'none';
+            }
+        });
+    }
     checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
 
     // Handle URL search param from index.html
