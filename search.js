@@ -4,12 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeSearch = document.getElementById('close-search');
   const searchInput = document.getElementById('search-input');
 
-  // If a page doesn't include the modal markup, don't crash
+  // Elements only exist if the page includes the search UI
   if (!searchBtn || !searchModal || !closeSearch || !searchInput) return;
 
-  // Cards + filters only exist on shop pages; on other pages we can redirect
-  const cards = document.querySelectorAll('.card');
-  const checkboxes = document.querySelectorAll('aside input[type="checkbox"]');
+  const cards = Array.from(document.querySelectorAll('.card'));
+  const hasCards = cards.length > 0;
 
   const openModal = (e) => {
     if (e) e.preventDefault();
@@ -21,6 +20,30 @@ document.addEventListener('DOMContentLoaded', () => {
     searchModal.style.display = 'none';
   };
 
+  const applyFilterOnShopPage = (query) => {
+    const q = (query || '').trim().toLowerCase();
+    // If no query, show everything
+    if (!q) {
+      cards.forEach(card => card.style.display = '');
+      return;
+    }
+
+    cards.forEach(card => {
+      // Try common patterns for your shop cards
+      const nameEl = card.querySelector('.name') || card.querySelector('h3') || card.querySelector('h4');
+      const name = (nameEl ? nameEl.textContent : '').toLowerCase();
+      const category = (card.getAttribute('data-category') || '').toLowerCase();
+
+      const matches = name.includes(q) || category.includes(q);
+      card.style.display = matches ? '' : 'none';
+    });
+
+    // Optional: scroll to first visible match
+    const firstVisible = cards.find(c => c.style.display !== 'none');
+    if (firstVisible) firstVisible.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  // Open/close wiring
   searchBtn.addEventListener('click', openModal);
   closeSearch.addEventListener('click', closeModal);
 
@@ -28,53 +51,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === searchModal) closeModal();
   });
 
-  function applyFilters() {
-    const query = searchInput.value.toLowerCase();
-
-    // If this page has character cards, filter them (same behavior as shop-characters.html)
-    if (cards.length) {
-      const activeTypes = Array.from(checkboxes)
-        .filter(i => i.checked)
-        .map(i => i.value.toLowerCase());
-
-      cards.forEach(card => {
-        const name = card.querySelector('.name')?.textContent.toLowerCase() || "";
-        const category = card.getAttribute('data-category')?.toLowerCase() || "";
-
-        const matchesSearch = name.includes(query);
-        const matchesType = activeTypes.length === 0 || activeTypes.some(type => category.includes(type));
-
-        card.style.display = (matchesSearch && matchesType) ? 'block' : 'none';
-      });
-
-      return;
-    }
-
-    // If this page has NO cards, pressing Enter will jump to Shop Characters with the search pre-filled
-    // (so search still “works” everywhere)
-  }
-
-  searchInput.addEventListener('input', applyFilters);
-
-  searchInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      // If we're not on a page with cards, redirect search to shop-characters
-      if (!cards.length) {
-        const q = encodeURIComponent(searchInput.value.trim());
-        window.location.href = `shop-characters.html?search=${q}`;
-        return;
-      }
-      closeModal();
-    }
-    if (e.key === 'Escape') closeModal();
+  // Behavior:
+  // - On SHOP page (cards exist): live-filter as you type.
+  // - On NON-shop pages (no cards): pressing Enter redirects to shop-characters.html?search=...
+  searchInput.addEventListener('input', () => {
+    if (hasCards) applyFilterOnShopPage(searchInput.value);
   });
 
-  checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
 
-  // Handle URL search param (works on shop-characters.html)
+    if (e.key === 'Enter') {
+      const q = searchInput.value.trim();
+      if (!q) return;
+
+      if (hasCards) {
+        // Already filtered live; just close
+        closeModal();
+      } else {
+        // Redirect to shop page with query
+        const encoded = encodeURIComponent(q);
+        window.location.href = `shop-characters.html?search=${encoded}`;
+      }
+    }
+  });
+
+  // If we land on shop-characters.html with ?search=, auto-apply filter
   const params = new URLSearchParams(window.location.search);
-  if (params.has('search')) {
-    searchInput.value = params.get('search');
-    applyFilters();
+  const qParam = params.get('search');
+  if (qParam && hasCards) {
+    // Optionally open the modal on arrival:
+    // searchModal.style.display = 'flex';
+    searchInput.value = qParam;
+    applyFilterOnShopPage(qParam);
   }
 });
