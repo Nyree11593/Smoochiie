@@ -1,994 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>Shop Characters - Smoochiie</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
-    <style>
-        :root {
-            --bg-dark: #0a0a0f;
-            --red-gradient-start: #650304;
-            --red-gradient-end: #a31e1e;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            background: linear-gradient(135deg, #0a0a0f 0%, #15151e 50%, #0a0a0f 100%);
-            color: #e8e8ea;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        nav {
-            background: rgba(10, 10, 15, 0.9);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .container-custom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-        .text-gradient-red {
-            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
-        }
-        .page-content {
-            display: flex;
-            gap: 24px;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        aside {
-            width: 220px;
-            background: #15151e;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            border-radius: 12px;
-            padding: 20px;
-            font-size: 14px;
-            color: #e8e8ea;
-        }
-        aside h3 {
-            font-weight: 900;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            color: var(--red-gradient-end);
-            margin-top: 20px;
-        }
-        aside h3:first-child { margin-top: 0; }
-        aside label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            cursor: pointer;
-        }
-        aside input[type="checkbox"] {
-            accent-color: var(--red-gradient-end);
-        }
-        .character-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px 20px;
-            align-items: start;
-        }
-        .card {
-            background: #15151e;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            position: relative;
-            color: #e8e8ea;
-        }
-        .card img {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: contain;
-            margin: 0 auto 8px auto;
-            border-radius: 8px;
-            background: var(--bg-dark);
-            padding: 8px;
-        }
-        .card .label {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--red-gradient-end);
-            color: #000;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 2px 6px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-        .card .name {
-            font-weight: 900;
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .card .price {
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--red-gradient-end);
-            margin-bottom: 10px;
-        }
-        .add-btn { 
-            display: block;
-            width: 100%;
-            background: #a31e1e; 
-            color: #000; 
-            border: none; 
-            padding: 8px 5px; 
-            border-radius: 8px; 
-            font-weight: 900; 
-            text-transform: uppercase;
-            font-size: 12px;
-            cursor: pointer; 
-        }
-        .add-btn:hover {
-            background: #c52525;
-        }
-        #cart-count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: #a31e1e;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 999px;
-            font-weight: 900;
-            transition: transform 0.2s;
-        }
-        #mini-cart {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 350px;
-            background: rgba(15, 15, 20, 0.98);
-            backdrop-filter: blur(15px);
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 20px;
-            display: none;
-            z-index: 1000;
-            margin-top: 10px;
-            color: white;
-            border-radius: 12px;
-        }
-        .cart-item-mini {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #222;
-        }
-        .cart-item-mini img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border: 1px solid #444;
-            border-radius: 8px;
-        }
-        .cart-item-info h4 {
-            font-size: 0.85rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin: 0;
-        }
-        .cart-item-info p {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            margin: 4px 0;
-        }
-        .proceed-btn {
-            width: 100%;
-            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
-            color: white;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 12px;
-            text-align: center;
-            display: block;
-            margin-top: 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #9ca3af;
-            margin-top: 10px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Shop Characters - Smoochiie</title>
+
+  <!-- Tailwind + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --red-gradient-start: #650304;
+      --red-gradient-end: #a31e1e;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      background: linear-gradient(135deg, #0a0a0f 0%, #15151e 50%, #0a0a0f 100%);
+      color: #e8e8ea;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    nav {
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container-custom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+    .text-gradient-red {
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
+    }
+    .page-content {
+      display: flex;
+      gap: 24px;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    aside {
+      width: 220px;
+      background: #15151e;
+      border: 3px solid #000;
+      box-shadow: 8px 8px 0px #000;
+      border-radius: 12px;
+      padding: 20px;
+      font-size: 14px;
+      color: #e8e8ea;
+    }
+    aside h3 {
+      font-weight: 900;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      color: var(--red-gradient-end);
+      margin-top: 20px;
+    }
+    aside h3:first-child { margin-top: 0; }
+    aside label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    aside input[type="checkbox"] {
+      accent-color: var(--red-gradient-end);
+    }
+    .character-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px 20px;
+      align-items: start;
+    }
+    .card {
+      background: #15151e;
+      border: 3px solid #000;
+      box-shadow: 8px 8px 0px #000;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      position: relative;
+      color: #e8e8ea;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: contain;
+      margin: 0 auto 8px auto;
+      border-radius: 8px;
+      background: var(--bg-dark);
+      padding: 8px;
+    }
+    .card .label {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--red-gradient-end);
+      color: #000;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .card .name {
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .card .price {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--red-gradient-end);
+      margin-bottom: 10px;
+    }
+    .add-btn {
+      display: block;
+      width: 100%;
+      background: #a31e1e;
+      color: #000;
+      border: none;
+      padding: 8px 5px;
+      border-radius: 8px;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .add-btn:hover {
+      background: #c52525;
+    }
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #a31e1e;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: transform 0.2s;
+    }
+    #mini-cart {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 350px;
+      background: rgba(15, 15, 20, 0.98);
+      backdrop-filter: blur(15px);
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      padding: 20px;
+      display: none;
+      z-index: 1000;
+      margin-top: 10px;
+      color: white;
+      border-radius: 12px;
+    }
+    .cart-item-mini {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #222;
+    }
+    .cart-item-mini img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #444;
+      border-radius: 8px;
+    }
+    .cart-item-info h4 {
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .cart-item-info p {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin: 4px 0;
+    }
+    .proceed-btn {
+      width: 100%;
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      color: white;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 12px;
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .continue-shopping {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-top: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <nav class="py-4">
-        <div class="container-custom flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tighter flex items-center">
-                <span class="text-white uppercase">SMOOCHIIE™</span>
-                <span class="text-gradient-red ml-1">💋</span>
+
+  <!-- NAVBAR -->
+  <nav class="py-4">
+    <div class="container-custom flex justify-between items-center">
+      <div class="text-2xl font-black tracking-tighter flex items-center">
+        <span class="text-white uppercase">SMOOCHIIE™</span>
+        <span class="text-gradient-red ml-1">💋</span>
+      </div>
+
+      <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+        <a class="hover:text-white transition" href="#">Home</a>
+        <a class="hover:text-white transition font-black text-white" href="#">Shop Characters</a>
+        <a class="hover:text-white transition" href="#">Refund Policy</a>
+        <a class="hover:text-white transition" href="#">FAQ</a>
+      </div>
+
+      <div class="flex items-center space-x-8 text-white">
+        <i id="search-btn" class="fas fa-search text-lg cursor-pointer"></i>
+
+        <!-- CART ICON + MINI CART -->
+        <div class="relative" id="cart-icon-container" style="cursor:pointer">
+          <i class="fas fa-shopping-cart text-xl"></i>
+          <span id="cart-count">0</span>
+
+          <div id="mini-cart">
+            <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+            <div id="mini-cart-items"></div>
+            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+              <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+              <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
             </div>
-            <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
-                <a class="hover:text-white transition" href="#">Home</a>
-                <a class="hover:text-white transition font-black text-white" href="#">Shop Characters</a>
-                <a class="hover:text-white transition" href="#">Refund Policy</a>
-                <a class="hover:text-white transition" href="#">FAQ</a>
-            </div>
-            <div class="flex items-center space-x-8 text-white">
-                <i id="search-btn" class="fas fa-search text-lg cursor-pointer"></i>
-                <div class="relative" id="cart-icon-container" style="cursor:pointer">
-                    <i class="fas fa-shopping-cart text-xl"></i>
-                    <span id="cart-count">0</span>
-                    <div id="mini-cart">
-                        <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
-                        <div id="mini-cart-items"></div>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
-                            <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
-                            <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
-                        </div>
-                        <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-                        <span class="continue-shopping" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
-                        <span class="continue-shopping">Continue Shopping</span>
-                    </div>
-                </div>
-            </div>
+            <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+            <span class="continue-shopping" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+            <span class="continue-shopping">Continue Shopping</span>
+          </div>
         </div>
-    </nav>
-
-    <main class="page-content">
-        <aside>
-            <h3>Category</h3>
-            <label><input type="checkbox" value="Hospital"/> Hospital Workers</label>
-            <div style="padding-left: 16px;">
-                <label><input type="checkbox" value="Nurse"/> Nurse</label>
-                <label><input type="checkbox" value="Ultrasound"/> Ultrasound Tech</label>
-                <label><input type="checkbox" value="X-Ray"/> X-Ray / CT / MRI</label>
-                <label><input type="checkbox" value="Doctors"/> More In Healthcare</label>
-            </div>
-
-            <h3>Fantasy</h3>
-            <label><input type="checkbox" value="Dragons"/> Dragons</label>
-            <label><input type="checkbox" value="Vampire"/> Vampire</label>
-            <label><input type="checkbox" value="Fairies/Fae"/> Fairies/Fae</label>
-            <label><input type="checkbox" value="Mermaids"/> Mermaids</label>
-            <label><input type="checkbox" value="Witches"/> Witches</label>
-
-            <h3>Smoochiie Originals</h3>
-            <label><input type="checkbox" value="Caricature"/> Caricature</label>
-            <label><input type="checkbox" value="Funny"/> Funny</label>
-            <label><input type="checkbox" value="Chibi Series"/> Chibi Series</label>
-
-            <h3>Seasonal/Holidays</h3>
-            <label><input type="checkbox" value="Christmas"/> Christmas</label>
-            <label><input type="checkbox" value="Halloween"/> Halloween</label>
-            <label><input type="checkbox" value="Valentines"/> Valentines Day</label>
-            <label><input type="checkbox" value="Seasons"/> Seasons</label>
-
-            <h3>Shop By Theme</h3>
-            <label><input type="checkbox" value="Astrology"/> Astrology</label>
-
-            <h3>Tags</h3>
-            <label><input type="checkbox" value="New"/> New</label>
-            <label><input type="checkbox" value="Best"/> Best Seller</label>
-            <label><input type="checkbox" value="Limited"/> Limited</label>
-            <label><input type="checkbox" value="Customizable"/> Customizable</label>
-        </aside>
-
-        <section class="character-grid">
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse"/>
-                <div class="name">Nurse Character</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Nurse Character" data-price="12.99" data-image="nurse_character.png">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Pediatric Nurse" src="https://placehold.co/300x300?text=Peds+Nurse"/>
-                <div class="name">Pediatric Nurse</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Pediatric Nurse" data-price="12.99" data-image="https://placehold.co/300x300?text=Peds+Nurse">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="ICU Nurse" src="https://placehold.co/300x300?text=ICU+Nurse"/>
-                <div class="name">ICU Nurse</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="ICU Nurse" data-price="12.99" data-image="https://placehold.co/300x300?text=ICU+Nurse">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital ultrasound">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound"/>
-                <div class="name">Ultrasound Tech</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Ultrasound Tech" data-price="12.99" data-image="https://placehold.co/300x300?text=Ultrasound">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital x-ray">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray"/>
-                <div class="name">X-Ray / CT / MRI</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="12.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
-            </div>
-            <div class="card" data-category="fantasy dragons">
-                <div class="label">FANTASY</div>
-                <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon"/>
-                <div class="name">Dragon Character</div>
-                <div class="price">$14.99</div>
-                <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
-            </div>
-            <div class="card" data-category="originals funny">
-                <div class="label">ORIGINALS</div>
-                <img alt="Funny" src="https://placehold.co/300x300?text=Funny"/>
-                <div class="name">Funny Character</div>
-                <div class="price">$11.99</div>
-                <button class="add-btn" data-name="Funny Character" data-price="11.99" data-image="https://placehold.co/300x300?text=Funny">Add to Cart</button>
-            </div>
-            <div class="card" data-category="tags new">
-                <div class="label">NEW</div>
-                <img alt="New" src="https://placehold.co/300x300?text=New"/>
-                <div class="name">New Arrival</div>
-                <div class="price">$13.99</div>
-                <button class="add-btn" data-name="New Arrival" data-price="13.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
-            </div>
-        </section>
-    </main>
-
-    <div id="search-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10001;">
-        <div style="background: #15151e; border: 3px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; text-align: center;">
-            <span id="close-search" style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: white;">×</span>
-            <h2 style="font-weight: 900; text-transform: uppercase; color: #a31e1e; margin-bottom: 15px;">Search Characters</h2>
-            <input id="search-input" style="width: 100%; padding: 12px; background: #0a0a0f; border: 2px solid #000; border-radius: 8px; color: #fff;" placeholder="Type to search..." type="text"/>
-        </div>
+      </div>
     </div>
+  </nav>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchBtn = document.getElementById('search-btn');
-            const searchModal = document.getElementById('search-modal');
-            const closeSearch = document.getElementById('close-search');
-            const searchInput = document.getElementById('search-input');
-            const checkboxes = document.querySelectorAll('aside input[type="checkbox"]');
-            const cards = document.querySelectorAll('.card');
+  <!-- MAIN CONTENT -->
+  <main class="page-content">
+    <aside>
+      <h3>Category</h3>
+      <label><input type="checkbox" value="Hospital" /> Hospital Workers</label>
+      <div style="padding-left: 16px;">
+        <label><input type="checkbox" value="Nurse" /> Nurse</label>
+        <label><input type="checkbox" value="Ultrasound" /> Ultrasound Tech</label>
+        <label><input type="checkbox" value="X-Ray" /> X-Ray / CT / MRI</label>
+        <label><input type="checkbox" value="Doctors" /> More In Healthcare</label>
+      </div>
 
-            searchBtn.addEventListener('click', () => searchModal.style.display = 'flex');
-            closeSearch.addEventListener('click', () => searchModal.style.display = 'none');
+      <h3>Fantasy</h3>
+      <label><input type="checkbox" value="Dragons" /> Dragons</label>
+      <label><input type="checkbox" value="Vampire" /> Vampire</label>
+      <label><input type="checkbox" value="Fairies/Fae" /> Fairies/Fae</label>
+      <label><input type="checkbox" value="Mermaids" /> Mermaids</label>
+      <label><input type="checkbox" value="Witches" /> Witches</label>
 
-            function applyFilters() {
-                const query = searchInput.value.toLowerCase();
-                const activeTypes = Array.from(checkboxes).filter(i => i.checked).map(i => i.value.toLowerCase());
+      <h3>Smoochiie Originals</h3>
+      <label><input type="checkbox" value="Caricature" /> Caricature</label>
+      <label><input type="checkbox" value="Funny" /> Funny</label>
+      <label><input type="checkbox" value="Chibi Series" /> Chibi Series</label>
 
-                cards.forEach(card => {
-                    const name = card.querySelector('.name').textContent.toLowerCase();
-                    const category = card.getAttribute('data-category').toLowerCase();
-                    const matchesSearch = name.includes(query);
-                    const matchesType = activeTypes.length === 0 || activeTypes.some(type => category.includes(type));
-                    card.style.display = (matchesSearch && matchesType) ? 'block' : 'none';
-                });
-            }
+      <h3>Seasonal/Holidays</h3>
+      <label><input type="checkbox" value="Christmas" /> Christmas</label>
+      <label><input type="checkbox" value="Halloween" /> Halloween</label>
+      <label><input type="checkbox" value="Valentines" /> Valentines Day</label>
+      <label><input type="checkbox" value="Seasons" /> Seasons</label>
 
-            searchInput.addEventListener('input', applyFilters);
-            checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+      <h3>Shop By Theme</h3>
+      <label><input type="checkbox" value="Astrology" /> Astrology</label>
+
+      <h3>Tags</h3>
+      <label><input type="checkbox" value="New" /> New</label>
+      <label><input type="checkbox" value="Best" /> Best Seller</label>
+      <label><input type="checkbox" value="Limited" /> Limited</label>
+      <label><input type="checkbox" value="Customizable" /> Customizable</label>
+    </aside>
+
+    <!-- ONE clean grid for all cards -->
+    <section class="character-grid">
+      <!-- HOSPITAL WORKERS -->
+      <div class="card" data-category="hospital nurse">
+        <div class="label">HOSPITAL WORKERS</div>
+        <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse" />
+        <div class="name">Nurse Character</div>
+        <div class="price">$12.99</div>
+        <button class="add-btn" data-name="Nurse Character" data-price="12.99" data-image="https://placehold.co/300x300?text=Nurse">Add to Cart</button>
+      </div>
+
+      <div class="card" data-category="hospital ultrasound">
+        <div class="label">HOSPITAL WORKERS</div>
+        <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound" />
+        <div class="name">Ultrasound Tech</div>
+        <div class="price">$12.99</div>
+        <button class="add-btn" data-name="Ultrasound Tech" data-price="12.99" data-image="https://placehold.co/300x300?text=Ultrasound">Add to Cart</button>
+      </div>
+
+      <div class="card" data-category="hospital x-ray">
+        <div class="label">HOSPITAL WORKERS</div>
+        <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray" />
+        <div class="name">X-Ray / CT / MRI</div>
+        <div class="price">$12.99</div>
+        <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="12.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
+      </div>
+
+      <!-- FANTASY -->
+      <div class="card" data-category="fantasy dragons">
+        <div class="label">FANTASY</div>
+        <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon" />
+        <div class="name">Dragon Character</div>
+        <div class="price">$14.99</div>
+        <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
+      </div>
+
+      <div class="card" data-category="fantasy vampire">
+        <div class="label">FANTASY</div>
+        <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
+        <div class="name">Vampire Character</div>
+        <div class="price">$14.99</div>
+        <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
+      </div>
+
+      <!-- SMOOCHIIE ORIGINALS -->
+      <div class="card" data-category="originals caricature">
+        <div class="label">ORIGINALS</div>
+        <img alt="Caricature" src="https://placehold.co/300x300?text=Caricature" />
+        <div class="name">Caricature Character</div>
+        <div class="price">$13.99</div>
+        <button class="add-btn" data-name="Caricature Character" data-price="13.99" data-image="https://placehold.co/300x300?text=Caricature">Add to Cart</button>
+      </div>
+
+      <div class="card" data-category="originals funny">
+        <div class="label">ORIGINALS</div>
+        <img alt="Funny" src="https://placehold.co/300x300?text=Funny" />
+        <div class="name">Funny Character</div>
+        <div class="price">$11.99</div>
+        <button class="add-btn" data-name="Funny Character" data-price="11.99" data-image="https://placehold.co/300x300?text=Funny">Add to Cart</button>
+      </div>
+
+      <!-- SEASONAL -->
+      <div class="card" data-category="seasonal halloween">
+        <div class="label">SEASONAL</div>
+        <img alt="Halloween" src="https://placehold.co/300x300?text=Halloween" />
+        <div class="name">Spooky Character</div>
+        <div class="price">$12.99</div>
+        <button class="add-btn" data-name="Spooky Character" data-price="12.99" data-image="https://placehold.co/300x300?text=Halloween">Add to Cart</button>
+      </div>
+
+      <!-- TAGS -->
+      <div class="card" data-category="tags new">
+        <div class="label">NEW</div>
+        <img alt="New" src="https://placehold.co/300x300?text=New" />
+        <div class="name">New Arrival</div>
+        <div class="price">$13.99</div>
+        <button class="add-btn" data-name="New Arrival" data-price="13.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10001;">
+    <div style="background: #15151e; border: 3px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; text-align: center;">
+      <span id="close-search" style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: white;">×</span>
+      <h2 style="font-weight: 900; text-transform: uppercase; color: #a31e1e; margin-bottom: 15px;">Search Characters</h2>
+      <input id="search-input" style="width: 100%; padding: 12px; background: #0a0a0f; border: 2px solid #000; border-radius: 8px; color: #fff;" placeholder="Type to search..." type="text" />
+    </div>
+  </div>
+
+  <!-- SEARCH + FILTER SCRIPT -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchBtn = document.getElementById('search-btn');
+      const searchModal = document.getElementById('search-modal');
+      const closeSearch = document.getElementById('close-search');
+      const searchInput = document.getElementById('search-input');
+      const checkboxes = document.querySelectorAll('aside input[type="checkbox"]');
+      const cards = document.querySelectorAll('.card');
+
+      searchBtn.addEventListener('click', () => searchModal.style.display = 'flex');
+      closeSearch.addEventListener('click', () => searchModal.style.display = 'none');
+
+      function applyFilters() {
+        const query = searchInput.value.toLowerCase();
+        const activeTypes = Array.from(checkboxes).filter(i => i.checked).map(i => i.value.toLowerCase());
+
+        cards.forEach(card => {
+          const name = card.querySelector('.name').textContent.toLowerCase();
+          const category = card.getAttribute('data-category').toLowerCase();
+          const matchesSearch = name.includes(query);
+          const matchesType = activeTypes.length === 0 || activeTypes.some(type => category.includes(type));
+          card.style.display = (matchesSearch && matchesType) ? 'block' : 'none';
         });
-    </script>
+      }
 
-    <script>
-        /* cart.js — SMOOCHiiE unified cart (stable toggle + remove + bag/checkout sync) */
-        (() => {
-          const CART_KEY = "smoochiie_cart";
+      searchInput.addEventListener('input', applyFilters);
+      checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
 
-          const $ = (sel, root = document) => root.querySelector(sel);
-          const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+      // optional: support ?search=
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('search')) {
+        searchInput.value = params.get('search');
+        applyFilters();
+      }
+    });
+  </script>
 
-          const safeParse = (s, fallback) => { try { return JSON.parse(s); } catch { return fallback; } };
-          const money = (n) => "$" + (Number(n || 0)).toFixed(2);
-          const parsePrice = (raw) => {
-            if (raw == null) return NaN;
-            const s = String(raw).replace(/[^0-9.]/g, "");
-            const v = parseFloat(s);
-            return Number.isFinite(v) ? v : NaN;
-          };
-
-          const toast = (msg) => {
-            let el = $("#cart-toast");
-            if (!el) {
-              el = document.createElement("div");
-              el.id = "cart-toast";
-              el.style.cssText =
-                "position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:9999;" +
-                "background:rgba(15,15,20,0.95);color:#fff;padding:10px 14px;border:1px solid #333;" +
-                "border-radius:10px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;font-size:12px;" +
-                "box-shadow:0 10px 30px rgba(0,0,0,.55);opacity:0;transition:opacity .18s ease";
-              document.body.appendChild(el);
-            }
-            el.textContent = msg;
-            el.style.opacity = "1";
-            clearTimeout(el._t);
-            el._t = setTimeout(() => (el.style.opacity = "0"), 1400);
-          };
-
-          const getCart = () => safeParse(localStorage.getItem(CART_KEY), []);
-          const setCart = (cart) => localStorage.setItem(CART_KEY, JSON.stringify(cart));
-          const cartTotal = (cart) => cart.reduce((sum, it) => sum + (Number(it.price)||0) * (Number(it.qty)||1), 0);
-
-          const normalizeItem = ({ name, price, image }) => {
-            const cleanName = (name || "").trim();
-            const p = Number(price);
-            const cleanImage = (image || "").trim();
-            if (!cleanName) return null;
-            if (!Number.isFinite(p)) return null;
-            const id = (cleanName + "|" + p + "|" + cleanImage).toLowerCase();
-            return { id, name: cleanName, price: p, image: cleanImage, qty: 1 };
-          };
-
-          const isMiniOpen = () => {
-            const mini = $("#mini-cart");
-            return !!mini && mini.style.display === "block";
-          };
-
-          const openMini = () => {
-            const mini = $("#mini-cart");
-            if (!mini) return;
-            mini.style.display = "block";
-          };
-
-          const closeMini = () => {
-            const mini = $("#mini-cart");
-            if (!mini) return;
-            mini.style.display = "none";
-          };
-
-          const toggleMini = () => (isMiniOpen() ? closeMini() : openMini());
-
-          window.toggleCart = toggleMini;
-
-          const updateCount = (cart) => {
-            const el = $("#cart-count");
-            if (!el) return;
-            const count = cart.reduce((n, it) => n + (Number(it.qty)||1), 0);
-            el.textContent = String(count);
-            el.style.transform = "scale(1.15)";
-            clearTimeout(el._t);
-            el._t = setTimeout(() => (el.style.transform = "scale(1)"), 140);
-          };
-
-          const renderMini = (cart) => {
-            const wrap = $("#mini-cart-items");
-            const subEl = $("#mini-cart-subtotal");
-            if (!wrap || !subEl) return;
-
-            wrap.innerHTML = "";
-            cart.forEach((it) => {
-              const row = document.createElement("div");
-              row.className = "cart-item-mini";
-              row.innerHTML = `
-                <img src="${it.image || "https://placehold.co/60x60"}" alt="${it.name}">
-                <div class="cart-item-info" style="flex:1">
-                  <h4>${it.name}</h4>
-                  <p>${money(it.price)} × ${it.qty}</p>
-                </div>
-                <button class="remove-mini remove-btn" data-id="${it.id}"
-                  style="background:none;border:none;color:#a31e1e;font-weight:900;text-transform:uppercase;cursor:pointer;font-size:11px;">Remove</button>
-              `;
-              wrap.appendChild(row);
-            });
-
-            subEl.textContent = money(cartTotal(cart));
-          };
-
-          const updateUI = () => {
-            const cart = getCart();
-            updateCount(cart);
-            renderMini(cart);
-          };
-
-          const addFromButton = (btn) => {
-            let name = btn.getAttribute("data-name");
-            let priceRaw = btn.getAttribute("data-price");
-            let image = btn.getAttribute("data-image");
-
-            if (!name || !priceRaw) {
-              const card = btn.closest(".card, .product-card, .product, .item, .grid-item");
-              if (card) {
-                if (!name) {
-                  const nameEl = card.querySelector(".name, .title, h3, h2");
-                  if (nameEl) name = nameEl.textContent.trim();
-                }
-                if (!priceRaw) {
-                  const priceEl = card.querySelector(".price, .amount, [data-price]");
-                  if (priceEl) priceRaw = priceEl.getAttribute("data-price") || priceEl.textContent;
-                }
-                if (!image) {
-                  const img = card.querySelector("img");
-                  if (img) image = img.getAttribute("src");
-                }
-              }
-            }
-
-            const price = parsePrice(priceRaw);
-            const item = normalizeItem({ name, price, image });
-            if (!item) {
-              toast("This item needs a price");
-              return;
-            }
-
-            const cart = getCart();
-            const existing = cart.find((x) => x.id === item.id);
-            if (existing) existing.qty += 1;
-            else cart.push(item);
-
-            setCart(cart);
-            updateUI();
-            openMini();
-            toast("Added to bag");
-          };
-
-          const removeById = (id) => {
-            const next = getCart().filter((x) => x.id !== id);
-            setCart(next);
-            updateUI();
-          };
-
-          const clearCart = () => {
-            setCart([]);
-            updateUI();
-            toast("Cart cleared");
-          };
-
-          window.clearCart = clearCart;
-
-          const init = () => {
-            if ($("#mini-cart")) closeMini();
-
-            const iconWrap = $("#cart-icon-container");
-            if (iconWrap && iconWrap.getAttribute("onclick")) iconWrap.removeAttribute("onclick");
-
-            if (iconWrap) {
-              iconWrap.addEventListener("click", (e) => {
-                const mini = $("#mini-cart");
-                if (mini && mini.contains(e.target)) return;
-                toggleMini();
-              });
-            }
-
-            document.addEventListener("click", (e) => {
-              const mini = $("#mini-cart");
-              const icon = $("#cart-icon-container");
-              if (!mini) return;
-
-              const rm = e.target.closest(".remove-btn, .remove-mini");
-              if (rm && rm.getAttribute("data-id")) {
-                e.preventDefault();
-                removeById(rm.getAttribute("data-id"));
-                return;
-              }
-
-              const clr = e.target.closest(".continue-shopping, #clear-bag, #clear-cart");
-              if (clr) {
-                const txt = (clr.textContent || "").trim().toLowerCase();
-                if (txt.includes("clear")) {
-                  e.preventDefault();
-                  clearCart();
-                  return;
-                }
-              }
-
-              const addBtn = e.target.closest(".add-btn, .add-to-cart-btn, [data-add-to-cart]");
-              if (addBtn) {
-                e.preventDefault();
-                addFromButton(addBtn);
-                return;
-              }
-
-              if (isMiniOpen() && !mini.contains(e.target) && !(icon && icon.contains(e.target))) {
-                closeMini();
-              }
-            });
-
-            window.addEventListener("storage", (e) => {
-              if (e.key === CART_KEY) updateUI();
-            });
-
-            updateUI();
-          };
-
-          if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-          else init();
-        })();
-    </script>
+  <!-- YOUR EXISTING cart.js (external file) -->
+  <script src="cart.js" defer></script>
 </body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>Shop Characters - Smoochiie</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet"/>
-    <style>
-        :root {
-            --bg-dark: #0a0a0f;
-            --red-gradient-start: #650304;
-            --red-gradient-end: #a31e1e;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            background: linear-gradient(135deg, #0a0a0f 0%, #15151e 50%, #0a0a0f 100%);
-            color: #e8e8ea;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        nav {
-            background: rgba(10, 10, 15, 0.9);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .container-custom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-        .text-gradient-red {
-            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
-        }
-        .page-content {
-            display: flex;
-            gap: 24px;
-            padding: 40px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        aside {
-            width: 220px;
-            background: #15151e;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            border-radius: 12px;
-            padding: 20px;
-            font-size: 14px;
-            color: #e8e8ea;
-        }
-        aside h3 {
-            font-weight: 900;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            color: var(--red-gradient-end);
-            margin-top: 20px;
-        }
-        aside h3:first-child { margin-top: 0; }
-        aside label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-            cursor: pointer;
-        }
-        aside input[type="checkbox"] {
-            accent-color: var(--red-gradient-end);
-        }
-        .character-grid {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px 20px;
-            align-items: start;
-        }
-        .card {
-            background: #15151e;
-            border: 3px solid #000;
-            box-shadow: 8px 8px 0px #000;
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            position: relative;
-            color: #e8e8ea;
-        }
-        .card img {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: contain;
-            margin: 0 auto 8px auto;
-            border-radius: 8px;
-            background: var(--bg-dark);
-            padding: 8px;
-        }
-        .card .label {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background: var(--red-gradient-end);
-            color: #000;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 2px 6px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-        .card .name {
-            font-weight: 900;
-            font-size: 14px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-        .card .price {
-            font-weight: 700;
-            font-size: 16px;
-            color: var(--red-gradient-end);
-            margin-bottom: 10px;
-        }
-        .add-btn { 
-            display: block;
-            width: 100%;
-            background: #a31e1e; 
-            color: #000; 
-            border: none; 
-            padding: 8px 5px; 
-            border-radius: 8px; 
-            font-weight: 900; 
-            text-transform: uppercase;
-            font-size: 12px;
-            cursor: pointer; 
-        }
-        .add-btn:hover {
-            background: #c52525;
-        }
-        #cart-count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: #a31e1e;
-            color: white;
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 999px;
-            font-weight: 900;
-            transition: transform 0.2s;
-        }
-        #mini-cart {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            width: 350px;
-            background: rgba(15, 15, 20, 0.98);
-            backdrop-filter: blur(15px);
-            border: 1px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            padding: 20px;
-            display: none;
-            z-index: 1000;
-            margin-top: 10px;
-            color: white;
-            border-radius: 12px;
-        }
-        .cart-item-mini {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #222;
-        }
-        .cart-item-mini img {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border: 1px solid #444;
-            border-radius: 8px;
-        }
-        .cart-item-info h4 {
-            font-size: 0.85rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            margin: 0;
-        }
-        .cart-item-info p {
-            font-size: 0.8rem;
-            color: #9ca3af;
-            margin: 4px 0;
-        }
-        .proceed-btn {
-            width: 100%;
-            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
-            color: white;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 12px;
-            text-align: center;
-            display: block;
-            margin-top: 15px;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-        .continue-shopping {
-            display: block;
-            text-align: center;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #9ca3af;
-            margin-top: 10px;
-            text-decoration: underline;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <nav class="py-4">
-        <div class="container-custom flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tighter flex items-center">
-                <span class="text-white uppercase">SMOOCHIIE™</span>
-                <span class="text-gradient-red ml-1">💋</span>
-            </div>
-            <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
-                <a class="hover:text-white transition" href="#">Home</a>
-                <a class="hover:text-white transition font-black text-white" href="#">Shop Characters</a>
-                <a class="hover:text-white transition" href="#">Refund Policy</a>
-                <a class="hover:text-white transition" href="#">FAQ</a>
-            </div>
-            <div class="flex items-center space-x-8 text-white">
-                <i id="search-btn" class="fas fa-search text-lg cursor-pointer"></i>
-                <div class="relative" id="cart-icon-container" style="cursor:pointer">
-                    <i class="fas fa-shopping-cart text-xl"></i>
-                    <span id="cart-count">0</span>
-                    <div id="mini-cart">
-                        <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
-                        <div id="mini-cart-items"></div>
-                        <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
-                            <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
-                            <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
-                        </div>
-                        <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-                        <span class="continue-shopping" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
-                        <span class="continue-shopping">Continue Shopping</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="page-content">
-        <aside>
-            <h3>Category</h3>
-            <label><input type="checkbox" value="Hospital"/> Hospital Workers</label>
-            <div style="padding-left: 16px;">
-                <label><input type="checkbox" value="Nurse"/> Nurse</label>
-                <label><input type="checkbox" value="Ultrasound"/> Ultrasound Tech</label>
-                <label><input type="checkbox" value="X-Ray"/> X-Ray / CT / MRI</label>
-                <label><input type="checkbox" value="Doctors"/> More In Healthcare</label>
-            </div>
-
-            <h3>Fantasy</h3>
-            <label><input type="checkbox" value="Dragons"/> Dragons</label>
-            <label><input type="checkbox" value="Vampire"/> Vampire</label>
-            <label><input type="checkbox" value="Fairies/Fae"/> Fairies/Fae</label>
-            <label><input type="checkbox" value="Mermaids"/> Mermaids</label>
-            <label><input type="checkbox" value="Witches"/> Witches</label>
-
-            <h3>Smoochiie Originals</h3>
-            <label><input type="checkbox" value="Caricature"/> Caricature</label>
-            <label><input type="checkbox" value="Funny"/> Funny</label>
-            <label><input type="checkbox" value="Chibi Series"/> Chibi Series</label>
-
-            <h3>Seasonal/Holidays</h3>
-            <label><input type="checkbox" value="Christmas"/> Christmas</label>
-            <label><input type="checkbox" value="Halloween"/> Halloween</label>
-            <label><input type="checkbox" value="Valentines"/> Valentines Day</label>
-            <label><input type="checkbox" value="Seasons"/> Seasons</label>
-
-            <h3>Shop By Theme</h3>
-            <label><input type="checkbox" value="Astrology"/> Astrology</label>
-
-            <h3>Tags</h3>
-            <label><input type="checkbox" value="New"/> New</label>
-            <label><input type="checkbox" value="Best"/> Best Seller</label>
-            <label><input type="checkbox" value="Limited"/> Limited</label>
-            <label><input type="checkbox" value="Customizable"/> Customizable</label>
-        </aside>
-
-        <section class="character-grid">
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse"/>
-                <div class="name">Nurse Character</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Nurse Character" data-price="12.99" data-image="https://placehold.co/300x300?text=Nurse">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Pediatric Nurse" src="https://placehold.co/300x300?text=Peds+Nurse"/>
-                <div class="name">Pediatric Nurse</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Pediatric Nurse" data-price="12.99" data-image="https://placehold.co/300x300?text=Peds+Nurse">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital nurse">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="ICU Nurse" src="https://placehold.co/300x300?text=ICU+Nurse"/>
-                <div class="name">ICU Nurse</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="ICU Nurse" data-price="12.99" data-image="https://placehold.co/300x300?text=ICU+Nurse">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital ultrasound">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound"/>
-                <div class="name">Ultrasound Tech</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="Ultrasound Tech" data-price="12.99" data-image="https://placehold.co/300x300?text=Ultrasound">Add to Cart</button>
-            </div>
-            <div class="card" data-category="hospital x-ray">
-                <div class="label">HOSPITAL WORKERS</div>
-                <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray"/>
-                <div class="name">X-Ray / CT / MRI</div>
-                <div class="price">$12.99</div>
-                <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="12.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
-            </div>
-            <div class="card" data-category="fantasy dragons">
-                <div class="label">FANTASY</div>
-                <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon"/>
-                <div class="name">Dragon Character</div>
-                <div class="price">$14.99</div>
-                <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
-            </div>
-            <div class="card" data-category="originals funny">
-                <div class="label">ORIGINALS</div>
-                <img alt="Funny" src="https://placehold.co/300x300?text=Funny"/>
-                <div class="name">Funny Character</div>
-                <div class="price">$11.99</div>
-                <button class="add-btn" data-name="Funny Character" data-price="11.99" data-image="https://placehold.co/300x300?text=Funny">Add to Cart</button>
-            </div>
-            <div class="card" data-category="tags new">
-                <div class="label">NEW</div>
-                <img alt="New" src="https://placehold.co/300x300?text=New"/>
-                <div class="name">New Arrival</div>
-                <div class="price">$13.99</div>
-                <button class="add-btn" data-name="New Arrival" data-price="13.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
-            </div>
-        </section>
-    </main>
-
-    <div id="search-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10001;">
-        <div style="background: #15151e; border: 3px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; text-align: center;">
-            <span id="close-search" style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 24px; color: white;">×</span>
-            <h2 style="font-weight: 900; text-transform: uppercase; color: #a31e1e; margin-bottom: 15px;">Search Characters</h2>
-            <input id="search-input" style="width: 100%; padding: 12px; background: #0a0a0f; border: 2px solid #000; border-radius: 8px; color: #fff;" placeholder="Type to search..." type="text"/>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const searchBtn = document.getElementById('search-btn');
-            const searchModal = document.getElementById('search-modal');
-            const closeSearch = document.getElementById('close-search');
-            const searchInput = document.getElementById('search-input');
-  
+</html>
