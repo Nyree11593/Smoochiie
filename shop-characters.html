@@ -342,13 +342,13 @@
       <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
     </div>
 
-   <div class="card" data-category="fantasy vampire">
-  <div class="label">FANTASY</div>
-  <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
-  <div class="name">Vampire Character</div>
-  <div class="price">$14.99</div>
-  <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
-</div>
+    <div class="card" data-category="fantasy vampire">
+      <div class="label">FANTASY</div>
+      <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
+      <div class="name">Vampire Character</div>
+      <div class="price">$14.99</div>
+      <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
+    </div>
 
     <!-- SMOOCHIIE ORIGINALS -->
     <div class="card" data-category="originals caricature">
@@ -433,19 +433,26 @@
   <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
     <div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
       <button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
-      <h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:15px; font-size:1.25rem;">Item Name</h2>
+      
+      <h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:5px; font-size:1.25rem;">Item Name</h2>
+      <!-- Display the dynamic price here -->
+      <p id="modal-display-price" style="color:#a31e1e; font-weight:900; font-size:1.2rem; margin-bottom:15px;">$0.00</p>
+
       <div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
         <img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;"/>
       </div>
+
       <div style="text-align: left; margin-bottom: 20px;">
         <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
+        <!-- Added price modifiers to the values -->
         <select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
-          <option value="Badge Reel">Badge Reel</option>
-          <option value="Phone Grip">Phone Grip</option>
-          <option value="Magnet">Magnet</option>
-          <option value="Keychain">Keychain</option>
+          <option value="Badge Reel" data-add="0">Badge Reel (Base Price)</option>
+          <option value="Phone Grip" data-add="2.00">Phone Grip (+$2.00)</option>
+          <option value="Magnet" data-add="-1.00">Magnet (-$1.00)</option>
+          <option value="Keychain" data-add="1.50">Keychain (+$1.50)</option>
         </select>
       </div>
+
       <button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
       <button id="modal-continue" style="background:none; color:#a31e1e; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:12px; text-decoration:underline;">Continue Shopping</button>
     </div>
@@ -496,52 +503,63 @@
   <script>
     let currentProduct = {};
 
+    // Function to calculate and show the price in the modal
+    function updateModalPrice() {
+      const select = document.getElementById("modal-options");
+      const selectedOption = select.options[select.selectedIndex];
+      const priceAdd = parseFloat(selectedOption.getAttribute("data-add") || 0);
+      
+      const basePrice = parseFloat(currentProduct.basePrice);
+      const finalPrice = (basePrice + priceAdd).toFixed(2);
+      
+      document.getElementById("modal-display-price").textContent = `$${finalPrice}`;
+      currentProduct.currentCalculatedPrice = finalPrice;
+    }
+
     document.querySelectorAll('.add-btn').forEach(btn => {
-        btn.addEventListener("click", function(e) {
-            e.preventDefault();
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
 
-            // Store product temporarily
-            currentProduct = {
-                name: this.getAttribute("data-name"),
-                price: this.getAttribute("data-price"),
-                image: this.getAttribute("data-image")
-            };
+        currentProduct = {
+          name: this.getAttribute("data-name"),
+          basePrice: this.getAttribute("data-price"),
+          image: this.getAttribute("data-image")
+        };
 
-            // Fill modal content
-            document.getElementById("modal-name").textContent = currentProduct.name;
-            document.getElementById("modal-img").src = currentProduct.image;
+        document.getElementById("modal-name").textContent = currentProduct.name;
+        document.getElementById("modal-img").src = currentProduct.image;
+        
+        // Reset dropdown to first option and update price
+        document.getElementById("modal-options").selectedIndex = 0;
+        updateModalPrice();
 
-            // Open modal
-            document.getElementById("cart-modal").style.display = "flex";
-        });
+        document.getElementById("cart-modal").style.display = "flex";
+      });
     });
 
-    // Close button
+    // Listen for dropdown changes to update price live
+    document.getElementById("modal-options").addEventListener("change", updateModalPrice);
+
     document.getElementById("close-modal").addEventListener("click", () => {
-        document.getElementById("cart-modal").style.display = "none";
+      document.getElementById("cart-modal").style.display = "none";
     });
 
-    // Continue shopping
     document.getElementById("modal-continue").addEventListener("click", () => {
-        document.getElementById("cart-modal").style.display = "none";
+      document.getElementById("cart-modal").style.display = "none";
     });
 
-    // Add to cart with selected option
     document.getElementById("modal-checkout").addEventListener("click", () => {
-        const option = document.getElementById("modal-options").value;
+      const select = document.getElementById("modal-options");
+      const optionLabel = select.options[select.selectedIndex].value;
+      const finalName = `${currentProduct.name} (${optionLabel})`;
+      const finalPrice = currentProduct.currentCalculatedPrice;
 
-        // Final product name includes selected option
-        const finalName = `${currentProduct.name} (${option})`;
+      if (typeof addToCart === 'function') {
+        addToCart(finalName, finalPrice, currentProduct.image);
+      }
 
-        // Use existing cart.js logic
-        if (typeof addToCart === 'function') {
-            addToCart(finalName, currentProduct.price, currentProduct.image);
-        } else {
-            console.error("addToCart function not found in cart.js");
-        }
-
-        document.getElementById("cart-modal").style.display = "none";
-        alert(finalName + " added to your bag!");
+      document.getElementById("cart-modal").style.display = "none";
+      alert(`${finalName} added to your bag for $${finalPrice}!`);
     });
   </script>
 </body>
