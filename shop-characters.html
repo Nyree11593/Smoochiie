@@ -82,6 +82,7 @@
     aside input[type="checkbox"] {
       accent-color: var(--red-gradient-end);
     }
+
     .character-grid {
       flex: 1;
       display: grid;
@@ -163,6 +164,7 @@
     .add-btn:hover {
       background: #c52525;
     }
+
     #cart-count {
       position: absolute;
       top: -8px;
@@ -240,6 +242,19 @@
       margin-top: 10px;
       text-decoration: underline;
       cursor: pointer;
+    }
+
+    /* COLOR SWATCH STYLES */
+    .swatch {
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .swatch:hover {
+      transform: scale(1.1);
+    }
+    .swatch.active {
+      border-color: #a31e1e !important;
+      box-shadow: 0 0 10px rgba(163, 30, 30, 0.8);
+      transform: scale(1.2);
     }
   </style>
 </head>
@@ -333,7 +348,7 @@
         <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse" />
       </div>
       <div class="name">Nurse Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Nurse Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Nurse">Add to Cart</button>
     </div>
 
@@ -343,7 +358,7 @@
         <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound" />
       </div>
       <div class="name">Ultrasound Tech</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Ultrasound Tech" data-price="14.99" data-image="https://placehold.co/300x300?text=Ultrasound">Add to Cart</button>
     </div>
 
@@ -353,7 +368,7 @@
         <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray" />
       </div>
       <div class="name">X-Ray / CT / MRI</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="14.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
     </div>
 
@@ -364,7 +379,7 @@
         <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon" />
       </div>
       <div class="name">Dragon Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
     </div>
 
@@ -374,7 +389,7 @@
         <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
       </div>
       <div class="name">Vampire Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
     </div>
 
@@ -385,7 +400,7 @@
         <img alt="Caricature" src="hospital_worker_caricature.png" />
       </div>
       <div class="name">Custom Hospital Worker Caricature</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Custom Hospital Worker Caricature" data-price="19.99" data-image="hospital_worker_caricature.png">Add to Cart</button>
     </div>
 
@@ -395,7 +410,7 @@
         <img alt="Caricature" src="family_cartoon_caricature.png" />
       </div>
       <div class="name">Custom Family Caricature</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Custom Family Caricature" data-price="19.99" data-image="family_cartoon_caricature.png">Add to Cart</button>
     </div>
 
@@ -405,7 +420,7 @@
         <img alt="Caricature" src="Realistic_Caricature.png" />
       </div>
       <div class="name">Realistic Style Caricature</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Realistic Style Caricature" data-price="19.99" data-image="Realistic_Caricature.png">Add to Cart</button>
     </div>
     
@@ -415,7 +430,7 @@
         <img alt="Funny" src="https://placehold.co/300x300?text=Funny" />
       </div>
       <div class="name">Funny Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Funny Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Funny">Add to Cart</button>
     </div>
 
@@ -426,7 +441,7 @@
         <img alt="Halloween" src="https://placehold.co/300x300?text=Halloween" />
       </div>
       <div class="name">Spooky Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Spooky Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Halloween">Add to Cart</button>
     </div>
     
@@ -436,7 +451,7 @@
         <img alt="Christmas" src="https://placehold.co/300x300?text=Christmas" />
       </div>
       <div class="name">Merry Character</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Merry Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Christmas">Add to Cart</button>
     </div>
     
@@ -447,7 +462,7 @@
         <img alt="Capricorn" src="https://placehold.co/300x300?text=Astrology" />
       </div>
       <div class="name">Capricorn</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Capricorn" data-price="14.99" data-image="January_Capricorn.png">Add to Cart</button>
     </div>
 
@@ -458,7 +473,7 @@
         <img alt="New" src="https://placehold.co/300x300?text=New" />
       </div>
       <div class="name">New Arrival</div>
-      <div class="price">Starting at $9.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="New Arrival" data-price="14.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
     </div>
   </section>
@@ -500,10 +515,137 @@
       <div id="size-container" style="text-align: left; margin-bottom: 20px; display: none;">
         <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Size:</p>
         <select id="modal-size" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
-          <option value="2x2" data-price="9.99">2x2 ($9.99)</option>
+          <option value="2x2" data-price="10.99">2x2 ($10.99)</option>
           <option value="3x3" data-price="12.99">3x3 ($12.99)</option>
           <option value="4x4" data-price="14.99">4x4 ($14.99)</option>
         </select>
+      </div>
+
+      <!-- VISUAL COLOR SWATCHES (REAL PHOTOS) -->
+      <div id="color-container" style="text-align: left; margin-bottom: 20px; display: none;">
+        <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">
+          Backing Color: <span id="selected-color-name" style="color:#a31e1e; margin-left:5px;">Black</span>
+        </p>
+
+        <div id="color-swatches" style="display: flex; gap: 10px; flex-wrap: wrap;">
+
+          <!-- Black (solid color) -->
+          <div
+            class="swatch active"
+            data-color="Black"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #fff;
+              background-color: #000;
+            "
+            title="Black"
+          ></div>
+
+          <!-- White -->
+          <div
+            class="swatch"
+            data-color="White"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #333;
+              background-color: #fff;
+            "
+            title="White"
+          ></div>
+
+          <!-- Clear -->
+          <div
+            class="swatch"
+            data-color="Clear"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px dashed #666;
+              background: rgba(255,255,255,0.15);
+            "
+            title="Clear"
+          ></div>
+
+          <!-- Glitter Pink (REAL PHOTO) -->
+          <div
+            class="swatch"
+            data-color="Glitter Pink"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #333;
+              background-image: url('pink-glitter.jpg');
+              background-size: cover;
+              background-position: center;
+            "
+            title="Glitter Pink"
+          ></div>
+
+          <!-- Glitter Silver (REAL PHOTO) -->
+          <div
+            class="swatch"
+            data-color="Glitter Silver"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #333;
+              background-image: url('silver-glitter.jpg');
+              background-size: cover;
+              background-position: center;
+            "
+            title="Glitter Silver"
+          ></div>
+
+          <!-- Glitter Purple (REAL PHOTO) -->
+          <div
+            class="swatch"
+            data-color="Glitter Purple"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #333;
+              background-image: url('purple-glitter.jpg');
+              background-size: cover;
+              background-position: center;
+            "
+            title="Glitter Purple"
+          ></div>
+
+          <!-- Glitter Gold (REAL PHOTO) -->
+          <div
+            class="swatch"
+            data-color="Glitter Gold"
+            style="
+              width: 35px;
+              height: 35px;
+              border-radius: 50%;
+              cursor: pointer;
+              border: 2px solid #333;
+              background-image: url('gold-glitter.jpg');
+              background-size: cover;
+              background-position: center;
+            "
+            title="Glitter Gold"
+          ></div>
+
+        </div>
+
+        <!-- Hidden input for JS / cart logic -->
+        <input type="hidden" id="selected-color-value" value="Black">
       </div>
 
       <button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
@@ -540,7 +682,6 @@
       searchInput.addEventListener('input', applyFilters);
       checkboxes.forEach(cb => cb.addEventListener('change', applyFilters));
 
-      // optional: support ?search=
       const params = new URLSearchParams(window.location.search);
       if (params.has('search')) {
         searchInput.value = params.get('search');
@@ -552,40 +693,75 @@
   <!-- YOUR EXISTING cart.js (external file) -->
   <script src="cart.js" defer></script>
 
-  <!-- PRODUCT OPTIONS MODAL LOGIC -->
+  <!-- PRODUCT OPTIONS MODAL LOGIC (with Size + Backing Color Swatches) -->
   <script>
     let currentProduct = {};
 
-    // Function to update the displayed price based on selection
     function updateModalPrice() {
       const optionSelect = document.getElementById("modal-options");
       const selectedOption = optionSelect.options[optionSelect.selectedIndex];
       const optionValue = selectedOption.value;
       
-      // Show/hide size dropdown based on selection
       const sizeContainer = document.getElementById("size-container");
+      const colorContainer = document.getElementById("color-container");
+      const displayPrice = document.getElementById("modal-display-price");
       
+      // Show Size only for Magnets
       if (optionValue === "Magnet") {
         sizeContainer.style.display = "block";
-        
-        // Get price from size dropdown
-        const sizeSelect = document.getElementById("modal-size");
-        const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
-        const price = parseFloat(selectedSize.getAttribute("data-price"));
-        
-        document.getElementById("modal-display-price").textContent = `$${price.toFixed(2)}`;
-        currentProduct.currentCalculatedPrice = price.toFixed(2);
-        currentProduct.selectedOption = `${optionValue} (${selectedSize.value})`;
       } else {
         sizeContainer.style.display = "none";
-        
-        // Get price from option dropdown
-        const price = parseFloat(selectedOption.getAttribute("data-price"));
-        document.getElementById("modal-display-price").textContent = `$${price.toFixed(2)}`;
-        currentProduct.currentCalculatedPrice = price.toFixed(2);
-        currentProduct.selectedOption = optionValue;
       }
+
+      // Show Color for Badge Reels & Phone Grips
+      const needsColor = ["Badge Reel", "Custom Badge Reel", "Phone Grip"].includes(optionValue);
+      colorContainer.style.display = needsColor ? "block" : "none";
+
+      let price = 0;
+      let selectionDetails = optionValue;
+
+      if (optionValue === "Magnet") {
+        const sizeSelect = document.getElementById("modal-size");
+        const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+        price = parseFloat(selectedSize.getAttribute("data-price"));
+        selectionDetails = `Magnet (${selectedSize.value})`;
+      } else {
+        price = parseFloat(selectedOption.getAttribute("data-price"));
+        if (needsColor) {
+          const colorValue = document.getElementById('selected-color-value').value;
+          selectionDetails = `${optionValue} - ${colorValue}`;
+        }
+      }
+
+      displayPrice.textContent = `$${price.toFixed(2)}`;
+      currentProduct.currentCalculatedPrice = price.toFixed(2);
+      currentProduct.selectedOption = selectionDetails;
     }
+
+    // Initialize swatch click behavior
+    document.addEventListener('DOMContentLoaded', () => {
+      const swatches = document.querySelectorAll('.swatch');
+      const selectedColorInput = document.getElementById('selected-color-value');
+      const selectedColorName = document.getElementById('selected-color-name');
+
+      if (swatches.length > 0 && selectedColorInput && selectedColorName) {
+        swatches.forEach(swatch => {
+          swatch.addEventListener('click', function () {
+            // Remove active from all
+            swatches.forEach(s => s.classList.remove('active'));
+            // Add to clicked
+            this.classList.add('active');
+
+            const color = this.getAttribute('data-color');
+            selectedColorInput.value = color;
+            selectedColorName.textContent = color;
+
+            // Update the cart label
+            updateModalPrice();
+          });
+        });
+      }
+    });
 
     document.querySelectorAll('.add-btn').forEach(btn => {
       btn.addEventListener("click", function(e) {
@@ -599,16 +775,22 @@
         document.getElementById("modal-name").textContent = currentProduct.name;
         document.getElementById("modal-img").src = currentProduct.image;
         
-        // Reset dropdowns to first option
+        // Reset dropdowns and swatches
         document.getElementById("modal-options").selectedIndex = 0;
         document.getElementById("modal-size").selectedIndex = 0;
+        
+        // Reset color to Black
+        document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+        document.querySelector('.swatch[data-color="Black"]').classList.add('active');
+        document.getElementById('selected-color-value').value = "Black";
+        document.getElementById('selected-color-name').textContent = "Black";
+        
         updateModalPrice();
 
         document.getElementById("cart-modal").style.display = "flex";
       });
     });
 
-    // Listen for dropdown changes to update price live
     document.getElementById("modal-options").addEventListener("change", updateModalPrice);
     document.getElementById("modal-size").addEventListener("change", updateModalPrice);
 
