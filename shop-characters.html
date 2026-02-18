@@ -447,8 +447,18 @@
           <option value="Badge Reel" data-price="14.99">Badge Reel ($14.99)</option>
           <option value="Custom Badge Reel" data-price="19.99">Custom Badge Reel ($19.99)</option>
           <option value="Phone Grip" data-price="14.99">Phone Grip ($14.99)</option>
-          <option value="Magnet" data-price="12.99">Magnet ($12.99)</option>
+          <option value="Magnet" data-price="12.99">Magnet</option>
           <option value="Keychain" data-price="12.99">Keychain ($12.99)</option>
+        </select>
+      </div>
+
+      <!-- SIZE DROPDOWN (only shows for Magnets) -->
+      <div id="size-container" style="text-align: left; margin-bottom: 20px; display: none;">
+        <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Size:</p>
+        <select id="modal-size" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
+          <option value="2x2" data-price="10.99">2x2 ($10.99)</option>
+          <option value="3x3" data-price="12.99">3x3 ($12.99)</option>
+          <option value="4x4" data-price="14.99">4x4 ($14.99)</option>
         </select>
       </div>
 
@@ -504,13 +514,33 @@
 
     // Function to update the displayed price based on selection
     function updateModalPrice() {
-      const select = document.getElementById("modal-options");
-      const selectedOption = select.options[select.selectedIndex];
-      const price = parseFloat(selectedOption.getAttribute("data-price"));
+      const optionSelect = document.getElementById("modal-options");
+      const selectedOption = optionSelect.options[optionSelect.selectedIndex];
+      const optionValue = selectedOption.value;
       
-      document.getElementById("modal-display-price").textContent = `$${price.toFixed(2)}`;
-      currentProduct.currentCalculatedPrice = price.toFixed(2);
-      currentProduct.selectedOption = selectedOption.value;
+      // Show/hide size dropdown based on selection
+      const sizeContainer = document.getElementById("size-container");
+      
+      if (optionValue === "Magnet") {
+        sizeContainer.style.display = "block";
+        
+        // Get price from size dropdown
+        const sizeSelect = document.getElementById("modal-size");
+        const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+        const price = parseFloat(selectedSize.getAttribute("data-price"));
+        
+        document.getElementById("modal-display-price").textContent = `$${price.toFixed(2)}`;
+        currentProduct.currentCalculatedPrice = price.toFixed(2);
+        currentProduct.selectedOption = `${optionValue} (${selectedSize.value})`;
+      } else {
+        sizeContainer.style.display = "none";
+        
+        // Get price from option dropdown
+        const price = parseFloat(selectedOption.getAttribute("data-price"));
+        document.getElementById("modal-display-price").textContent = `$${price.toFixed(2)}`;
+        currentProduct.currentCalculatedPrice = price.toFixed(2);
+        currentProduct.selectedOption = optionValue;
+      }
     }
 
     document.querySelectorAll('.add-btn').forEach(btn => {
@@ -525,8 +555,9 @@
         document.getElementById("modal-name").textContent = currentProduct.name;
         document.getElementById("modal-img").src = currentProduct.image;
         
-        // Reset dropdown to first option and update price
+        // Reset dropdowns to first option
         document.getElementById("modal-options").selectedIndex = 0;
+        document.getElementById("modal-size").selectedIndex = 0;
         updateModalPrice();
 
         document.getElementById("cart-modal").style.display = "flex";
@@ -535,6 +566,7 @@
 
     // Listen for dropdown changes to update price live
     document.getElementById("modal-options").addEventListener("change", updateModalPrice);
+    document.getElementById("modal-size").addEventListener("change", updateModalPrice);
 
     document.getElementById("close-modal").addEventListener("click", () => {
       document.getElementById("cart-modal").style.display = "none";
