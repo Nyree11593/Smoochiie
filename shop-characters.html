@@ -52,29 +52,32 @@
       margin: 0 auto;
     }
     aside {
-      width: 220px;
+      width: 240px;
       background: #15151e;
       border: 3px solid #000;
-      box-shadow: 8px 8px 0px #000;
+      box-shadow: 6px 6px 0px #000;
       border-radius: 12px;
       padding: 20px;
       font-size: 14px;
       color: #e8e8ea;
+      height: fit-content;
     }
     aside h3 {
       font-weight: 900;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       text-transform: uppercase;
       color: var(--red-gradient-end);
       margin-top: 20px;
+      font-size: 14px;
     }
     aside h3:first-child { margin-top: 0; }
     aside label {
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       cursor: pointer;
+      font-size: 13px;
     }
     aside input[type="checkbox"] {
       accent-color: var(--red-gradient-end);
@@ -83,27 +86,37 @@
       flex: 1;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px 20px;
+      gap: 20px;
       align-items: start;
     }
     .card {
       background: #15151e;
       border: 3px solid #000;
-      box-shadow: 8px 8px 0px #000;
+      box-shadow: 6px 6px 0px #000;
       border-radius: 12px;
       padding: 12px;
       text-align: center;
       position: relative;
       color: #e8e8ea;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .image-container {
+      width: 100%;
+      height: 180px;
+      background: #0a0a0f;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
     .card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      margin: 0 auto 8px auto;
-      border-radius: 8px;
-      background: var(--bg-dark);
-      padding: 8px;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
     .card .label {
       position: absolute;
@@ -119,13 +132,17 @@
     }
     .card .name {
       font-weight: 900;
-      font-size: 14px;
+      font-size: 13px;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .card .price {
       font-weight: 700;
-      font-size: 16px;
+      font-size: 14px;
       color: var(--red-gradient-end);
       margin-bottom: 10px;
     }
@@ -133,14 +150,15 @@
       display: block;
       width: 100%;
       background: #a31e1e;
-      color: #000;
+      color: #fff;
       border: none;
-      padding: 8px 5px;
+      padding: 10px;
       border-radius: 8px;
       font-weight: 900;
       text-transform: uppercase;
-      font-size: 12px;
+      font-size: 11px;
       cursor: pointer;
+      margin-top: auto;
     }
     .add-btn:hover {
       background: #c52525;
@@ -311,110 +329,136 @@
     <!-- HOSPITAL WORKERS -->
     <div class="card" data-category="hospital nurse">
       <div class="label">HOSPITAL WORKERS</div>
-      <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse" />
+      <div class="image-container">
+        <img alt="Nurse" src="https://placehold.co/300x300?text=Nurse" />
+      </div>
       <div class="name">Nurse Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Nurse Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Nurse">Add to Cart</button>
     </div>
 
     <div class="card" data-category="hospital ultrasound">
       <div class="label">HOSPITAL WORKERS</div>
-      <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound" />
+      <div class="image-container">
+        <img alt="Ultrasound" src="https://placehold.co/300x300?text=Ultrasound" />
+      </div>
       <div class="name">Ultrasound Tech</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Ultrasound Tech" data-price="14.99" data-image="https://placehold.co/300x300?text=Ultrasound">Add to Cart</button>
     </div>
 
     <div class="card" data-category="hospital x-ray">
       <div class="label">HOSPITAL WORKERS</div>
-      <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray" />
+      <div class="image-container">
+        <img alt="X-Ray" src="https://placehold.co/300x300?text=X-Ray" />
+      </div>
       <div class="name">X-Ray / CT / MRI</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="14.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
     </div>
 
     <!-- FANTASY -->
     <div class="card" data-category="fantasy dragons">
       <div class="label">FANTASY</div>
-      <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon" />
+      <div class="image-container">
+        <img alt="Dragon" src="https://placehold.co/300x300?text=Dragon" />
+      </div>
       <div class="name">Dragon Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Dragon">Add to Cart</button>
     </div>
 
     <div class="card" data-category="fantasy vampire">
       <div class="label">FANTASY</div>
-      <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
+      <div class="image-container">
+        <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
+      </div>
       <div class="name">Vampire Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
     </div>
 
     <!-- SMOOCHIIE ORIGINALS -->
     <div class="card" data-category="originals caricature">
       <div class="label">ORIGINALS</div>
-      <img alt="Caricature" src="hospital_worker_caricature.png" />
+      <div class="image-container">
+        <img alt="Caricature" src="hospital_worker_caricature.png" />
+      </div>
       <div class="name">Custom Hospital Worker Caricature</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Custom Hospital Worker Caricature" data-price="19.99" data-image="hospital_worker_caricature.png">Add to Cart</button>
     </div>
 
     <div class="card" data-category="originals caricature">
       <div class="label">ORIGINALS</div>
-      <img alt="Caricature" src="family_cartoon_caricature.png" />
+      <div class="image-container">
+        <img alt="Caricature" src="family_cartoon_caricature.png" />
+      </div>
       <div class="name">Custom Family Caricature</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Custom Family Caricature" data-price="19.99" data-image="family_cartoon_caricature.png">Add to Cart</button>
     </div>
 
     <div class="card" data-category="originals caricature">
       <div class="label">ORIGINALS</div>
-      <img alt="Caricature" src="Realistic_Caricature.png" />
+      <div class="image-container">
+        <img alt="Caricature" src="Realistic_Caricature.png" />
+      </div>
       <div class="name">Realistic Style Caricature</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Realistic Style Caricature" data-price="19.99" data-image="Realistic_Caricature.png">Add to Cart</button>
     </div>
     
     <div class="card" data-category="originals funny">
       <div class="label">ORIGINALS</div>
-      <img alt="Funny" src="https://placehold.co/300x300?text=Funny" />
+      <div class="image-container">
+        <img alt="Funny" src="https://placehold.co/300x300?text=Funny" />
+      </div>
       <div class="name">Funny Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Funny Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Funny">Add to Cart</button>
     </div>
 
     <!-- SEASONAL -->
     <div class="card" data-category="seasonal halloween">
       <div class="label">SEASONAL</div>
-      <img alt="Halloween" src="https://placehold.co/300x300?text=Halloween" />
+      <div class="image-container">
+        <img alt="Halloween" src="https://placehold.co/300x300?text=Halloween" />
+      </div>
       <div class="name">Spooky Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Spooky Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Halloween">Add to Cart</button>
     </div>
     
     <div class="card" data-category="seasonal christmas">
       <div class="label">SEASONAL</div>
-      <img alt="Christmas" src="https://placehold.co/300x300?text=Christmas" />
+      <div class="image-container">
+        <img alt="Christmas" src="https://placehold.co/300x300?text=Christmas" />
+      </div>
       <div class="name">Merry Character</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Merry Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Christmas">Add to Cart</button>
     </div>
     
     <!-- Shop By Theme -->
     <div class="card" data-category="astrology">
       <div class="label">ASTROLOGY</div>
-      <img alt="Capricorn" src="https://placehold.co/300x300?text=Astrology" />
+      <div class="image-container">
+        <img alt="Capricorn" src="https://placehold.co/300x300?text=Astrology" />
+      </div>
       <div class="name">Capricorn</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="Capricorn" data-price="14.99" data-image="January_Capricorn.png">Add to Cart</button>
     </div>
 
     <!-- TAGS -->
     <div class="card" data-category="tags new">
       <div class="label">NEW</div>
-      <img alt="New" src="https://placehold.co/300x300?text=New" />
+      <div class="image-container">
+        <img alt="New" src="https://placehold.co/300x300?text=New" />
+      </div>
       <div class="name">New Arrival</div>
-      <div class="price">Starting at $12.99</div>
+      <div class="price">Starting at $10.99</div>
       <button class="add-btn" data-name="New Arrival" data-price="14.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
     </div>
   </section>
