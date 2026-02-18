@@ -98,9 +98,8 @@
     }
     .card img {
       width: 100%;
-      height: auto;
-      max-height: 200px;
-      object-fit: contain;
+      height: 200px;
+      object-fit: cover;
       margin: 0 auto 8px auto;
       border-radius: 8px;
       background: var(--bg-dark);
@@ -346,7 +345,9 @@
     <div class="card" data-category="fantasy vampire">
       <div class="label">FANTASY</div>
       <img alt="Vampire" src="https://placehold.co/300x300?text=Vampire" />
-      <div class="name">Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
+      <div class="name">Vampire Character</div>
+      <div class="price">$14.99</div>
+      <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
     </div>
 
     <!-- SMOOCHIIE ORIGINALS -->
@@ -428,7 +429,7 @@
     </div>
   </div>
 
-  <!-- ✅ PRODUCT OPTIONS MODAL (THIS WAS MISSING!) -->
+  <!-- PRODUCT OPTIONS MODAL -->
   <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
     <div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
       <button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
@@ -491,7 +492,7 @@
   <!-- YOUR EXISTING cart.js (external file) -->
   <script src="cart.js" defer></script>
 
-  <!-- ✅ PRODUCT OPTIONS MODAL LOGIC -->
+  <!-- PRODUCT OPTIONS MODAL LOGIC -->
   <script>
     let currentProduct = {};
 
