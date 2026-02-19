@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>SMOOCHiiE™ Color Vault 💋</title>
+
+  <!-- Tailwind (same as index) -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+
+  <!-- Font Awesome (same as index) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Fonts: Inter (site), plus a prettier cursive for the logo -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Great+Vibes&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --bg-dark:#0a0a0f;
+      --red-gradient-start:#650304;
+      --red-gradient-end:#a31e1e;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box;}
+
+    body{
+      font-family:'Inter',sans-serif;
+      color:#e8e8ea;
+      overflow-x:hidden;
+
+      /* Your reference photo as the page background */
+      background:
+        linear-gradient(135deg, rgba(10,10,15,.65) 0%, rgba(10,10,15,.80) 55%, rgba(10,10,15,.65) 100%),
+        url("refund_policy_background.png");
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-attachment:fixed;
+    }
+
+    /* Noise overlay (same vibe as index) */
+    .noise{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      pointer-events:none;opacity:0.04;z-index:9999;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .container-custom{max-width:1200px;margin:0 auto;padding:0 20px;position:relative;z-index:10;}
+
+    .text-gradient-red{
+      background:linear-gradient(180deg,var(--red-gradient-start),var(--red-gradient-end));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      filter:drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
+    }
+    .bg-gradient-red{background:linear-gradient(180deg,var(--red-gradient-start),var(--red-gradient-end));}
+
+    /* NAV (match index) */
+    nav{
+      background:rgba(10,10,15,0.9);
+      backdrop-filter:blur(10px);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+
+    /* Prettier cursive logo */
+    .brand-script{
+      font-family:'Great Vibes', cursive;
+      font-weight:400;
+      letter-spacing:0.5px;
+      text-transform:none;
+    }
+
+    /* Page headings */
+    .vault-kicker{
+      font-family:'Great Vibes', cursive;
+      font-size:3.2rem;
+      line-height:1;
+      color:#a31e1e; /* Pick Your Kiss in red */
+      text-shadow:0 8px 26px rgba(0,0,0,0.55);
+    }
+
+    .vault-title{
+      font-size:3rem;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:-1px;
+      line-height:1.1;
+    }
+
+    /* Card look (clean on dark background) */
+    .vault-card{
+      background:rgba(21,21,30,0.88);
+      border:3px solid #000;
+      box-shadow:8px 8px 0px #000;
+      border-radius:18px;
+      overflow:hidden;
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .vault-card:hover{
+      transform:translateY(-4px);
+      box-shadow:12px 12px 0px #000;
+    }
+    .vault-img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+    .vault-name{
+      font-family:'Great Vibes', cursive;
+      font-size:2.35rem;
+      color:#fff;
+      margin-top:10px;
+      text-shadow:0 6px 18px rgba(0,0,0,0.55);
+    }
+    .vault-wrap{
+      padding:18px 18px 22px;
+      text-align:center;
+    }
+
+    /* Footer note */
+    .note{
+      color:rgba(232,232,234,.75);
+      font-size:12px;
+      letter-spacing:0.08em;
+      text-transform:uppercase;
+    }
+  </style>
+
+  <!-- Mini cart styles (kept so nav behaves like index if you use cart.js) -->
+  <style>
+    #mini-cart {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 350px;
+      background: rgba(15, 15, 20, 0.98);
+      backdrop-filter: blur(15px);
+      border: 1px solid #333;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      padding: 20px;
+      display: none;
+      z-index: 1000;
+      margin-top: 10px;
+      color: white;
+    }
+    #mini-cart.active { display: block; }
+    .cart-item-mini {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #222;
+    }
+    .cart-item-mini img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border: 1px solid #444;
+    }
+    .cart-item-info h4 {
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .cart-item-info p {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin: 4px 0;
+    }
+    .proceed-btn {
+      width: 100%;
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+      color: white;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 12px;
+      text-align: center;
+      display: block;
+      margin-top: 15px;
+      border: none;
+      cursor: pointer;
+    }
+    .continue-shopping {
+      display: block;
+      text-align: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-top: 10px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    #cart-count {
+      position: absolute;
+      top: -8px;
+      right: -10px;
+      background: #a31e1e;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      font-weight: 900;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="noise"></div>
+
+  <!-- NAV (matching index layout) -->
+  <nav class="py-4">
+    <div class="container-custom flex justify-between items-center">
+
+      <!-- Brand (matching index) -->
+      <div class="text-2xl font-black tracking-tighter">
+        <span class="text-white uppercase">SMOOCHIIE™</span>
+        <span class="text-gradient-red ml-1">💋</span>
+      </div>
+
+      <!-- Links -->
+      <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+        <a class="hover:text-white transition" href="index.html">Home</a>
+        <a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
+        <a class="hover:text-white transition text-white" href="smoochiies_color_vault.html">Color Vault</a>
+        <a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
+        <a class="hover:text-white transition" href="faq.html">FAQ</a>
+        <a class="hover:text-white transition" href="about.html">About</a>
+        <a class="hover:text-white transition" href="track-order.html">Track Order</a>
+      </div>
+
+      <!-- Icons -->
+      <div class="flex items-center space-x-8 text-white">
+        <i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+
+        <div class="relative" id="cart-icon-container" style="cursor:pointer">
+          <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+          <span id="cart-count">0</span>
+
+          <div id="mini-cart">
+            <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
+            <div id="mini-cart-items"></div>
+
+            <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
+              <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
+              <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
+            </div>
+
+            <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
+            <span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+            <span class="continue-shopping">Continue Shopping</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="py-16">
+    <div class="container-custom text-center">
+      <div class="vault-kicker">Pick Your Kiss</div>
+
+      <h1 class="vault-title mt-6">
+        SMOOCHIIE™ <span class="text-gradient-red">Color Vault</span>
+      </h1>
+
+      <p class="mt-5 text-gray-300 max-w-2xl mx-auto text-sm tracking-wide">
+        Explore our glittery colors, perfect for badge reels, keychains & magnets.
+      </p>
+    </div>
+  </header>
+
+  <!-- GRID -->
+  <main class="pb-16">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/blue-me-a-kiss.png" alt="Blue Me A Kiss">
+          <div class="vault-wrap">
+            <div class="vault-name">Blue Me A Kiss</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/caught-blushing.png" alt="Caught Blushing">
+          <div class="vault-wrap">
+            <div class="vault-name">Caught Blushing</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/cocoa-core.png" alt="Cocoa Core">
+          <div class="vault-wrap">
+            <div class="vault-name">Cocoa Core</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/crimson-kiss.png" alt="Crimson Kiss">
+          <div class="vault-wrap">
+            <div class="vault-name">Crimson Kiss</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/emeralds-embrace.png" alt="Emeralds Embrace">
+          <div class="vault-wrap">
+            <div class="vault-name">Emeralds Embrace</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/grandmas-kitchen-black.png" alt="Grandmas Kitchen Black">
+          <div class="vault-wrap">
+            <div class="vault-name">Grandmas Kitchen Black</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/mustarrddd.png" alt="Mustarrddd">
+          <div class="vault-wrap">
+            <div class="vault-name">Mustarrddd</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/neon-lip-lock.png" alt="Neon Lip Lock">
+          <div class="vault-wrap">
+            <div class="vault-name">Neon Lip Lock</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/ocean-current.png" alt="Ocean Current">
+          <div class="vault-wrap">
+            <div class="vault-name">Ocean Current</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/orange-creamsicle.png" alt="Orange Creamsicle">
+          <div class="vault-wrap">
+            <div class="vault-name">Orange Creamsicle</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/power-in-pink.png" alt="Power In Pink">
+          <div class="vault-wrap">
+            <div class="vault-name">Power In Pink</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/purple-reign.png" alt="Purple Reign">
+          <div class="vault-wrap">
+            <div class="vault-name">Purple Reign</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/red-y-to-smooche.png" alt="Red-y To Smooche">
+          <div class="vault-wrap">
+            <div class="vault-name">Red-y To Smooche</div>
+          </div>
+        </div>
+
+        <div class="vault-card">
+          <img class="vault-img" src="images/savage-in-sage.png" alt="Savage In Sage">
+          <div class="vault-wrap">
+            <div class="vault-name">Savage In Sage</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-12 note">
+        💋 Colors may vary slightly due to lighting and screen differences.
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER (matching index) -->
+  <footer class="pt-24 pb-12 border-t-4 border-black bg-black">
+    <div class="container-custom">
+      <div class="flex flex-col items-center text-center space-y-6 mb-20">
+        <div class="text-3xl font-black tracking-tighter uppercase">
+          SMOOCHIIE <span class="text-white">™</span> <span class="text-gradient-red">💋</span>
+        </div>
+        <p class="text-gray-500 font-normal leading-relaxed max-w-md text-sm">
+          SEALED WITH INTENTION,<br/>KISSED WITH PURPOSE.
+        </p>
+        <div class="flex space-x-6 text-2xl text-gray-600">
+          <a class="hover:text-white transition" href="https://www.instagram.com/smoochiie_llc/" rel="noopener noreferrer" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a class="hover:text-white transition" href="https://www.tiktok.com/@smoochiie1?lang=en" rel="noopener noreferrer" target="_blank"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="pt-12 border-t border-gray-900 flex flex-col md:flex-row justify-between items-center text-[10px] font-normal uppercase tracking-[0.15em] text-gray-600">
+        <div class="mb-4 md:mb-0">© 2026 SMOOCHIIE™. ALL RIGHTS RESERVED.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Toggle Button (matching index) -->
+  <button id="mobile-toggle-btn" onclick="toggleMobileMode()">Switch to Mobile View</button>
+  <style>
+    #mobile-toggle-btn {
+      position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+      background: linear-gradient(180deg, #650304, #a31e1e) !important;
+      color: white !important; border: 2px solid black !important;
+      padding: 10px 15px; font-weight: 900; text-transform: uppercase;
+      cursor: pointer; box-shadow: 4px 4px 0px #000 !important;
+      font-size: 10px; letter-spacing: 1px;
+    }
+    .mobile-mode body { font-size: 18px; }
+  </style>
+  <script>
+    function toggleMobileMode() {
+      const html = document.documentElement;
+      const btn = document.getElementById('mobile-toggle-btn');
+      if (html.classList.contains('mobile-mode')) {
+        html.classList.remove('mobile-mode');
+        btn.textContent = 'Switch to Mobile View';
+        localStorage.setItem('mobile-view-preference', 'desktop');
+      } else {
+        html.classList.add('mobile-mode');
+        btn.textContent = 'Switch to Desktop View';
+        localStorage.setItem('mobile-view-preference', 'mobile');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('mobile-view-preference') === 'mobile') {
+        document.documentElement.classList.add('mobile-mode');
+        const btn = document.getElementById('mobile-toggle-btn');
+        if(btn) btn.textContent = 'Switch to Desktop View';
+      }
+    });
+  </script>
+
+  <!-- Search Modal (matching index) -->
+  <style>
+    #search-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 10001;
+    }
+    #search-modal .modal-content {
+      background: #15151e;
+      border: 3px solid #000;
+      box-shadow: 8px 8px 0px #000;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      text-align: center;
+    }
+    #search-modal h2 {
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #a31e1e;
+      margin-bottom: 10px;
+    }
+    #search-modal p {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+    }
+    #search-input {
+      width: 100%;
+      padding: 12px;
+      background: #0a0a0f;
+      border: 2px solid #000;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 700;
+      outline: none;
+    }
+    #close-search {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+  <div id="search-modal">
+    <div class="modal-content">
+      <span id="close-search">×</span>
+      <h2>Search SMOOCHIIE™</h2>
+      <p>Type a character name... Tip: this searches your character cards.</p>
+      <input id="search-input" placeholder="Search characters..." type="text" />
+    </div>
+  </div>
+
+
+
+  <!-- If you’re using the same cart + search scripts on this page -->
+  <script src="cart.js"></script>
+  <script src="search.js" defer></script>
+
+</body>
+</html>
