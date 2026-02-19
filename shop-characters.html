@@ -263,9 +263,9 @@
   <!-- NAVBAR -->
   <nav class="py-4">
     <div class="container-custom flex justify-between items-center">
-      <div class="text-2xl font-black tracking-tighter flex items-center">
-        <span class="text-white uppercase">SMOOCHIIE&#8482;</span>
-        <span class="text-gradient-red ml-1">&#128139;</span>
+      <div class="text-2xl font-black tracking-tighter">
+        <span class="text-white uppercase">SMOOCHIIE™</span>
+        <span class="text-gradient-red ml-1">💋</span>
       </div>
 
       <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
@@ -273,14 +273,16 @@
         <a class="hover:text-white transition font-black text-white" href="shop-characters.html">Shop Characters</a>
         <a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
         <a class="hover:text-white transition" href="faq.html">FAQ</a>
+        <a class="hover:text-white transition" href="about.html">About</a>
+        <a class="hover:text-white transition" href="track-order.html">Track Order</a>
       </div>
 
       <div class="flex items-center space-x-8 text-white">
-        <i id="search-btn" class="fas fa-search text-lg cursor-pointer"></i>
+        <i id="search-btn" class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
 
         <!-- CART ICON + MINI CART -->
         <div class="relative" id="cart-icon-container" style="cursor:pointer">
-          <i class="fas fa-shopping-cart text-xl"></i>
+          <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
           <span id="cart-count">0</span>
 
           <div id="mini-cart">
@@ -291,7 +293,7 @@
               <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
             </div>
             <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-            <span class="continue-shopping" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
+            <span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
             <span class="continue-shopping">Continue Shopping</span>
           </div>
         </div>
