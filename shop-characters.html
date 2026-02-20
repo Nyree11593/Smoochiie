@@ -758,5 +758,25 @@
     });
   </script>
 
+  <script>
+  function toggleCardMedia(btn) {
+    const container = btn.closest('.image-container');
+    const img = container.querySelector('img.card-media');
+    const video = container.querySelector('video.card-media');
+
+    if (video.style.display === 'none') {
+      img.style.display = 'none';
+      video.style.display = 'block';
+      video.play();
+      btn.textContent = '⏸';
+    } else {
+      video.pause();
+      video.style.display = 'none';
+      img.style.display = 'block';
+      btn.textContent = '▶';
+    }
+  }
+</script>
+
 </body>
 </html>
