@@ -433,15 +433,32 @@
       </div>
 
       <!-- SMOOCHIIE ORIGINALS -->
-      <div class="card" data-category="originals caricature">
-        <div class="label">ORIGINALS</div>
-        <div class="image-container">
-          <img alt="Caricature" src="images/hospital_worker_caricature.png" />
-        </div>
-        <div class="name">Custom Hospital Worker Caricature</div>
-        <div class="price">Starting at $10.99</div>
-        <button class="add-btn" data-name="Custom Hospital Worker Caricature" data-price="19.99" data-image="hospital_worker_caricature.png">Add to Cart</button>
-      </div>
+     <div class="card" data-category="CATEGORY_HERE">
+  <div class="label">Cartoon Caricature</div>
+
+  <div class="image-container" style="position:relative;">
+    <img alt="Cartoon Caricature" src="Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
+
+    <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
+      <source src="cartoon_caricature_vid.MOV" type="video/MOV">
+    </video>
+
+    <button onclick="toggleCardMedia(this)" style="
+      position:absolute; bottom:8px; right:8px;
+      background:rgba(163,30,30,0.85);
+      border:none; border-radius:50%;
+      width:32px; height:32px;
+      cursor:pointer; color:white;
+      font-size:14px; display:flex;
+      align-items:center; justify-content:center;
+      z-index:10;
+    ">▶</button>
+  </div>
+
+  <div class="name">CHARACTER NAME</div>
+  <div class="price">Starting at $10.99</div>
+  <button class="add-btn" data-name="CHARACTER NAME" data-price="14.99" data-image="IMAGE_NAME.png">Add to Cart</button>
+</div>
 
       <div class="card" data-category="originals caricature">
         <div class="label">ORIGINALS</div>
