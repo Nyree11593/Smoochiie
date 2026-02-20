@@ -391,27 +391,26 @@
 
       <!-- SMOOCHIIE ORIGINALS - CARICATURE (with video) -->
       <div class="card" data-category="originals caricature">
-        <div class="label">CARTOON CARICATURE</div>
-        <div class="image-container" style="position:relative;">
-          <img alt="Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
-          <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
-            <source src="cartoon_caricature_vid.mp4" type="video/mp4">
-          </video>
-          <button onclick="toggleCardMedia(this)" style="
-            position:absolute; bottom:8px; right:8px;
-            background:rgba(163,30,30,0.85);
-            border:none; border-radius:50%;
-            width:32px; height:32px;
-            cursor:pointer; color:white;
-            font-size:14px; display:flex;
-            align-items:center; justify-content:center;
-            z-index:10;
-          ">&#9654;</button>
-        </div>
-        <div class="name">Custom Family Caricature</div>
-        <div class="price">Starting at $19.99</div>
-        <button class="add-btn" data-name="Custom Family Caricature" data-price="19.99" data-image="images/Family_Cartoon_Caricature.png">Add to Cart</button>
-      </div>
+  <div class="label">Custom Cartoon Caricature</div>
+
+  <div class="image-container" style="position:relative;">
+    <img alt="Custom Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
+
+    <video class="card-media" autoplay muted loop playsinline poster="Family_Cartoon_Caricature" preload="auto" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
+      <source src="cartoon_caricature_vid.MP4" type="video/mp4">
+    </video>
+
+    <button onclick="toggleCardMedia(this)" style="
+      position:absolute; bottom:8px; right:8px;
+      background:rgba(163,30,30,0.85);
+      border:none; border-radius:50%;
+      width:32px; height:32px;
+      cursor:pointer; color:white;
+      font-size:14px; display:flex;
+      align-items:center; justify-content:center;
+      z-index:10;
+    ">▶</button>
+  </div>
 
       <div class="card" data-category="originals caricature">
         <div class="label">ORIGINALS</div>
