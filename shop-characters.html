@@ -15,7 +15,6 @@
       --red-gradient-start: #650304;
       --red-gradient-end: #a31e1e;
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--bg-dark);
@@ -24,7 +23,6 @@
       overflow-x: hidden;
       min-height: 100vh;
     }
-
     nav {
       background: rgba(10, 10, 15, 0.9);
       backdrop-filter: blur(10px);
@@ -32,7 +30,6 @@
       top: 0;
       z-index: 100;
     }
-
     .container-custom {
       max-width: 1200px;
       margin: 0 auto;
@@ -40,14 +37,12 @@
       position: relative;
       z-index: 10;
     }
-
     .text-gradient-red {
       background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       filter: drop-shadow(0 0 15px rgba(163, 30, 30, 0.5));
     }
-
     .page-content {
       display: flex;
       align-items: flex-start;
@@ -56,7 +51,6 @@
       max-width: 1400px;
       margin: 0 auto;
     }
-
     aside {
       width: 280px;
       flex-shrink: 0;
@@ -71,7 +65,6 @@
       position: sticky;
       top: 100px;
     }
-
     aside h3 {
       font-weight: 900;
       margin-bottom: 12px;
@@ -81,7 +74,6 @@
       font-size: 14px;
     }
     aside h3:first-child { margin-top: 0; }
-
     aside label {
       display: flex;
       align-items: center;
@@ -90,11 +82,9 @@
       cursor: pointer;
       font-size: 13px;
     }
-
     aside input[type="checkbox"] {
       accent-color: var(--red-gradient-end);
     }
-
     .character-grid {
       flex-grow: 1;
       display: grid;
@@ -102,7 +92,6 @@
       gap: 25px;
       align-items: start;
     }
-
     .card {
       background: #15151e;
       border: 3px solid #000;
@@ -116,7 +105,6 @@
       flex-direction: column;
       height: 100%;
     }
-
     .image-container {
       width: 100%;
       height: 180px;
@@ -127,14 +115,13 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
-
     .card img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
     }
-
     .card .label {
       position: absolute;
       top: 8px;
@@ -147,7 +134,6 @@
       border-radius: 6px;
       text-transform: uppercase;
     }
-
     .card .name {
       font-weight: 900;
       font-size: 13px;
@@ -158,14 +144,12 @@
       align-items: center;
       justify-content: center;
     }
-
     .card .price {
       font-weight: 700;
       font-size: 14px;
       color: var(--red-gradient-end);
       margin-bottom: 10px;
     }
-
     .add-btn {
       display: block;
       width: 100%;
@@ -180,11 +164,7 @@
       cursor: pointer;
       margin-top: auto;
     }
-
-    .add-btn:hover {
-      background: #c52525;
-    }
-
+    .add-btn:hover { background: #c52525; }
     #cart-count {
       position: absolute;
       top: -8px;
@@ -197,7 +177,6 @@
       font-weight: 900;
       transition: transform 0.2s;
     }
-
     #mini-cart {
       position: absolute;
       top: 100%;
@@ -214,7 +193,6 @@
       color: white;
       border-radius: 12px;
     }
-
     .cart-item-mini {
       display: flex;
       gap: 15px;
@@ -222,7 +200,6 @@
       padding-bottom: 15px;
       border-bottom: 1px solid #222;
     }
-
     .cart-item-mini img {
       width: 60px;
       height: 60px;
@@ -230,20 +207,17 @@
       border: 1px solid #444;
       border-radius: 8px;
     }
-
     .cart-item-info h4 {
       font-size: 0.85rem;
       font-weight: 900;
       text-transform: uppercase;
       margin: 0;
     }
-
     .cart-item-info p {
       font-size: 0.8rem;
       color: #9ca3af;
       margin: 4px 0;
     }
-
     .proceed-btn {
       width: 100%;
       background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
@@ -259,7 +233,6 @@
       border-radius: 8px;
       text-decoration: none;
     }
-
     .continue-shopping {
       display: block;
       text-align: center;
@@ -270,29 +243,16 @@
       text-decoration: underline;
       cursor: pointer;
     }
-
-    .swatch {
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    }
-
-    .swatch:hover {
-      transform: scale(1.1);
-    }
-
+    .swatch { transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; }
+    .swatch:hover { transform: scale(1.1); }
     .swatch.active {
       border-color: #a31e1e !important;
       box-shadow: 0 0 10px rgba(163, 30, 30, 0.8);
       transform: scale(1.2);
     }
-
     @media (max-width: 768px) {
-      .page-content {
-        flex-direction: column;
-      }
-      aside {
-        position: static;
-        width: 100%;
-      }
+      .page-content { flex-direction: column; }
+      aside { position: static; width: 100%; }
     }
   </style>
 </head>
@@ -305,7 +265,6 @@
         <span class="text-white uppercase">SMOOCHIIE&#8482;</span>
         <span class="text-gradient-red ml-1">&#128139;</span>
       </div>
-
       <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
         <a class="hover:text-white transition" href="index.html">Home</a>
         <a class="hover:text-white transition font-black text-white" href="shop-characters.html">Shop Characters</a>
@@ -315,14 +274,11 @@
         <a class="hover:text-white transition" href="about.html">About</a>
         <a class="hover:text-white transition" href="track-order.html">Track Order</a>
       </div>
-
       <div class="flex items-center space-x-8 text-white">
         <i id="search-btn" class="fas fa-search text-lg cursor-pointer"></i>
-
         <div class="relative" id="cart-icon-container" style="cursor:pointer">
           <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cart-count">0</span>
-
           <div id="mini-cart">
             <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
             <div id="mini-cart-items"></div>
@@ -380,6 +336,7 @@
     </aside>
 
     <section class="character-grid">
+
       <!-- HOSPITAL WORKERS -->
       <div class="card" data-category="hospital nurse">
         <div class="label">HOSPITAL WORKERS</div>
@@ -432,52 +389,38 @@
         <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
       </div>
 
-      <!-- SMOOCHIIE ORIGINALS -->
-     <div class="card" data-category="originals caricature">
-  <div class="label">Cartoon Caricature</div>
-
-  <div class="image-container" style="position:relative;">
-    <img alt="Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
-
-    <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
-      <source src="cartoon_caricature_vid.MP4" type="video/mp4">
-    </video>
-
-    <button onclick="toggleCardMedia(this)" style="
-      position:absolute; bottom:8px; right:8px;
-      background:rgba(163,30,30,0.85);
-      border:none; border-radius:50%;
-      width:32px; height:32px;
-      cursor:pointer; color:white;
-      font-size:14px; display:flex;
-      align-items:center; justify-content:center;
-      z-index:10;
-    ">▶</button>
-  </div>
-
-  <div class="name">CHARACTER NAME</div>
-  <div class="price">Starting at $10.99</div>
-  <button class="add-btn" data-name="CHARACTER NAME" data-price="14.99" data-image="IMAGE_NAME.png">Add to Cart</button>
-</div>
-
+      <!-- SMOOCHIIE ORIGINALS - CARICATURE (with video) -->
       <div class="card" data-category="originals caricature">
-        <div class="label">ORIGINALS</div>
-        <div class="image-container">
-          <img alt="Caricature" src="Images/family_cartoon_caricature.png" />
+        <div class="label">CARTOON CARICATURE</div>
+        <div class="image-container" style="position:relative;">
+          <img alt="Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
+          <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
+            <source src="cartoon_caricature_vid.mp4" type="video/mp4">
+          </video>
+          <button onclick="toggleCardMedia(this)" style="
+            position:absolute; bottom:8px; right:8px;
+            background:rgba(163,30,30,0.85);
+            border:none; border-radius:50%;
+            width:32px; height:32px;
+            cursor:pointer; color:white;
+            font-size:14px; display:flex;
+            align-items:center; justify-content:center;
+            z-index:10;
+          ">&#9654;</button>
         </div>
         <div class="name">Custom Family Caricature</div>
-        <div class="price">Starting at $10.99</div>
-        <button class="add-btn" data-name="Custom Family Caricature" data-price="19.99" data-image="family_cartoon_caricature.png">Add to Cart</button>
+        <div class="price">Starting at $19.99</div>
+        <button class="add-btn" data-name="Custom Family Caricature" data-price="19.99" data-image="images/Family_Cartoon_Caricature.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="originals caricature">
         <div class="label">ORIGINALS</div>
         <div class="image-container">
-          <img alt="Caricature" src="Images/Realistic_Caricature.png" />
+          <img alt="Realistic Caricature" src="Images/Realistic_Caricature.png" />
         </div>
         <div class="name">Realistic Style Caricature</div>
-        <div class="price">Starting at $10.99</div>
-        <button class="add-btn" data-name="Realistic Style Caricature" data-price="19.99" data-image="Realistic_Caricature.png">Add to Cart</button>
+        <div class="price">Starting at $19.99</div>
+        <button class="add-btn" data-name="Realistic Style Caricature" data-price="19.99" data-image="Images/Realistic_Caricature.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="originals funny">
@@ -532,6 +475,7 @@
         <div class="price">Starting at $10.99</div>
         <button class="add-btn" data-name="New Arrival" data-price="14.99" data-image="https://placehold.co/300x300?text=New">Add to Cart</button>
       </div>
+
     </section>
   </main>
 
@@ -548,14 +492,11 @@
   <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
     <div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
       <button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">&#215;</button>
-
       <h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:5px; font-size:1.25rem;">Item Name</h2>
       <p id="modal-display-price" style="color:#a31e1e; font-weight:900; font-size:1.2rem; margin-bottom:15px;">$0.00</p>
-
       <div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
         <img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;"/>
       </div>
-
       <div style="text-align: left; margin-bottom: 20px;">
         <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
         <select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
@@ -566,7 +507,6 @@
           <option value="Keychain" data-price="12.99">Keychain ($12.99)</option>
         </select>
       </div>
-
       <div id="size-container" style="text-align: left; margin-bottom: 20px; display: none;">
         <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Size:</p>
         <select id="modal-size" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
@@ -575,7 +515,6 @@
           <option value="4x4" data-price="14.99">4x4 ($14.99)</option>
         </select>
       </div>
-
       <div id="color-container" style="text-align: left; margin-bottom: 20px; display: none;">
         <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">
           Backing Color: <span id="selected-color-name" style="color:#a31e1e; margin-left:5px;">Black</span>
@@ -601,7 +540,6 @@
         </div>
         <input type="hidden" id="selected-color-value" value="Black">
       </div>
-
       <button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
       <button id="modal-continue" style="background:none; color:#a31e1e; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:12px; text-decoration:underline;">Continue Shopping</button>
     </div>
@@ -631,10 +569,8 @@
         cards.forEach(card => {
           const name = card.querySelector('.name').textContent.toLowerCase();
           const category = (card.getAttribute('data-category') || '').toLowerCase();
-
           const matchesSearch = name.includes(query);
           const matchesType = activeTypes.length === 0 || activeTypes.some(type => category.includes(type));
-
           card.style.display = (matchesSearch && matchesType) ? 'flex' : 'none';
         });
       }
@@ -660,13 +596,11 @@
       const optionSelect = document.getElementById("modal-options");
       const selectedOption = optionSelect.options[optionSelect.selectedIndex];
       const optionValue = selectedOption.value;
-
       const sizeContainer = document.getElementById("size-container");
       const colorContainer = document.getElementById("color-container");
       const displayPrice = document.getElementById("modal-display-price");
 
       sizeContainer.style.display = optionValue === "Magnet" ? "block" : "none";
-
       const needsColor = ["Badge Reel", "Custom Badge Reel", "Phone Grip"].includes(optionValue);
       colorContainer.style.display = needsColor ? "block" : "none";
 
@@ -712,22 +646,18 @@
       document.querySelectorAll('.add-btn').forEach(btn => {
         btn.addEventListener("click", function(e) {
           e.preventDefault();
-
           currentProduct = {
             name: this.getAttribute("data-name"),
             image: this.getAttribute("data-image")
           };
-
           document.getElementById("modal-name").textContent = currentProduct.name;
           document.getElementById("modal-img").src = currentProduct.image;
           document.getElementById("modal-options").selectedIndex = 0;
           document.getElementById("modal-size").selectedIndex = 0;
-
           document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
           document.querySelector('.swatch[data-color="Black"]').classList.add('active');
           document.getElementById('selected-color-value').value = "Black";
           document.getElementById('selected-color-name').textContent = "Black";
-
           updateModalPrice();
           document.getElementById("cart-modal").style.display = "flex";
         });
@@ -747,36 +677,34 @@
       document.getElementById("modal-checkout").addEventListener("click", () => {
         const finalName = currentProduct.name + " (" + currentProduct.selectedOption + ")";
         const finalPrice = currentProduct.currentCalculatedPrice;
-
         if (typeof addToCart === 'function') {
           addToCart(finalName, finalPrice, currentProduct.image);
         }
-
         document.getElementById("cart-modal").style.display = "none";
         alert(finalName + " added to your bag for $" + finalPrice + "!");
       });
     });
   </script>
 
+  <!-- VIDEO TOGGLE SCRIPT -->
   <script>
-  function toggleCardMedia(btn) {
-    const container = btn.closest('.image-container');
-    const img = container.querySelector('img.card-media');
-    const video = container.querySelector('video.card-media');
-
-    if (video.style.display === 'none') {
-      img.style.display = 'none';
-      video.style.display = 'block';
-      video.play();
-      btn.textContent = '⏸';
-    } else {
-      video.pause();
-      video.style.display = 'none';
-      img.style.display = 'block';
-      btn.textContent = '▶';
+    function toggleCardMedia(btn) {
+      const container = btn.closest('.image-container');
+      const img = container.querySelector('img.card-media');
+      const video = container.querySelector('video.card-media');
+      if (video.style.display === 'none') {
+        img.style.display = 'none';
+        video.style.display = 'block';
+        video.play();
+        btn.textContent = '⏸';
+      } else {
+        video.pause();
+        video.style.display = 'none';
+        img.style.display = 'block';
+        btn.textContent = '▶';
+      }
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
