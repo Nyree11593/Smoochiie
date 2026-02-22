@@ -310,6 +310,145 @@
       }
     }
   </style>
+
+<style>
+/* Search Modal Styles */
+        #search-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+        }
+        #search-modal .modal-content {
+            background: #15151e;
+            border: 3px solid #000;
+            box-shadow: 8px 8px 0px #000;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+        }
+        #search-modal h2 {
+            font-weight: 900;
+            text-transform: uppercase;
+            color: var(--red-gradient-end);
+            margin-bottom: 10px;
+        }
+        #search-modal p {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+        }
+        #search-input {
+            width: 100%;
+            padding: 12px;
+            background: #0a0a0f;
+            border: 2px solid #000;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            outline: none;
+        }
+        #close-search {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</style>
+
+<style>
+/* Mini Cart Dropdown Styles */
+        #mini-cart {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 350px;
+            background: rgba(15, 15, 20, 0.98);
+            backdrop-filter: blur(15px);
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 20px;
+            display: none;
+            z-index: 1000;
+            margin-top: 10px;
+            color: white;
+        }
+        #mini-cart.active {
+            display: block;
+        }
+        .cart-item-mini {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+        }
+        .cart-item-mini img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border: 1px solid #444;
+        }
+        .cart-item-info h4 {
+            font-size: 0.85rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        .cart-item-info p {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin: 4px 0;
+        }
+        .proceed-btn {
+            width: 100%;
+            background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 12px;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            margin-top: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: #a31e1e;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 999px;
+            font-weight: 900;
+        }
+    
+</style>
+</style>
+
 </head>
 <body>
 <div class="noise"></div>
@@ -328,7 +467,7 @@
 <a class="hover:text-white transition" href="track-order.html">Track Order</a>
 </div>
 <div class="flex items-center space-x-8 text-white">
-<i class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
+<i id="search-btn" class="fas fa-search text-lg cursor-pointer hover:text-gradient-red"></i>
 
 <div class="relative" id="cart-icon-container"  style="cursor:pointer">
 <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
@@ -414,5 +553,18 @@
 
 
 
-<script src="cart.js" defer></script></body>
+<script src="cart.js" defer></script>
+<!-- Search Modal -->
+<div id="search-modal">
+  <div class="modal-content">
+    <span id="close-search">×</span>
+    <h2>Search SMOOCHIIE™</h2>
+    <p>Type a character name... Tip: this searches your character cards.</p>
+    <input id="search-input" placeholder="Search characters..." type="text" />
+  </div>
+</div>
+
+
+<script src="search.js" defer></script>
+</body>
 </html>
