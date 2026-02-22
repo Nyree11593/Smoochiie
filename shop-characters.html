@@ -150,8 +150,7 @@
       color: var(--red-gradient-end);
       margin-bottom: 10px;
     }
-    /* Base button styles */
-    .add-btn, .customize-btn {
+    .add-btn {
       display: block;
       width: 100%;
       background: #a31e1e;
@@ -164,11 +163,8 @@
       font-size: 11px;
       cursor: pointer;
       margin-top: auto;
-      text-align: center;
-      text-decoration: none;
     }
-    .add-btn:hover, .customize-btn:hover { background: #c52525; }
-    
+    .add-btn:hover { background: #c52525; }
     #cart-count {
       position: absolute;
       top: -8px;
@@ -347,7 +343,7 @@
         </div>
         <div class="name">Nurse In Progress</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Nurse Character" data-price="14.99" data-image="images/nurseinprogress">Add to Cart</button>
+        <button class="add-btn" data-name="Nurse Character" data-price="14.99" data-image="images/nurseinprogress.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="hospital ultrasound">
@@ -357,7 +353,7 @@
         </div>
         <div class="name">Mammographer</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Mammographer" data-price="14.99" data-image="images/manmadeinvention.png">Add to Cart</button>
+        <button class="add-btn" data-name="Mammographer" data-price="14.99" data-image="images/manmadeinvention.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="hospital x-ray">
@@ -367,7 +363,7 @@
         </div>
         <div class="name">X-Ray / CT / MRI</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="X-Ray / CT / MRI" data-price="14.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
+        <button class="add-btn" data-name="X-Ray / CT / MRI" data-price="14.99" data-image="https://placehold.co/300x300?text=X-Ray">Add to Cart</button>
       </div>
 
       <!-- FANTASY -->
@@ -378,7 +374,7 @@
         </div>
         <div class="name">Dragon Character</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Dragon Character" data-price="14.99" data-image="images/dannyanddrogon.png">Add to Cart</button>
+        <button class="add-btn" data-name="Dragon Character" data-price="14.99" data-image="images/dannyanddrogon.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="fantasy vampire">
@@ -388,7 +384,7 @@
         </div>
         <div class="name">Vampire Character</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
+        <button class="add-btn" data-name="Vampire Character" data-price="14.99" data-image="https://placehold.co/300x300?text=Vampire">Add to Cart</button>
       </div>
 
       <!-- SMOOCHIIE ORIGINALS - CARICATURE (with video) -->
@@ -399,46 +395,26 @@
           <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
             <source src="images/cartoon_caricature_vid.MP4" type="video/mp4">
           </video>
-          <button onclick="toggleCardMedia(this)" style="
-            position:absolute; bottom:8px; right:8px;
-            background:rgba(163,30,30,0.85);
-            border:none; border-radius:50%;
-            width:32px; height:32px;
-            cursor:pointer; color:white;
-            font-size:14px; display:flex;
-            align-items:center; justify-content:center;
-            z-index:10;
-          ">▶</button>
+          <button onclick="toggleCardMedia(this)" style="position:absolute; bottom:8px; right:8px; background:rgba(163,30,30,0.85); border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; color:white; font-size:14px; display:flex; align-items:center; justify-content:center; z-index:10;">▶</button>
         </div>
         <div class="name">Custom Cartoon Caricature</div>
         <div class="price">$19.99</div>
-        <!-- Changed class to customize-btn to avoid cart.js interference -->
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:block; text-align:center;">Customize Now</a>
       </div>
 
       <!-- SMOOCHIIE ORIGINALS - REALISTIC CARICATURE (with video) -->
       <div class="card" data-category="original caricature">
-        <div class="label">ORIGINALS</div>
+        <div class="label">Custom Realistic Caricature</div>
         <div class="image-container" style="position:relative;">
           <img alt="Custom Realistic Caricature" src="images/Realistic_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
           <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
             <source src="images/realistic_caricature_vid.MP4" type="video/mp4">
           </video>
-          <button onclick="toggleCardMedia(this)" style="
-            position:absolute; bottom:8px; right:8px;
-            background:rgba(163,30,30,0.85);
-            border:none; border-radius:50%;
-            width:32px; height:32px;
-            cursor:pointer; color:white;
-            font-size:14px; display:flex;
-            align-items:center; justify-content:center;
-            z-index:10;
-          ">▶</button>
+          <button onclick="toggleCardMedia(this)" style="position:absolute; bottom:8px; right:8px; background:rgba(163,30,30,0.85); border:none; border-radius:50%; width:32px; height:32px; cursor:pointer; color:white; font-size:14px; display:flex; align-items:center; justify-content:center; z-index:10;">▶</button>
         </div>
         <div class="name">Custom Realistic Caricature</div>
         <div class="price">Starting at $19.99</div>
-        <!-- Changed class to customize-btn to avoid cart.js interference -->
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:block; text-align:center;">Customize Now</a>
       </div>
 
       <!-- SEASONAL -->
@@ -449,7 +425,7 @@
         </div>
         <div class="name">Spooky Character</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Spooky Character" data-price="14.99" data-image="images/dutchman.png">Add to Cart</button>
+        <button class="add-btn" data-name="Spooky Character" data-price="14.99" data-image="images/dutchman.png">Add to Cart</button>
       </div>
 
       <div class="card" data-category="seasonal christmas">
@@ -459,7 +435,7 @@
         </div>
         <div class="name">Merry Character</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Merry Character" data-price="14.99" data-image="images/dragonschristmas.png">Add to Cart</button>
+        <button class="add-btn" data-name="Merry Character" data-price="14.99" data-image="images/dragonschristmas.png">Add to Cart</button>
       </div>
 
       <!-- ASTROLOGY -->
@@ -470,7 +446,7 @@
         </div>
         <div class="name">Capricorn</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Capricorn" data-price="14.99" data-image="images/garnetcapricorn.png">Add to Cart</button>
+        <button class="add-btn" data-name="Capricorn" data-price="14.99" data-image="images/garnetcapricorn.png">Add to Cart</button>
       </div>
 
       <!-- Accessories -->
@@ -481,7 +457,7 @@
         </div>
         <div class="name">Badge Buddy</div>
         <div class="price">$9.99</div>
-        <button class="add-btn add-to-cart-btn" data-name="Badge Buddy" data-price="9.99" data-image="https://placehold.co/300x300?text=badge buddy">Add to Cart</button>
+        <button class="add-btn" data-name="Badge Buddy" data-price="9.99" data-image="https://placehold.co/300x300?text=badge buddy">Add to Cart</button>
       </div>
 
     </section>
@@ -652,8 +628,8 @@
         });
       }
 
-      // ✅ Only bind modal to real buttons, NOT <a> links
-      document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      // Only open modal for <button> add-btn, not <a> links
+      document.querySelectorAll('button.add-btn').forEach(btn => {
         btn.addEventListener("click", function(e) {
           e.preventDefault();
           currentProduct = {
@@ -684,18 +660,32 @@
         document.getElementById("cart-modal").style.display = "none";
       });
 
+      // FIXED: Write directly to localStorage using cart.js format
       document.getElementById("modal-checkout").addEventListener("click", () => {
-        if (!currentProduct.selectedOption || !currentProduct.currentCalculatedPrice) {
-          alert("Please select an option before adding to cart.");
+        const finalName = currentProduct.name + " (" + currentProduct.selectedOption + ")";
+        const finalPrice = parseFloat(currentProduct.currentCalculatedPrice);
+        const finalImage = currentProduct.image || "";
+
+        if (!currentProduct.name || isNaN(finalPrice)) {
+          alert("Please select an option first.");
           return;
         }
-        const finalName = currentProduct.name + " (" + currentProduct.selectedOption + ")";
-        const finalPrice = currentProduct.currentCalculatedPrice;
-        if (typeof addToCart === 'function') {
-          addToCart(finalName, finalPrice, currentProduct.image);
+
+        const CART_KEY = "smoochiie_cart";
+        const id = (finalName + "|" + finalPrice + "|" + finalImage).toLowerCase();
+        const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+        const existing = cart.find(x => x.id === id);
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ id, name: finalName, price: finalPrice, image: finalImage, qty: 1 });
         }
+        localStorage.setItem(CART_KEY, JSON.stringify(cart));
+
+        // Trigger cart.js to re-render
+        window.dispatchEvent(new StorageEvent("storage", { key: CART_KEY }));
+
         document.getElementById("cart-modal").style.display = "none";
-        alert(finalName + " added to your bag for $" + finalPrice + "!");
       });
     });
   </script>
