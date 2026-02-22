@@ -150,7 +150,7 @@
       color: var(--red-gradient-end);
       margin-bottom: 10px;
     }
-    .add-btn {
+    .add-btn, .customize-btn {
       display: block;
       width: 100%;
       background: #a31e1e;
@@ -163,8 +163,10 @@
       font-size: 11px;
       cursor: pointer;
       margin-top: auto;
+      text-decoration: none;
+      text-align: center;
     }
-    .add-btn:hover { background: #c52525; }
+    .add-btn:hover, .customize-btn:hover { background: #c52525; }
     #cart-count {
       position: absolute;
       top: -8px;
@@ -399,7 +401,7 @@
         </div>
         <div class="name">Custom Cartoon Caricature</div>
         <div class="price">$19.99</div>
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:block; text-align:center;">Customize Now</a>
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
       </div>
 
       <!-- SMOOCHIIE ORIGINALS - REALISTIC CARICATURE (with video) -->
@@ -414,7 +416,7 @@
         </div>
         <div class="name">Custom Realistic Caricature</div>
         <div class="price">Starting at $19.99</div>
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:block; text-align:center;">Customize Now</a>
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
       </div>
 
       <!-- SEASONAL -->
@@ -660,9 +662,9 @@
         document.getElementById("cart-modal").style.display = "none";
       });
 
-      // FIXED: DO NOT write to localStorage here (cart.js will do it).
-      // We only set the attributes cart.js expects, then allow the click to bubble.
-      document.getElementById("modal-checkout").addEventListener("click", function() {
+      document.getElementById("modal-checkout").addEventListener("click", function(e) {
+        e.preventDefault();
+        
         const finalName = currentProduct.name + " (" + currentProduct.selectedOption + ")";
         const finalPrice = currentProduct.currentCalculatedPrice;
         const finalImage = currentProduct.image || "";
@@ -672,12 +674,18 @@
           return;
         }
 
-        this.setAttribute("data-name", finalName);
-        this.setAttribute("data-price", finalPrice);
-        this.setAttribute("data-image", finalImage);
+        // Create a temporary hidden button to trigger cart.js exactly once
+        const hiddenBtn = document.createElement("button");
+        hiddenBtn.style.display = "none";
+        hiddenBtn.className = "add-to-cart-btn"; // cart.js listens for this
+        hiddenBtn.setAttribute("data-name", finalName);
+        hiddenBtn.setAttribute("data-price", finalPrice);
+        hiddenBtn.setAttribute("data-image", finalImage);
+        document.body.appendChild(hiddenBtn);
+        hiddenBtn.click();
+        document.body.removeChild(hiddenBtn);
 
         document.getElementById("cart-modal").style.display = "none";
-        // No preventDefault / no stopPropagation: cart.js should add exactly once.
       });
     });
   </script>
