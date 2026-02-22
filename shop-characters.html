@@ -660,32 +660,24 @@
         document.getElementById("cart-modal").style.display = "none";
       });
 
-      // FIXED: Write directly to localStorage using cart.js format
-      document.getElementById("modal-checkout").addEventListener("click", () => {
+      // FIXED: DO NOT write to localStorage here (cart.js will do it).
+      // We only set the attributes cart.js expects, then allow the click to bubble.
+      document.getElementById("modal-checkout").addEventListener("click", function() {
         const finalName = currentProduct.name + " (" + currentProduct.selectedOption + ")";
-        const finalPrice = parseFloat(currentProduct.currentCalculatedPrice);
+        const finalPrice = currentProduct.currentCalculatedPrice;
         const finalImage = currentProduct.image || "";
 
-        if (!currentProduct.name || isNaN(finalPrice)) {
+        if (!currentProduct.name || !finalPrice) {
           alert("Please select an option first.");
           return;
         }
 
-        const CART_KEY = "smoochiie_cart";
-        const id = (finalName + "|" + finalPrice + "|" + finalImage).toLowerCase();
-        const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-        const existing = cart.find(x => x.id === id);
-        if (existing) {
-          existing.qty += 1;
-        } else {
-          cart.push({ id, name: finalName, price: finalPrice, image: finalImage, qty: 1 });
-        }
-        localStorage.setItem(CART_KEY, JSON.stringify(cart));
-
-        // Trigger cart.js to re-render
-        window.dispatchEvent(new StorageEvent("storage", { key: CART_KEY }));
+        this.setAttribute("data-name", finalName);
+        this.setAttribute("data-price", finalPrice);
+        this.setAttribute("data-image", finalImage);
 
         document.getElementById("cart-modal").style.display = "none";
+        // No preventDefault / no stopPropagation: cart.js should add exactly once.
       });
     });
   </script>
