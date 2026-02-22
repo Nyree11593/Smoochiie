@@ -150,7 +150,8 @@
       color: var(--red-gradient-end);
       margin-bottom: 10px;
     }
-    .add-btn {
+    /* Base button styles */
+    .add-btn, .customize-btn {
       display: block;
       width: 100%;
       background: #a31e1e;
@@ -163,8 +164,11 @@
       font-size: 11px;
       cursor: pointer;
       margin-top: auto;
+      text-align: center;
+      text-decoration: none;
     }
-    .add-btn:hover { background: #c52525; }
+    .add-btn:hover, .customize-btn:hover { background: #c52525; }
+    
     #cart-count {
       position: absolute;
       top: -8px;
@@ -408,7 +412,8 @@
         </div>
         <div class="name">Custom Cartoon Caricature</div>
         <div class="price">$19.99</div>
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Customize Now</a>
+        <!-- Changed class to customize-btn to avoid cart.js interference -->
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
       </div>
 
       <!-- SMOOCHIIE ORIGINALS - REALISTIC CARICATURE (with video) -->
@@ -432,7 +437,8 @@
         </div>
         <div class="name">Custom Realistic Caricature</div>
         <div class="price">Starting at $19.99</div>
-        <a href="https://smoochiie.com/custom-badge-reel-themed" class="add-btn" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Customize Now</a>
+        <!-- Changed class to customize-btn to avoid cart.js interference -->
+        <a href="https://smoochiie.com/custom-badge-reel-themed" class="customize-btn">Customize Now</a>
       </div>
 
       <!-- SEASONAL -->
