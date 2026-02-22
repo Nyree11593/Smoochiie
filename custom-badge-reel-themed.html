@@ -533,17 +533,15 @@
 <div id="cart-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10000;">
 <div style="background:#111; padding:20px; border-radius:12px; max-width:400px; width:90%; position:relative; text-align:center; border: 3px solid #000; box-shadow: 8px 8px 0px #000;">
 <button id="close-modal" style="position:absolute; top:15px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">×</button>
-<h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:15px; font-size:1.25rem;">Item Name</h2>
+<h2 id="modal-name" style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:5px; font-size:1.25rem;">Custom Badge Reel</h2>
+<p style="color:#a31e1e; font-weight:900; font-size:1.2rem; margin-bottom:15px;">$19.99</p>
 <div style="background: #0a0a0f; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333;">
 <img alt="Item Image" id="modal-img" src="" style="width:120px; height:120px; object-fit:contain; margin:0 auto;">
 </img></div>
 <div style="text-align: left; margin-bottom: 20px;">
 <p style="color:#e8e8ea; font-weight:700; margin-bottom:8px; font-size: 14px; text-transform: uppercase;">Select Option:</p>
 <select id="modal-options" style="width:100%; padding:12px; border-radius:8px; background:#15151e; color:#fff; border:2px solid #000; font-weight:700; cursor:pointer; outline:none;">
-<option value="Badge Reel">Badge Reel</option>
-<option value="Phone Grip">Phone Grip</option>
-<option value="Magnet">Magnet</option>
-<option value="Keychain">Keychain</option>
+<option value="Custom Badge Reel" data-price="19.99" selected>Custom Badge Reel ($19.99)</option>
 </select>
 </div>
 <button id="modal-checkout" style="width:100%; padding:14px; background:linear-gradient(180deg, #650304, #a31e1e); color:#000; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:15px;">Add to Cart</button>
@@ -566,5 +564,38 @@
 
 
 <script src="search.js" defer></script>
+
+<script>
+  // Hardcode Custom Badge Reel price — this page only sells $19.99
+  document.addEventListener('DOMContentLoaded', function() {
+    var checkoutBtn = document.getElementById('modal-checkout');
+    var continueBtn = document.getElementById('modal-continue');
+    var closeBtn = document.getElementById('close-modal');
+
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', function() {
+        var name = "Custom Badge Reel";
+        var price = "19.99";
+        var image = "";
+        if (typeof addToCart === 'function') {
+          addToCart(name + " (Custom Badge Reel)", price, image);
+        }
+        document.getElementById('cart-modal').style.display = 'none';
+        alert("Custom Badge Reel added to your bag for $19.99!");
+      });
+    }
+    if (continueBtn) {
+      continueBtn.addEventListener('click', function() {
+        document.getElementById('cart-modal').style.display = 'none';
+      });
+    }
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        document.getElementById('cart-modal').style.display = 'none';
+      });
+    }
+  });
+</script>
+
 </body>
 </html>
