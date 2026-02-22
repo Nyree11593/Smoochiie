@@ -2,7 +2,7 @@
 (() => {
   const CART_KEY = "smoochiie_cart";
 
-  // ---- helpers ----
+  // ---------- helpers ----------
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
@@ -47,7 +47,7 @@
     return { id, name: cleanName, price: p, image: cleanImage, qty: 1 };
   };
 
-  // ---- mini-cart toggle ----
+  // ---------- mini-cart toggle ----------
   const isMiniOpen = () => {
     const mini = $("#mini-cart");
     return !!mini && mini.style.display === "block";
@@ -70,7 +70,7 @@
   // expose for any leftover inline HTML hooks
   window.toggleCart = toggleMini;
 
-  // ---- renderers ----
+  // ---------- renderers ----------
   const updateCount = (cart) => {
     const el = $("#cart-count");
     if (!el) return;
@@ -113,6 +113,7 @@
     cart.forEach((it) => {
       const row = document.createElement("div");
       row.className = "cart-item";
+      // keep bag.html styling, only inject content
       row.innerHTML = `
         <div class="thumb"><img src="${it.image || "https://placehold.co/120x120"}" alt="${it.name}"></div>
         <div class="meta">
@@ -196,12 +197,14 @@
     renderCartPage(cart);
   };
 
-  // ---- actions ----
+  // ---------- actions ----------
   const addFromButton = (btn) => {
+    // Prefer data- attributes
     let name = btn.getAttribute("data-name");
     let priceRaw = btn.getAttribute("data-price");
     let image = btn.getAttribute("data-image");
 
+    // Fallback: infer from nearest card/container
     if (!name || !priceRaw) {
       const card = btn.closest(".card, .product-card, .product, .item, .grid-item");
       if (card) {
@@ -234,7 +237,7 @@
 
     setCart(cart);
     updateUI();
-    openMini();
+    openMini(); // show feedback
     toast("Added to bag");
   };
 
@@ -252,26 +255,31 @@
 
   window.clearCart = clearCart;
 
-  // ---- wiring ----
+  // ---------- wiring ----------
   const init = () => {
+    // ensure mini cart starts hidden so it doesn't wreck nav
     if ($("#mini-cart")) closeMini();
 
+    // kill inline onclick if present (prevents "Proceed to Bag" hijack)
     const iconWrap = $("#cart-icon-container");
     if (iconWrap && iconWrap.getAttribute("onclick")) iconWrap.removeAttribute("onclick");
 
+    // open/close when clicking the icon container, but NOT when clicking inside the dropdown
     if (iconWrap) {
       iconWrap.addEventListener("click", (e) => {
         const mini = $("#mini-cart");
-        if (mini && mini.contains(e.target)) return;
+        if (mini && mini.contains(e.target)) return; // let dropdown clicks work
         toggleMini();
       });
     }
 
+    // Outside click closes dropdown (but clicks inside do nothing special)
     document.addEventListener("click", (e) => {
       const mini = $("#mini-cart");
       const icon = $("#cart-icon-container");
       if (!mini) return;
 
+      // remove
       const rm = e.target.closest(".remove-btn, .remove-mini");
       if (rm && rm.getAttribute("data-id")) {
         e.preventDefault();
@@ -279,6 +287,7 @@
         return;
       }
 
+      // clear cart link/button
       const clr = e.target.closest(".continue-shopping, #clear-bag, #clear-cart");
       if (clr) {
         const txt = (clr.textContent || "").trim().toLowerCase();
@@ -289,14 +298,15 @@
         }
       }
 
-      // UPDATED: Only handle clicks for buttons, NOT for <a> links
-      const addBtn = e.target.closest(".add-btn, .add-to-cart-btn, [data-add-to-cart]");
-      if (addBtn && addBtn.tagName !== 'A') {
+      // Add to cart: ONLY known selectors (prevents hijacking navigation)
+      const addBtn = e.target.closest(".add-to-cart-btn, [data-add-to-cart]");
+      if (addBtn) {
         e.preventDefault();
         addFromButton(addBtn);
         return;
       }
 
+      // proceed to checkout from bag (button)
       const checkoutBtn = e.target.closest("#checkout-btn");
       if (checkoutBtn) {
         const cart = getCart();
@@ -310,11 +320,13 @@
         return;
       }
 
+      // close if click outside both
       if (isMiniOpen() && !mini.contains(e.target) && !(icon && icon.contains(e.target))) {
         closeMini();
       }
     });
 
+    // sync across tabs
     window.addEventListener("storage", (e) => {
       if (e.key === CART_KEY) updateUI();
     });
