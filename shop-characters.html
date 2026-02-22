@@ -389,58 +389,52 @@
 
       <!-- SMOOCHIIE ORIGINALS - CARICATURE (with video) -->
       <div class="card" data-category="originals caricature">
-  <div class="label">ORIGINALS</div>
-
-  <div class="image-container" style="position:relative;">
-    <img alt="Custom Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
-
-    <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
-      <source src="images/cartoon_caricature_vid.MP4" type="video/mp4">
-    </video>
-
-    <button onclick="toggleCardMedia(this)" style="
-      position:absolute; bottom:8px; right:8px;
-      background:rgba(163,30,30,0.85);
-      border:none; border-radius:50%;
-      width:32px; height:32px;
-      cursor:pointer; color:white;
-      font-size:14px; display:flex;
-      align-items:center; justify-content:center;
-      z-index:10;
-    ">▶</button>
-  </div>
-
-  <div class="name">Custom Cartoon Caricature</div>
-  <div class="price">$19.99</div>
-  <button class="add-btn" data-name="Custom Cartoon Caricature" data-price="19.99" data-image="images/Family_Cartoon_Caricature.png">Add to Cart</button>
-</div>
+        <div class="label">ORIGINALS</div>
+        <div class="image-container" style="position:relative;">
+          <img alt="Custom Cartoon Caricature" src="images/Family_Cartoon_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
+          <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
+            <source src="images/cartoon_caricature_vid.MP4" type="video/mp4">
+          </video>
+          <button onclick="toggleCardMedia(this)" style="
+            position:absolute; bottom:8px; right:8px;
+            background:rgba(163,30,30,0.85);
+            border:none; border-radius:50%;
+            width:32px; height:32px;
+            cursor:pointer; color:white;
+            font-size:14px; display:flex;
+            align-items:center; justify-content:center;
+            z-index:10;
+          ">▶</button>
+        </div>
+        <div class="name">Custom Cartoon Caricature</div>
+        <div class="price">$19.99</div>
+        <!-- ✅ data-custom="true" added -->
+        <button class="add-btn" data-name="Custom Cartoon Caricature" data-price="19.99" data-image="images/Family_Cartoon_Caricature.png" data-custom="true">Add to Cart</button>
+      </div>
 
       <div class="card" data-category="original caricature">
-  <div class="label">Custom Realistic Caricature</div>
-
-  <div class="image-container" style="position:relative;">
-    <img alt="Custom Realistic Caricature" src="images/Realistic_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
-
-    <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
-      <source src="images/realistic_caricature_vid.MP4" type="video/mp4">
-    </video>
-
-    <button onclick="toggleCardMedia(this)" style="
-      position:absolute; bottom:8px; right:8px;
-      background:rgba(163,30,30,0.85);
-      border:none; border-radius:50%;
-      width:32px; height:32px;
-      cursor:pointer; color:white;
-      font-size:14px; display:flex;
-      align-items:center; justify-content:center;
-      z-index:10;
-    ">▶</button>
-  </div>
-
-  <div class="name">Custom Realistic Caricature</div>
-  <div class="price">Starting at $19.99</div>
-  <button class="add-btn" data-name="Realistic Caricature" data-price="19.99" data-image="images/Realistic_Caricature.png">Add to Cart</button>
-</div>
+        <div class="label">Custom Realistic Caricature</div>
+        <div class="image-container" style="position:relative;">
+          <img alt="Custom Realistic Caricature" src="images/Realistic_Caricature.png" class="card-media" style="width:100%; height:100%; object-fit:contain;" />
+          <video class="card-media" muted loop playsinline style="display:none; width:100%; height:100%; object-fit:cover; border-radius:8px;">
+            <source src="images/realistic_caricature_vid.MP4" type="video/mp4">
+          </video>
+          <button onclick="toggleCardMedia(this)" style="
+            position:absolute; bottom:8px; right:8px;
+            background:rgba(163,30,30,0.85);
+            border:none; border-radius:50%;
+            width:32px; height:32px;
+            cursor:pointer; color:white;
+            font-size:14px; display:flex;
+            align-items:center; justify-content:center;
+            z-index:10;
+          ">▶</button>
+        </div>
+        <div class="name">Custom Realistic Caricature</div>
+        <div class="price">Starting at $19.99</div>
+        <!-- ✅ data-custom="true" added -->
+        <button class="add-btn" data-name="Realistic Caricature" data-price="19.99" data-image="images/Realistic_Caricature.png" data-custom="true">Add to Cart</button>
+      </div>
 
       <!-- SEASONAL -->
       <div class="card" data-category="seasonal halloween">
@@ -656,18 +650,38 @@
       document.querySelectorAll('.add-btn').forEach(btn => {
         btn.addEventListener("click", function(e) {
           e.preventDefault();
+
+          // ✅ Check if this is a custom-only item
+          const isCustom = this.getAttribute("data-custom") === "true";
+
           currentProduct = {
             name: this.getAttribute("data-name"),
-            image: this.getAttribute("data-image")
+            image: this.getAttribute("data-image"),
+            isCustom: isCustom
           };
+
+          const modalOptions = document.getElementById("modal-options");
+          const standardOption = modalOptions.querySelector('option[value="Badge Reel"]');
+          const customOption = modalOptions.querySelector('option[value="Custom Badge Reel"]');
+
+          // ✅ Hide $14.99 Badge Reel for custom items, show it for all others
+          if (isCustom) {
+            if (standardOption) standardOption.style.display = "none";
+            if (customOption) modalOptions.value = "Custom Badge Reel";
+          } else {
+            if (standardOption) standardOption.style.display = "";
+            modalOptions.selectedIndex = 0;
+          }
+
           document.getElementById("modal-name").textContent = currentProduct.name;
           document.getElementById("modal-img").src = currentProduct.image;
-          document.getElementById("modal-options").selectedIndex = 0;
           document.getElementById("modal-size").selectedIndex = 0;
+
           document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
           document.querySelector('.swatch[data-color="Black"]').classList.add('active');
           document.getElementById('selected-color-value').value = "Black";
           document.getElementById('selected-color-name').textContent = "Black";
+
           updateModalPrice();
           document.getElementById("cart-modal").style.display = "flex";
         });
