@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+can u create a window that verifies that a sticker is being added to the cart when clicking "add to bundle" instead of it just going straight to the cart? <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -604,6 +604,25 @@
     </section>
   </main>
 
+  <!-- STICKER CONFIRMATION MODAL -->
+  <div id="sticker-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10002;">
+    <div style="background:#111; padding:28px 24px; border-radius:12px; max-width:380px; width:90%; position:relative; text-align:center; border:3px solid #000; box-shadow:8px 8px 0px #000;">
+      <button id="close-sticker-modal" style="position:absolute; top:12px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">&#215;</button>
+      <div style="font-size:36px; margin-bottom:10px;">🌊</div>
+      <h2 style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:6px; font-size:1.1rem;" id="sticker-modal-name">Sticker Name</h2>
+      <p style="color:#9ca3af; font-size:12px; margin-bottom:16px;">Ocean Sticker Bundle · 9 for $5.99</p>
+      <div style="background:#0a0a0f; border-radius:8px; padding:14px; margin-bottom:18px; border:1px solid #333;">
+        <img id="sticker-modal-img" src="" alt="Sticker" style="width:100px; height:100px; object-fit:contain; margin:0 auto; display:block;" />
+      </div>
+      <p style="color:#e8e8ea; font-size:13px; margin-bottom:20px; line-height:1.5;">
+        Add <strong id="sticker-modal-name-inline">this sticker</strong> to your bundle?<br/>
+        <span style="color:#9ca3af; font-size:11px;">Every 9 stickers = $5.99 · Partial sets count as one bundle</span>
+      </p>
+      <button id="sticker-confirm-yes" style="width:100%; padding:13px; background:linear-gradient(180deg,#650304,#a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-size:13px;">✓ Yes, Add to Bundle</button>
+      <button id="sticker-confirm-no" style="background:none; color:#9ca3af; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:11px; text-decoration:underline;">Cancel</button>
+    </div>
+  </div>
+
   <!-- SEARCH MODAL -->
   <div id="search-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10001;">
     <div style="background: #15151e; border: 3px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; text-align: center;">
@@ -825,6 +844,58 @@
         document.body.removeChild(hiddenBtn);
 
         document.getElementById("cart-modal").style.display = "none";
+      });
+    });
+  </script>
+
+  <!-- STICKER CONFIRMATION MODAL LOGIC -->
+  <script>
+    let pendingStickerBtn = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const stickerModal = document.getElementById('sticker-confirm-modal');
+      const closeStickerModal = document.getElementById('close-sticker-modal');
+      const confirmYes = document.getElementById('sticker-confirm-yes');
+      const confirmNo = document.getElementById('sticker-confirm-no');
+
+      document.querySelectorAll('.add-sticker-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          pendingStickerBtn = this;
+          const name = this.getAttribute('data-name');
+          const image = this.getAttribute('data-image');
+          document.getElementById('sticker-modal-name').textContent = name;
+          document.getElementById('sticker-modal-name-inline').textContent = name;
+          document.getElementById('sticker-modal-img').src = image;
+          stickerModal.style.display = 'flex';
+        });
+      });
+
+      function closeModal() {
+        stickerModal.style.display = 'none';
+        pendingStickerBtn = null;
+      }
+
+      closeStickerModal.addEventListener('click', closeModal);
+      confirmNo.addEventListener('click', closeModal);
+      stickerModal.addEventListener('click', function(e) {
+        if (e.target === stickerModal) closeModal();
+      });
+
+      confirmYes.addEventListener('click', function() {
+        if (!pendingStickerBtn) return;
+        const hiddenBtn = document.createElement('button');
+        hiddenBtn.style.cssText = 'display:none;position:absolute;';
+        hiddenBtn.className = 'add-to-cart-btn';
+        hiddenBtn.setAttribute('data-name', pendingStickerBtn.getAttribute('data-name'));
+        hiddenBtn.setAttribute('data-price', pendingStickerBtn.getAttribute('data-price'));
+        hiddenBtn.setAttribute('data-image', pendingStickerBtn.getAttribute('data-image'));
+        hiddenBtn.setAttribute('data-is-sticker', 'true');
+        document.body.appendChild(hiddenBtn);
+        hiddenBtn.click();
+        document.body.removeChild(hiddenBtn);
+        closeModal();
       });
     });
   </script>
