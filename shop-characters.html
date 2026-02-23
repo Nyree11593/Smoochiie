@@ -281,8 +281,11 @@
           <span id="cart-count">0</span>
           <div id="mini-cart">
             <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
-            <div id="sticker-bundle-info" style="display:none; background:rgba(163,30,30,0.12); border:1px solid #a31e1e; border-radius:8px; padding:8px 12px; margin-bottom:12px; font-size:11px; font-weight:900; text-transform:uppercase; color:#a31e1e;"></div>
             <div id="mini-cart-items"></div>
+            <div id="sticker-bundle-info" style="display:none; background:#1a1a2e; border:1px solid #a31e1e; border-radius:8px; padding:10px; margin-top:10px; font-size:12px; color:#e8e8ea;">
+              🌊 <strong>Ocean Sticker Bundle:</strong> <span id="sticker-bundle-count">0</span> sticker(s) → <span id="sticker-bundle-price">$0.00</span>
+              <br/><span style="color:#9ca3af; font-size:11px;">Every 9 stickers = $5.99 (partial sets count as one bundle)</span>
+            </div>
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
               <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
               <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
@@ -367,15 +370,135 @@
         <button class="add-btn open-options-btn" data-name="X-Ray / CT / MRI" data-price="14.99" data-image="images/skeletoncoffeefx.png">Add to Cart</button>
       </div>
 
-      <!-- Ocean/Sea Life -->
-      <div class="card" data-category="Ocean/Sea Life">
-        <div class="label">Ocean/Sea Life</div>
+      <!-- Ocean/Sea Life Stickers -->
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
         <div class="image-container">
-          <img alt="Ocean" src="PHOTO" />
+          <img alt="Seashell and Pearl" src="images/Ocean stickers/seashellandpearl.png" />
         </div>
-        <div class="name">Ocean/Sea Life</div>
-        <div class="price">Starting at $10.99</div>
-        <button class="add-btn open-options-btn" data-name="Ocean/Sea Life" data-price="14.99" data-image="PHOTO">Add to Cart</button>
+        <div class="name">Seashell &amp; Pearl</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Seashell &amp; Pearl" data-price="0.67" data-image="images/Ocean stickers/seashellandpearl.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Message in Bottle" src="images/Ocean stickers/messageinbottle.png" />
+        </div>
+        <div class="name">Message in Bottle</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Message in Bottle" data-price="0.67" data-image="images/Ocean stickers/messageinbottle.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Ocean Sack" src="images/Ocean stickers/oceansack.png" />
+        </div>
+        <div class="name">Ocean Sack</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Ocean Sack" data-price="0.67" data-image="images/Ocean stickers/oceansack.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Boba Tea" src="images/Ocean stickers/boboatea.png" />
+        </div>
+        <div class="name">Boba Tea</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Boba Tea" data-price="0.67" data-image="images/Ocean stickers/boboatea.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Sea Turtle" src="images/Ocean stickers/seaturtle.png" />
+        </div>
+        <div class="name">Sea Turtle</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Sea Turtle" data-price="0.67" data-image="images/Ocean stickers/seaturtle.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Sea Castle" src="images/Ocean stickers/seacastle.png" />
+        </div>
+        <div class="name">Sea Castle</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Sea Castle" data-price="0.67" data-image="images/Ocean stickers/seacastle.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Black Mermaid" src="images/Ocean stickers/blackmermaid.png" />
+        </div>
+        <div class="name">Black Mermaid</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Black Mermaid" data-price="0.67" data-image="images/Ocean stickers/blackmermaid.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="White Mermaid" src="images/Ocean stickers/whitemermaid.png" />
+        </div>
+        <div class="name">White Mermaid</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="White Mermaid" data-price="0.67" data-image="images/Ocean stickers/whitemermaid.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Dolphin" src="images/Ocean stickers/dolphin.png" />
+        </div>
+        <div class="name">Dolphin</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Dolphin" data-price="0.67" data-image="images/Ocean stickers/dolphin.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Sea Trunk" src="images/Ocean stickers/seatrunk.png" />
+        </div>
+        <div class="name">Sea Trunk</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Sea Trunk" data-price="0.67" data-image="images/Ocean stickers/seatrunk.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Pour Out the Message" src="images/Ocean stickers/pourouthtemessage.png" />
+        </div>
+        <div class="name">Pour Out the Message</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Pour Out the Message" data-price="0.67" data-image="images/Ocean stickers/pourouthtemessage.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Lost Compass" src="images/Ocean stickers/lostcompass.png" />
+        </div>
+        <div class="name">Lost Compass</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Lost Compass" data-price="0.67" data-image="images/Ocean stickers/lostcompass.png">Add to Bundle</button>
+      </div>
+
+      <div class="card" data-category="Ocean/Sea Life" data-is-sticker="true">
+        <div class="label">OCEAN STICKER</div>
+        <div class="image-container">
+          <img alt="Trident and Seashells" src="images/Ocean stickers/tridantandseashells.png" />
+        </div>
+        <div class="name">Trident &amp; Seashells</div>
+        <div class="price">9 for $5.99 Bundle</div>
+        <button class="add-btn add-sticker-btn" data-name="Trident &amp; Seashells" data-price="0.67" data-image="images/Ocean stickers/tridantandseashells.png">Add to Bundle</button>
       </div>
 
 
@@ -465,37 +588,6 @@
         <div class="name">Capricorn</div>
         <div class="price">Starting at $10.99</div>
         <button class="add-btn open-options-btn" data-name="Capricorn" data-price="14.99" data-image="images/garnetcapricorn.png">Add to Cart</button>
-      </div>
-
-      <!-- STICKERS - Any amount up to 9 = $5.99, each additional group of 9 = another $5.99 -->
-      <div class="card" data-category="sticker health care medical">
-        <div class="label">STICKER</div>
-        <div class="image-container">
-          <img alt="Sticker" src="images/sticker_placeholder1.png" />
-        </div>
-        <div class="name">Healthcare Sticker</div>
-        <div class="price">9 for $5.99 Bundle</div>
-        <button class="add-sticker-btn add-btn" data-name="Healthcare Sticker" data-image="images/sticker_placeholder1.png">Add to Bundle</button>
-      </div>
-
-      <div class="card" data-category="sticker ocean sea life">
-        <div class="label">STICKER</div>
-        <div class="image-container">
-          <img alt="Sticker" src="images/sticker_placeholder2.png" />
-        </div>
-        <div class="name">Ocean Sticker</div>
-        <div class="price">9 for $5.99 Bundle</div>
-        <button class="add-sticker-btn add-btn" data-name="Ocean Sticker" data-image="images/sticker_placeholder2.png">Add to Bundle</button>
-      </div>
-
-      <div class="card" data-category="sticker food drinks">
-        <div class="label">STICKER</div>
-        <div class="image-container">
-          <img alt="Sticker" src="images/sticker_placeholder3.png" />
-        </div>
-        <div class="name">Food &amp; Drinks Sticker</div>
-        <div class="price">9 for $5.99 Bundle</div>
-        <button class="add-sticker-btn add-btn" data-name="Food &amp; Drinks Sticker" data-image="images/sticker_placeholder3.png">Add to Bundle</button>
       </div>
 
       <!-- Accessories -->
@@ -677,81 +769,7 @@
         });
       }
 
-      // STICKER BUNDLE LOGIC
-      document.querySelectorAll('.add-sticker-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const name = this.getAttribute('data-name');
-          const image = this.getAttribute('data-image');
-          let cart = JSON.parse(localStorage.getItem('smoochiie_cart') || '[]');
-          const existing = cart.find(i => i.name === name && i.isSticker);
-          if (existing) { existing.quantity += 1; } 
-          else { cart.push({ name, price: '0.00', image, quantity: 1, isSticker: true }); }
-          localStorage.setItem('smoochiie_cart', JSON.stringify(cart));
-          updateMiniCart();
-          document.getElementById('mini-cart').style.display = 'block';
-        });
-      });
-
-      function updateMiniCart() {
-        const cart = JSON.parse(localStorage.getItem('smoochiie_cart') || '[]');
-        const miniCartItems = document.getElementById('mini-cart-items');
-        const miniCartSubtotal = document.getElementById('mini-cart-subtotal');
-        const cartCount = document.getElementById('cart-count');
-        const bundleInfo = document.getElementById('sticker-bundle-info');
-
-        let totalItems = 0, regularSubtotal = 0, stickerCount = 0;
-        miniCartItems.innerHTML = '';
-
-        cart.forEach((item, index) => {
-          totalItems += item.quantity;
-          if (item.isSticker) {
-            stickerCount += item.quantity;
-          } else {
-            regularSubtotal += parseFloat(item.price) * item.quantity;
-          }
-          const el = document.createElement('div');
-          el.className = 'cart-item-mini';
-          el.innerHTML = `<img src="${item.image}" alt="${item.name}">
-            <div class="cart-item-info">
-              <h4>${item.name}</h4>
-              <p>${item.quantity}x ${item.isSticker ? '(Bundle Item)' : '$' + item.price}</p>
-              <button onclick="removeCartItem(${index})" style="color:#a31e1e;font-size:10px;font-weight:900;text-transform:uppercase;background:none;border:none;cursor:pointer;">Remove</button>
-            </div>`;
-          miniCartItems.appendChild(el);
-        });
-
-        const bundleTotal = stickerCount > 0 ? Math.ceil(stickerCount / 9) * 5.99 : 0;
-        const subtotal = regularSubtotal + bundleTotal;
-
-        if (stickerCount > 0) {
-          const bundles = Math.ceil(stickerCount / 9);
-          bundleInfo.style.display = 'block';
-          bundleInfo.textContent = `🎉 ${stickerCount} Sticker${stickerCount > 1 ? 's' : ''} → ${bundles} Bundle${bundles > 1 ? 's' : ''} = $${bundleTotal.toFixed(2)}`;
-        } else {
-          bundleInfo.style.display = 'none';
-        }
-
-        cartCount.textContent = totalItems;
-        miniCartSubtotal.textContent = '$' + subtotal.toFixed(2);
-      }
-
-      window.removeCartItem = function(index) {
-        let cart = JSON.parse(localStorage.getItem('smoochiie_cart') || '[]');
-        cart.splice(index, 1);
-        localStorage.setItem('smoochiie_cart', JSON.stringify(cart));
-        updateMiniCart();
-      };
-
-      window.clearCart = function() {
-        localStorage.removeItem('smoochiie_cart');
-        updateMiniCart();
-      };
-
-      updateMiniCart();
-
-      document.querySelectorAll('.add-btn:not(.add-sticker-btn)').forEach(btn => {
+      document.querySelectorAll('.add-btn').forEach(btn => {
         btn.addEventListener("click", function(e) {
           e.preventDefault();
           currentProduct = {
