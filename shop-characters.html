@@ -848,58 +848,6 @@
     });
   </script>
 
-  <!-- STICKER CONFIRMATION MODAL LOGIC -->
-  <script>
-    let pendingStickerBtn = null;
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const stickerModal = document.getElementById('sticker-confirm-modal');
-      const closeStickerModal = document.getElementById('close-sticker-modal');
-      const confirmYes = document.getElementById('sticker-confirm-yes');
-      const confirmNo = document.getElementById('sticker-confirm-no');
-
-      document.querySelectorAll('.add-sticker-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          pendingStickerBtn = this;
-          const name = this.getAttribute('data-name');
-          const image = this.getAttribute('data-image');
-          document.getElementById('sticker-modal-name').textContent = name;
-          document.getElementById('sticker-modal-name-inline').textContent = name;
-          document.getElementById('sticker-modal-img').src = image;
-          stickerModal.style.display = 'flex';
-        });
-      });
-
-      function closeModal() {
-        stickerModal.style.display = 'none';
-        pendingStickerBtn = null;
-      }
-
-      closeStickerModal.addEventListener('click', closeModal);
-      confirmNo.addEventListener('click', closeModal);
-      stickerModal.addEventListener('click', function(e) {
-        if (e.target === stickerModal) closeModal();
-      });
-
-      confirmYes.addEventListener('click', function() {
-        if (!pendingStickerBtn) return;
-        const hiddenBtn = document.createElement('button');
-        hiddenBtn.style.cssText = 'display:none;position:absolute;';
-        hiddenBtn.className = 'add-to-cart-btn';
-        hiddenBtn.setAttribute('data-name', pendingStickerBtn.getAttribute('data-name'));
-        hiddenBtn.setAttribute('data-price', pendingStickerBtn.getAttribute('data-price'));
-        hiddenBtn.setAttribute('data-image', pendingStickerBtn.getAttribute('data-image'));
-        hiddenBtn.setAttribute('data-is-sticker', 'true');
-        document.body.appendChild(hiddenBtn);
-        hiddenBtn.click();
-        document.body.removeChild(hiddenBtn);
-        closeModal();
-      });
-    });
-  </script>
-
   <!-- VIDEO TOGGLE SCRIPT -->
   <script>
     function toggleCardMedia(btn) {
