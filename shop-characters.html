@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+can u create a window that verifies that a sticker is being added to the cart when clicking "add to bundle" instead of it just going straight to the cart? <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -347,7 +347,7 @@
         </div>
         <div class="name">Nurse In Progress</div>
         <div class="price">Starting at $10.99</div>
-        <button class="add-btn open-options-btn" data-name="Nurse Character" data-price="14.99" data-image="images/nurseinprogress.png">Add to Cart</button>
+        <button class="add-btn open-options-btn" data-name="Nurse Character" data-price="14.99" data-image="images/nurseinprogress">Add to Cart</button>
       </div>
 
       <div class="card" data-category="hospital ultrasound">
@@ -604,25 +604,6 @@
     </section>
   </main>
 
-  <!-- STICKER CONFIRMATION MODAL -->
-  <div id="sticker-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:10002;">
-    <div style="background:#111; padding:28px 24px; border-radius:12px; max-width:380px; width:90%; position:relative; text-align:center; border:3px solid #000; box-shadow:8px 8px 0px #000;">
-      <button id="close-sticker-modal" style="position:absolute; top:12px; right:15px; background:none; border:none; color:#fff; font-size:24px; cursor:pointer; font-weight:bold;">&#215;</button>
-      <div style="font-size:36px; margin-bottom:10px;">🌊</div>
-      <h2 style="color:#fff; font-weight:900; text-transform:uppercase; margin-bottom:6px; font-size:1.1rem;" id="sticker-modal-name">Sticker Name</h2>
-      <p style="color:#9ca3af; font-size:12px; margin-bottom:16px;">Ocean Sticker Bundle · 9 for $5.99</p>
-      <div style="background:#0a0a0f; border-radius:8px; padding:14px; margin-bottom:18px; border:1px solid #333;">
-        <img id="sticker-modal-img" src="" alt="Sticker" style="width:100px; height:100px; object-fit:contain; margin:0 auto; display:block;" />
-      </div>
-      <p style="color:#e8e8ea; font-size:13px; margin-bottom:20px; line-height:1.5;">
-        Add <strong id="sticker-modal-name-inline">this sticker</strong> to your bundle?<br/>
-        <span style="color:#9ca3af; font-size:11px;">Every 9 stickers = $5.99 · Partial sets count as one bundle</span>
-      </p>
-      <button id="sticker-confirm-yes" style="width:100%; padding:13px; background:linear-gradient(180deg,#650304,#a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; font-size:13px;">✓ Yes, Add to Bundle</button>
-      <button id="sticker-confirm-no" style="background:none; color:#9ca3af; border:none; cursor:pointer; font-weight:700; text-transform:uppercase; font-size:11px; text-decoration:underline;">Cancel</button>
-    </div>
-  </div>
-
   <!-- SEARCH MODAL -->
   <div id="search-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); justify-content: center; align-items: center; z-index: 10001;">
     <div style="background: #15151e; border: 3px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; border-radius: 12px; max-width: 500px; width: 90%; position: relative; text-align: center;">
@@ -866,6 +847,81 @@
         btn.textContent = '▶';
       }
     }
+  </script>
+
+  <!-- STICKER CONFIRMATION MODAL -->
+  <div id="sticker-confirm-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; z-index:20000;">
+    <div style="background:#15151e; border:3px solid #000; box-shadow:8px 8px 0px #000; padding:28px 24px; border-radius:14px; max-width:360px; width:90%; position:relative; text-align:center; color:#e8e8ea;">
+      <button id="sticker-confirm-close" style="position:absolute; top:12px; right:15px; background:none; border:none; color:#fff; font-size:22px; cursor:pointer; font-weight:bold; line-height:1;">&#215;</button>
+      <p style="font-size:11px; font-weight:900; text-transform:uppercase; color:#a31e1e; letter-spacing:2px; margin-bottom:8px;">Add to Bundle?</p>
+      <div style="background:#0a0a0f; border-radius:8px; padding:12px; margin-bottom:14px; border:1px solid #333;">
+        <img id="sticker-confirm-img" src="" alt="" style="width:90px; height:90px; object-fit:contain; margin:0 auto; display:block;" />
+      </div>
+      <h3 id="sticker-confirm-name" style="font-weight:900; font-size:1rem; text-transform:uppercase; margin-bottom:6px;"></h3>
+      <p style="font-size:12px; color:#9ca3af; margin-bottom:18px;">9 stickers for <strong style="color:#a31e1e;">$5.99</strong> — partial sets count as one bundle</p>
+      <div style="display:flex; gap:10px;">
+        <button id="sticker-confirm-yes" style="flex:1; padding:12px; background:linear-gradient(180deg,#650304,#a31e1e); color:#fff; font-weight:900; border:2px solid #000; border-radius:8px; cursor:pointer; text-transform:uppercase; font-size:12px; letter-spacing:1px;">Yes, Add to Bundle</button>
+        <button id="sticker-confirm-cancel" style="flex:1; padding:12px; background:#222; color:#e8e8ea; font-weight:900; border:2px solid #444; border-radius:8px; cursor:pointer; text-transform:uppercase; font-size:12px; letter-spacing:1px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STICKER CONFIRMATION MODAL SCRIPT -->
+  <script>
+    (function() {
+      var pendingSticker = null;
+
+      function openStickerConfirm(btn) {
+        pendingSticker = btn;
+        document.getElementById('sticker-confirm-name').textContent = btn.getAttribute('data-name');
+        document.getElementById('sticker-confirm-img').src = btn.getAttribute('data-image');
+        document.getElementById('sticker-confirm-modal').style.display = 'flex';
+      }
+
+      function closeStickerConfirm() {
+        pendingSticker = null;
+        document.getElementById('sticker-confirm-modal').style.display = 'none';
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // Intercept all sticker buttons
+        document.querySelectorAll('.add-sticker-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openStickerConfirm(btn);
+          }, true); // capture phase to fire before cart.js
+        });
+
+        document.getElementById('sticker-confirm-yes').addEventListener('click', function() {
+          if (pendingSticker) {
+            var hiddenBtn = document.createElement('button');
+            hiddenBtn.style.cssText = 'display:none;position:absolute;';
+            hiddenBtn.className = 'add-to-cart-btn';
+            hiddenBtn.setAttribute('data-name', pendingSticker.getAttribute('data-name'));
+            hiddenBtn.setAttribute('data-price', pendingSticker.getAttribute('data-price'));
+            hiddenBtn.setAttribute('data-image', pendingSticker.getAttribute('data-image'));
+            document.body.appendChild(hiddenBtn);
+            hiddenBtn.click();
+            document.body.removeChild(hiddenBtn);
+          }
+          closeStickerConfirm();
+        });
+
+        document.getElementById('sticker-confirm-cancel').addEventListener('click', function() {
+          closeStickerConfirm();
+        });
+
+        document.getElementById('sticker-confirm-close').addEventListener('click', function() {
+          closeStickerConfirm();
+        });
+
+        // Click outside modal to close
+        document.getElementById('sticker-confirm-modal').addEventListener('click', function(e) {
+          if (e.target === this) closeStickerConfirm();
+        });
+      });
+    })();
   </script>
 
 </body>
