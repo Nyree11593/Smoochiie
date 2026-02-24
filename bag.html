@@ -16,6 +16,8 @@
       --accent-start: #650304;
       --accent-end: #a31e1e;
       --muted: #9ca3af;
+      --red-gradient-start: #650304;
+      --red-gradient-end: #a31e1e;
     }
     body {
       font-family: 'Inter', sans-serif;
@@ -24,7 +26,13 @@
       margin: 0;
       min-height: 100vh;
     }
-    nav { background: rgba(10,10,15,0.95); backdrop-filter: blur(6px); }
+    nav {
+      background: rgba(10,10,15,0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
     .container-custom { max-width:1200px; margin:0 auto; padding:0 20px; }
     main { padding: 48px 0; }
     .bag-grid { display: grid; grid-template-columns: 1fr 360px; gap: 32px; align-items: start; }
@@ -34,67 +42,49 @@
       padding:16px; border-radius:6px; align-items:center;
     }
     .cart-item .thumb {
-      width:120px; height:120px; background:#1a1a2e; display:flex;
+      width:100px; height:100px; background:#1a1a2e; display:flex;
       align-items:center; justify-content:center; overflow:hidden;
       border:1px solid #2b2b34; border-radius:4px; flex-shrink:0;
     }
-    .cart-item .thumb img { width:100%; height:100%; object-fit:cover; }
+    .cart-item .thumb img { width:100%; height:100%; object-fit:contain; }
     .cart-item .meta { flex:1; display:flex; flex-direction:column; gap:4px; }
-    .meta h4 { font-weight:900; text-transform:uppercase; font-size:1.1rem; margin:0; }
-    .meta .option { color: var(--accent-end); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; }
+    .meta h4 { font-weight:900; text-transform:uppercase; font-size:1rem; margin:0; }
+    .meta .option { color: var(--accent-end); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; }
     .meta .price { font-weight:900; color: #fff; font-size:1rem; margin-top: 4px; }
-    .remove-btn { background:transparent; border:none; color:#9ca3af; cursor:pointer; font-size:1.2rem; transition: 0.2s; }
+    .qty-controls { display:flex; align-items:center; gap:8px; margin-top:6px; }
+    .qty-btn { background:#333; color:#fff; border:none; border-radius:4px; width:26px; height:26px; cursor:pointer; font-weight:900; font-size:14px; }
+    .qty-btn:hover { background:#555; }
+    .remove-btn { background:transparent; border:none; color:#9ca3af; cursor:pointer; font-size:1.2rem; transition: 0.2s; padding: 4px; }
     .remove-btn:hover { color:#ef4444; }
-    .order-summary { background:var(--card-bg); border:1px solid #222; padding:22px; border-radius:6px; position:sticky; top:24px; }
+    .order-summary { background:var(--card-bg); border:1px solid #222; padding:22px; border-radius:6px; position:sticky; top:80px; }
     .order-summary h3 { font-weight:900; text-transform:uppercase; font-size:1.05rem; margin:0 0 16px 0; }
-
     .summary-row { display:flex; justify-content:space-between; color:var(--muted); margin-bottom:12px; font-size:0.95rem; }
     .summary-total { display:flex; justify-content:space-between; font-weight:900; font-size:1.2rem; margin-top:8px; color:var(--accent-end); border-top: 1px solid #333; padding-top: 12px; }
-
     .checkout-btn {
       width:100%; margin-top:18px; background: linear-gradient(180deg,var(--accent-start),var(--accent-end));
-      color:#000; font-weight:900; padding:14px; border-radius:6px; border:2px solid #000; cursor:pointer;
+      color:#fff; font-weight:900; padding:14px; border-radius:6px; border:2px solid #000; cursor:pointer;
       box-shadow: 4px 4px 0px #000; text-transform:uppercase; transition: 0.2s;
     }
     .checkout-btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #000; }
+    .secondary-btn { display: block; width:100%; background:#121217; color:#e8e8ea; padding:12px; border-radius:6px; border:1px solid #222; cursor:pointer; margin-top:10px; text-align: center; font-weight: 700; text-decoration:none; }
 
-    .secondary-btn { display: block; width:100%; background:#121217; color:#e8e8ea; padding:12px; border-radius:6px; border:1px solid #222; cursor:pointer; margin-top:10px; text-align: center; font-weight: 700; }
+    /* Input styling */
+    .input-wrap { margin-top: 14px; }
+    .input-label { font-size: 0.72rem; letter-spacing: .18em; text-transform: uppercase; color: #9ca3af; margin-bottom: 8px; font-weight: 900; }
+    .input-field { width: 100%; padding: 12px; border-radius: 6px; background: #0f0f14; border: 1px solid #333; color: #fff; outline: none; box-sizing: border-box; font-family: inherit; }
+    .input-field:focus { border-color: rgba(163,30,30,.8); box-shadow: 0 0 0 3px rgba(163,30,30,.18); }
+    .input-hint { margin-top: 8px; font-size: 0.75rem; color: #9ca3af; line-height: 1.5; }
 
-    /* Added email input styling (keeps your vibe) */
-    .email-wrap { margin-top: 14px; }
-    .email-label {
-      font-size: 0.72rem;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-bottom: 8px;
-      font-weight: 900;
-    }
-    .email-input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 6px;
-      background: #0f0f14;
-      border: 1px solid #333;
-      color: #fff;
-      outline: none;
-    }
-    .email-input:focus {
-      border-color: rgba(163,30,30,.8);
-      box-shadow: 0 0 0 3px rgba(163,30,30,.18);
-    }
-    .email-hint {
-      margin-top: 8px;
-      font-size: 0.75rem;
-      color: #9ca3af;
-      line-height: 1.5;
-    }
+    .empty-bag { text-align:center; padding: 60px 20px; color: var(--muted); }
+    .empty-bag i { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
+    .empty-bag p { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
 
-    /* Cart icon & mini-cart styles */
+    /* ── Navbar matching shop-characters ── */
     .text-gradient-red {
-      background: linear-gradient(180deg, #650304, #a31e1e);
+      background: linear-gradient(180deg, var(--red-gradient-start), var(--red-gradient-end));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 15px rgba(163,30,30,0.5));
     }
     #cart-count {
       position: absolute;
@@ -113,7 +103,7 @@
       top: 100%;
       right: 0;
       width: 350px;
-      background: rgba(15, 15, 20, 0.98);
+      background: rgba(15,15,20,0.98);
       backdrop-filter: blur(15px);
       border: 1px solid #333;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -131,85 +121,62 @@
       padding-bottom: 15px;
       border-bottom: 1px solid #222;
     }
-    .cart-item-mini img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      border: 1px solid #444;
-      border-radius: 8px;
-    }
-    .cart-item-info h4 {
-      font-size: 0.85rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      margin: 0;
-    }
-    .cart-item-info p {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin: 4px 0;
-    }
+    .cart-item-mini img { width:60px; height:60px; object-fit:contain; border:1px solid #444; border-radius:8px; }
+    .cart-item-info h4 { font-size:0.85rem; font-weight:900; text-transform:uppercase; margin:0; }
+    .cart-item-info p { font-size:0.8rem; color:#9ca3af; margin:4px 0; }
     .proceed-btn {
-      width: 100%;
-      background: linear-gradient(180deg, #650304, #a31e1e);
-      color: white;
-      font-weight: 900;
-      text-transform: uppercase;
-      padding: 12px;
-      text-align: center;
-      display: block;
-      margin-top: 15px;
-      border: none;
-      cursor: pointer;
-      border-radius: 8px;
-      text-decoration: none;
+      width:100%; background:linear-gradient(180deg,var(--red-gradient-start),var(--red-gradient-end));
+      color:white; font-weight:900; text-transform:uppercase; padding:12px;
+      text-align:center; display:block; margin-top:15px; border:none;
+      cursor:pointer; border-radius:8px; text-decoration:none;
     }
-    .continue-shopping {
-      display: block;
-      text-align: center;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #9ca3af;
-      margin-top: 10px;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    .continue-shopping { display:block; text-align:center; font-size:0.7rem; text-transform:uppercase; color:#9ca3af; margin-top:10px; text-decoration:underline; cursor:pointer; }
 
     @media (max-width: 900px) {
       .bag-grid { grid-template-columns: 1fr; }
       .order-summary { position:static; }
     }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
   </style>
 </head>
 
 <body>
+  <!-- ✅ NAVBAR — matches shop-characters.html -->
   <nav class="py-4">
     <div class="container-custom flex justify-between items-center">
       <div class="text-2xl font-black tracking-tighter flex items-center">
         <span class="text-white uppercase">SMOOCHIIE™</span>
         <span class="text-gradient-red ml-1">💋</span>
       </div>
-      <div class="flex space-x-12 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
+      <div class="nav-links flex space-x-8 font-bold text-xs uppercase tracking-[0.2em] text-gray-400">
         <a class="hover:text-white transition" href="index.html">Home</a>
         <a class="hover:text-white transition" href="shop-characters.html">Shop Characters</a>
+        <a class="hover:text-white transition" href="smoochiies_color_vault.html">Color Vault</a>
         <a class="hover:text-white transition" href="refund_policy.html">Refund Policy</a>
         <a class="hover:text-white transition" href="faq.html">FAQ</a>
+        <a class="hover:text-white transition" href="about.html">About</a>
+        <a class="hover:text-white transition" href="track-order.html">Track Order</a>
       </div>
-
-      <div class="flex items-center space-x-8 text-white">
-        <div class="relative" id="cart-icon-container" onclick="toggleCart()" style="cursor:pointer">
-          <i class="fas fa-shopping-cart text-xl cursor-pointer hover:text-gradient-red"></i>
+      <div class="flex items-center space-x-6 text-white">
+        <div class="relative" id="cart-icon-container" style="cursor:pointer">
+          <i class="fas fa-shopping-cart text-xl"></i>
           <span id="cart-count">0</span>
           <div id="mini-cart">
             <h3 class="text-sm font-black uppercase mb-4 tracking-widest">Items in your bag</h3>
             <div id="mini-cart-items"></div>
+            <div id="sticker-bundle-info" style="display:none; background:#1a1a2e; border:1px solid #a31e1e; border-radius:8px; padding:10px; margin-top:10px; font-size:12px; color:#e8e8ea;">
+              🌊 <strong>Ocean Sticker Bundle:</strong> <span id="sticker-bundle-count">0</span> sticker(s) → <span id="sticker-bundle-price">$0.00</span>
+              <br/><span style="color:#9ca3af; font-size:11px;">Every 9 stickers = $5.99</span>
+            </div>
             <div class="flex justify-between items-center mt-4 pt-4 border-t border-gray-800">
               <span class="text-xs font-bold uppercase text-gray-400">Subtotal</span>
               <span class="font-black text-gradient-red" id="mini-cart-subtotal">$0.00</span>
             </div>
             <a class="proceed-btn" href="bag.html">Proceed to Bag</a>
-            <span class="continue-shopping" onclick="clearCart()" style="color: #ef4444; margin-bottom: 5px;">Clear Cart</span>
-            <span class="continue-shopping" onclick="toggleCart()">Continue Shopping</span>
+            <span class="continue-shopping" onclick="clearCart()" style="color:#ef4444; margin-bottom:5px;">Clear Cart</span>
+            <span class="continue-shopping" onclick="document.getElementById('mini-cart').style.display='none'">Continue Shopping</span>
           </div>
         </div>
       </div>
@@ -221,34 +188,36 @@
 
     <div class="bag-grid">
       <section>
-        <div class="cart-list" id="cart-list"></div>
+        <div class="cart-list" id="cart-list">
+          <!-- Populated by JS below -->
+        </div>
 
         <div class="mt-6 flex flex-col gap-3">
           <a class="secondary-btn" href="shop-characters.html">Continue Shopping</a>
-          <button class="secondary-btn" id="clear-bag" style="color: #ef4444; border-color: #451a1a;">Clear Bag</button>
+          <button class="secondary-btn" id="clear-bag" style="color:#ef4444; border-color:#451a1a;">Clear Bag</button>
         </div>
       </section>
 
       <aside class="order-summary">
         <h3>Order Summary</h3>
-
         <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">$0.00</span></div>
         <div class="summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
         <div class="summary-total"><span>Total</span><span id="summary-total">$0.00</span></div>
 
-        <!-- ✅ Email required for tracking -->
-        <div class="email-wrap">
-          <div class="email-label">Email for order tracking</div>
-          <input id="customer-email" class="email-input" type="email" placeholder="you@smoochiie.com" autocomplete="email" />
-          <div class="email-hint">
-            We won’t spam you — this is just so you can track your order. 💋
-          </div>
+        <!-- ✅ Order Notes Section -->
+        <div class="input-wrap">
+          <div class="input-label">Order Notes</div>
+          <textarea id="order-notes" class="input-field" rows="3" placeholder="Special requests? (e.g. 'Send black mermaid instead of white')"></textarea>
+          <div class="input-hint">Let us know if you have any specific requests for your bundle! 💋</div>
         </div>
 
-        <!-- ✅ PayPal Smart Button container (shows only if PayPal SDK is on the page) -->
-        <div id="paypal-button-container" style="margin-top:14px;"></div>
+        <div class="input-wrap">
+          <div class="input-label">Email for order tracking</div>
+          <input id="customer-email" class="input-field" type="email" placeholder="you@smoochiie.com" autocomplete="email" />
+          <div class="input-hint">We won't spam you — this is just so you can track your order. 💋</div>
+        </div>
 
-        <!-- ✅ Fallback button (if PayPal isn’t loaded yet, it will just go to thank you for testing) -->
+        <div id="paypal-button-container" style="margin-top:14px;"></div>
         <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
       </aside>
     </div>
@@ -257,100 +226,223 @@
   <!-- ✅ Order + tracking helpers -->
   <script>
     const STORAGE_KEY = "smoochiie_orders_v1";
-
     function normalize(str){ return (str || "").trim().toLowerCase(); }
-
-    function createOrderAfterPayment(email){
+    function createOrderAfterPayment(email, notes){
       const orderId = "SMOO-" + Date.now().toString().slice(-6);
-
-      const orderData = {
-        order: orderId,
-        email: normalize(email),
-        status: "processing",
-        createdAt: new Date().toISOString()
+      const orderData = { 
+        order: orderId, 
+        email: normalize(email), 
+        notes: notes,
+        status: "processing", 
+        createdAt: new Date().toISOString() 
       };
-
       const orders = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
       const key = `e:${orderData.email}|o:${normalize(orderId)}`;
       orders[key] = orderData;
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
       localStorage.setItem("last_order_id", orderId);
-
       return orderId;
     }
-
     function redirectToThankYou(orderId, email){
-      localStorage.removeItem("cart"); // clear cart after paid/approved (or after test)
-      window.location.href =
-        `thank-you.html?order=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`;
+      localStorage.removeItem("smoochiie-cart");
+      window.location.href = `thank-you.html?order=${encodeURIComponent(orderId)}&email=${encodeURIComponent(email)}`;
     }
   </script>
 
-  <!-- ✅ If PayPal Smart Buttons are present, use onApprove to create order AFTER payment -->
+  <!-- ✅ Bag page cart renderer — reads from smoochiie-cart (same key as cart.js) -->
   <script>
-    function initPayPalButtonsIfAvailable(){
-      // Only run if PayPal SDK is loaded
-      if (!window.paypal || !paypal.Buttons) return;
+    const CART_KEY = 'smoochiie-cart';
 
-      paypal.Buttons({
-        // NOTE: You MUST set up your purchase unit amount correctly for real checkout.
-        // If you already have a PayPal integration elsewhere, keep your existing createOrder and paste in the onApprove block below.
-        createOrder: function(data, actions) {
-          // Placeholder amount (you should replace this with your real total)
-          const totalText = (document.getElementById("summary-total")?.textContent || "$0.00").replace("$","");
-          const total = String(parseFloat(totalText || "0").toFixed(2));
-
-          return actions.order.create({
-            purchase_units: [{
-              amount: { value: total }
-            }]
-          });
-        },
-
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(details) {
-            const email = details?.payer?.email_address || document.getElementById("customer-email").value.trim();
-
-            if (!email) {
-              alert("Please enter your email so we can track your order 💋");
-              return;
-            }
-
-            const orderId = createOrderAfterPayment(email);
-            redirectToThankYou(orderId, email);
-          });
-        },
-
-        onError: function(err) {
-          console.error("PayPal error:", err);
-          alert("Something went wrong with PayPal. Please try again.");
-        }
-      }).render("#paypal-button-container");
+    function getBagCart() {
+      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    }
+    function saveBagCart(c) {
+      localStorage.setItem(CART_KEY, JSON.stringify(c));
     }
 
-    document.addEventListener("DOMContentLoaded", initPayPalButtonsIfAvailable);
-  </script>
+    function renderBag() {
+      const cartList = document.getElementById('cart-list');
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const totalEl = document.getElementById('summary-total');
+      const miniCartItems = document.getElementById('mini-cart-items');
+      const cartCountEl = document.getElementById('cart-count');
+      const miniSubtotalEl = document.getElementById('mini-cart-subtotal');
+      const bundleInfo = document.getElementById('sticker-bundle-info');
+      const bundleCountEl = document.getElementById('sticker-bundle-count');
+      const bundlePriceEl = document.getElementById('sticker-bundle-price');
 
-  <!-- ✅ Fallback button behavior (for testing without PayPal loaded) -->
-  <script>
-    document.getElementById("checkout-btn").addEventListener("click", () => {
-      const emailInput = document.getElementById("customer-email");
-      const email = emailInput.value.trim();
+      const cart = getBagCart();
+      cartList.innerHTML = '';
+      if (miniCartItems) miniCartItems.innerHTML = '';
 
-      if (!email) {
-        alert("Please enter your email so we can track your order 💋");
-        emailInput.focus();
+      if (cart.length === 0) {
+        cartList.innerHTML = `
+          <div class="empty-bag">
+            <i class="fas fa-shopping-bag"></i>
+            <p>Your bag is empty</p>
+            <a href="shop-characters.html" style="display:inline-block; margin-top:16px; padding:12px 24px; background:linear-gradient(180deg,#650304,#a31e1e); color:#fff; font-weight:900; border-radius:8px; text-decoration:none; text-transform:uppercase; font-size:12px;">Start Shopping</a>
+          </div>`;
+        if (subtotalEl) subtotalEl.textContent = '$0.00';
+        if (totalEl) totalEl.textContent = '$0.00';
+        if (cartCountEl) cartCountEl.textContent = '0';
+        if (miniSubtotalEl) miniSubtotalEl.textContent = '$0.00';
         return;
       }
 
-      // TEST MODE ONLY: creates a processing order + goes to thank you
-      const orderId = createOrderAfterPayment(email);
-      redirectToThankYou(orderId, email);
+      let stickerCount = 0;
+      let regularSubtotal = 0;
+      let totalItems = 0;
+
+      cart.forEach((item, index) => {
+        totalItems += item.quantity;
+        if (item.isSticker) {
+          stickerCount += item.quantity;
+        } else {
+          regularSubtotal += parseFloat(item.price) * item.quantity;
+        }
+
+        // Full bag item row
+        const row = document.createElement('div');
+        row.className = 'cart-item';
+        row.innerHTML = `
+          <div class="thumb">
+            <img src="${item.image || ''}" alt="${item.name}" onerror="this.style.display='none'" />
+          </div>
+          <div class="meta">
+            <h4>${item.name}</h4>
+            <div class="option">${item.isSticker ? '🌊 Ocean Sticker Bundle' : ''}</div>
+            <div class="price">${item.isSticker ? 'Bundle pricing' : '$' + (parseFloat(item.price) * item.quantity).toFixed(2)}</div>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="bagChangeQty(${index}, -1)">−</button>
+              <span style="font-size:14px; font-weight:700;">${item.quantity}</span>
+              <button class="qty-btn" onclick="bagChangeQty(${index}, 1)">+</button>
+            </div>
+          </div>
+          <button class="remove-btn" onclick="bagRemoveItem(${index})" title="Remove"><i class="fas fa-times"></i></button>
+        `;
+        cartList.appendChild(row);
+
+        // Mini cart item
+        if (miniCartItems) {
+          const mini = document.createElement('div');
+          mini.className = 'cart-item-mini';
+          mini.innerHTML = `
+            <img src="${item.image || ''}" alt="${item.name}" onerror="this.style.display='none'" />
+            <div class="cart-item-info" style="flex:1;">
+              <h4>${item.name}</h4>
+              <p>${item.isSticker ? '🌊 Ocean Sticker Bundle' : '$' + parseFloat(item.price).toFixed(2)}</p>
+              <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                <button onclick="bagChangeQty(${index}, -1)" style="background:#333; color:#fff; border:none; border-radius:4px; width:22px; height:22px; cursor:pointer; font-weight:900;">−</button>
+                <span style="font-size:13px;">${item.quantity}</span>
+                <button onclick="bagChangeQty(${index}, 1)" style="background:#333; color:#fff; border:none; border-radius:4px; width:22px; height:22px; cursor:pointer; font-weight:900;">+</button>
+                <button onclick="bagRemoveItem(${index})" style="background:none; color:#ef4444; border:none; cursor:pointer; font-size:11px; text-decoration:underline; margin-left:4px;">Remove</button>
+              </div>
+            </div>
+          `;
+          miniCartItems.appendChild(mini);
+        }
+      });
+
+      const bundleTotal = stickerCount > 0 ? Math.ceil(stickerCount / 9) * 5.99 : 0;
+      const subtotal = regularSubtotal + bundleTotal;
+
+      if (subtotalEl) subtotalEl.textContent = '$' + subtotal.toFixed(2);
+      if (totalEl) totalEl.textContent = '$' + subtotal.toFixed(2);
+      if (cartCountEl) cartCountEl.textContent = totalItems;
+      if (miniSubtotalEl) miniSubtotalEl.textContent = '$' + subtotal.toFixed(2);
+
+      if (bundleInfo) {
+        if (stickerCount > 0) {
+          bundleInfo.style.display = 'block';
+          if (bundleCountEl) bundleCountEl.textContent = stickerCount;
+          if (bundlePriceEl) bundlePriceEl.textContent = '$' + bundleTotal.toFixed(2);
+        } else {
+          bundleInfo.style.display = 'none';
+        }
+      }
+    }
+
+    function bagChangeQty(index, delta) {
+      const cart = getBagCart();
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) cart.splice(index, 1);
+      saveBagCart(cart);
+      renderBag();
+    }
+
+    function bagRemoveItem(index) {
+      const cart = getBagCart();
+      cart.splice(index, 1);
+      saveBagCart(cart);
+      renderBag();
+    }
+
+    function clearCart() {
+      saveBagCart([]);
+      renderBag();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBag();
+
+      // Mini cart toggle
+      const cartIcon = document.getElementById('cart-icon-container');
+      const miniCart = document.getElementById('mini-cart');
+      if (cartIcon && miniCart) {
+        cartIcon.addEventListener('click', (e) => {
+          e.stopPropagation();
+          miniCart.style.display = miniCart.style.display === 'block' ? 'none' : 'block';
+        });
+        document.addEventListener('click', () => { if (miniCart) miniCart.style.display = 'none'; });
+        miniCart.addEventListener('click', (e) => e.stopPropagation());
+      }
+
+      // Clear bag button
+      document.getElementById('clear-bag').addEventListener('click', () => {
+        if (confirm('Clear your entire bag?')) clearCart();
+      });
+
+      // Checkout button
+      document.getElementById('checkout-btn').addEventListener('click', () => {
+        const emailInput = document.getElementById('customer-email');
+        const notesInput = document.getElementById('order-notes');
+        const email = emailInput.value.trim();
+        const notes = notesInput.value.trim();
+        if (!email) {
+          alert('Please enter your email so we can track your order 💋');
+          emailInput.focus();
+          return;
+        }
+        const orderId = createOrderAfterPayment(email, notes);
+        redirectToThankYou(orderId, email);
+      });
     });
   </script>
 
-  <!-- Your existing cart logic -->
-  <script src="cart.js" defer></script>
+  <!-- ✅ PayPal Smart Buttons -->
+  <script>
+    function initPayPalButtonsIfAvailable(){
+      if (!window.paypal || !paypal.Buttons) return;
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          const totalText = (document.getElementById("summary-total")?.textContent || "$0.00").replace("$","");
+          const total = String(parseFloat(totalText || "0").toFixed(2));
+          return actions.order.create({ purchase_units: [{ amount: { value: total } }] });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            const email = details?.payer?.email_address || document.getElementById("customer-email").value.trim();
+            const notes = document.getElementById('order-notes').value.trim();
+            if (!email) { alert("Please enter your email so we can track your order 💋"); return; }
+            const orderId = createOrderAfterPayment(email, notes);
+            redirectToThankYou(orderId, email);
+          });
+        },
+        onError: function(err) { console.error("PayPal error:", err); alert("Something went wrong with PayPal. Please try again."); }
+      }).render("#paypal-button-container");
+    }
+    document.addEventListener("DOMContentLoaded", initPayPalButtonsIfAvailable);
+  </script>
+
 </body>
 </html>
